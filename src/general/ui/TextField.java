@@ -104,7 +104,7 @@ public class TextField extends TGDComponent{
 
         setHasFocus(false);
         setMaxNumberOfLetter(-1);
-        setOnlyFigures(true);
+        setOnlyFigures(false);
         setUpperCaseLock(false);
     }
 	
@@ -240,7 +240,9 @@ public class TextField extends TGDComponent{
 		if(!hasFocus)return;
 		
 		if(key==Input.KEY_BACK){
+
 			if(text.length()>0)text=text.substring(0, text.length()-1);
+
 		}else if(key==Input.KEY_ENTER)
 		{
 			//valider
