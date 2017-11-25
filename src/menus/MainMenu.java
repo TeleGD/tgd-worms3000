@@ -5,8 +5,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 
-//import towerDefense.World;
-
 
 public class MainMenu extends Menu{
 
@@ -15,17 +13,13 @@ public class MainMenu extends Menu{
 	public MainMenu(){
 		super.setTitrePrincipal("INSERER TITRE ICI");
 		super.setTitreSecondaire("SOUS TITRE");
-		
+
+		super.setItems("salut","tgd","comment ","vas","tu","toi ?","pret","a","faire","un","jeu");
 		//super.setItems(World1.GAME_NAME,World2.GAME_NAME,World3.GAME_NAME,"Scores", "Quitter");
 
 		super.setEnableClignote(false);
 		super.setCouleurClignote(Color.red);
 		super.setTempsClignote(400);
-	}
-	
-	@Override
-	public void onOptionItemFocusedChanged(int position) {
-		time=System.currentTimeMillis();
 	}
 
 	@Override
