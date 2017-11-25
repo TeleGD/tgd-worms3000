@@ -20,5 +20,10 @@ public class Utils
 		}
 		return (start - (start - end) * step);
 	}
+	
+	public static Vector2 lerp (Vector2 start,Vector2 end,float step)
+	{
+		return (new Vector2(Utils.lerp(start.x,end.x,step),Utils.lerp(start.y,end.y,step)));
+	}
 
 }
