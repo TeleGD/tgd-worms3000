@@ -15,6 +15,8 @@ public abstract class World extends BasicGameState {
 	public static World activeWorld;
 	
 	protected LinkedList<GameObject> objects;
+	protected LinkedList<GameObject> uiobjects;
+	protected LinkedList<GameObject> backgrounds;
 	
 	public World()
 	{
@@ -26,16 +28,34 @@ public abstract class World extends BasicGameState {
 		objects.add(obj);
 	}
 	
+	public void addBackground(GameObject obj)
+	{
+		backgrounds.add(obj);
+	}
+	
+	public void addUiGameObject(GameObject obj)
+	{
+		uiobjects.add(obj);
+	}
+	
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		for(GameObject i : objects)
+			i.update(arg0, arg1, arg2);
+		for(GameObject i : uiobjects)
 			i.update(arg0, arg1, arg2);
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
+		for(GameObject i : backgrounds)
+			i.render(container, game, g, true);
+		
 		for(GameObject i : objects)
-			i.render(container, game, g);
+			i.render(container, game, g, true);
+		
+		for(GameObject i : uiobjects)
+			i.render(container, game, g, false);
 	}
 	
 	public void keyPressed(int key, char c)

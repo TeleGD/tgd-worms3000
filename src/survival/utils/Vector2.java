@@ -58,15 +58,23 @@ public class Vector2
 		return new Vector2(vector2.x*mult,vector2.y*mult);
 	}
 	
-	public void normalise()
+	public float magnitude()
 	{
-		this.x = (float) Math.sqrt(this.x*this.x + this.y*this.y);
-		this.y = (float) Math.sqrt(this.x*this.x + this.y*this.y);
-	};
+		return (float) Math.sqrt(this.x*this.x + this.y*this.y);
+	}
+	
+	public void normalize()
+	{
+		float norm = (float) Math.sqrt(this.x*this.x + this.y*this.y);
+		this.x = this.x / norm;
+		this.y = this.y / norm;
+	}
 	
 	public static Vector2 normalize(Vector2 vector2)
 	{
-		return new Vector2((float) Math.sqrt(vector2.x*vector2.x + vector2.y*vector2.y));
+		Vector2 temp = new Vector2(vector2.x, vector2.y);
+		temp.normalize();
+		return temp;
 	}
 	
 	

@@ -9,13 +9,10 @@ import survival.Camera;
 import survival.input.CustomInput;
 import survival.utils.Vector2;
 
-public class TestObject extends MoveableGameObject{
-
-	protected float walkSpeed = 0.5f;
-	
+public class TestObject extends Character{
 	public TestObject(Image spr)
 	{
-		super(spr);
+		super(spr, 10);
 		location = new Vector2(0, 0);
 		sprite = spr;
 	}
@@ -24,15 +21,16 @@ public class TestObject extends MoveableGameObject{
 	{
 		Vector2 moveDirection = new Vector2(0,0);
 		if(CustomInput.up)
-			moveDirection.y -= arg2*walkSpeed;
+			moveDirection.y -= 1;
 		if(CustomInput.left)
-			moveDirection.x -= arg2*walkSpeed;
+			moveDirection.x -= 1;
 		if(CustomInput.down)
-			moveDirection.y += arg2*walkSpeed;
+			moveDirection.y += 1;
 		if(CustomInput.right)
-			moveDirection.x += arg2*walkSpeed;
+			moveDirection.x += 1;
 		
-		move(moveDirection);
+		
+		walk(moveDirection);
 		
 		if(isCollidingWithSomething())
 		{
