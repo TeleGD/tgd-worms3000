@@ -1,24 +1,16 @@
 package menus;
 
-import java.awt.Font;
-
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
+import general.Main;
+import general.ui.TGDComponent;
+import general.ui.TGDComponent.OnClickListener;
+import general.utils.FontUtils;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import general.ui.Button;
-import general.ui.TGDComponent;
-import general.ui.TGDComponent.OnClickListener;
-import general.ui.TextField;
-import general.utils.FontUtils;
-import general.Main;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class WelcomeMenu extends Menu implements OnClickListener{
@@ -29,20 +21,18 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 
 	private Image background;
 	private int blinkPeriod=10;
+    private TrueTypeFont fontCopyright;
+    private String textCopyright;
 
-	@Override
+    @Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		super.init(container, game);
-		
-		
+
 		background=new Image("Images/LogoTGD_transparent.png");
-		
+        fontCopyright = FontUtils.loadCustomFont("PT_Sans.ttf",java.awt.Font.BOLD,20);
+        textCopyright = "A TGD Production - © " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
 	}
 
-	@Override
-	public void onOptionItemFocusedChanged(int position){
-		time=System.currentTimeMillis();
-	}
 	
 	@Override
 	public void onOptionItemSelected(int position) {
@@ -70,7 +60,10 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 		g.setColor(new Color(255-alpha,255-alpha,255-alpha));
 		g.drawString(CONFIRM_TEXT, Main.longueur/2-fontConfirmText.getWidth(CONFIRM_TEXT)/2,35);
 		g.drawImage(background,Main.longueur/2-background.getWidth()/2,Main.hauteur/2-background.getHeight()/2);
-		
+        g.setColor(new Color(255,255,255));
+
+        g.setFont(fontCopyright);
+        g.drawString(textCopyright,Main.longueur/2-fontCopyright.getWidth(textCopyright)/2,Main.hauteur-80);
 		g.setColor(Color.white);
 	}
 	

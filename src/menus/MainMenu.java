@@ -8,13 +8,13 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainMenu extends Menu{
 
-	public static int ID = -3;	
-	
+	public static int ID = -3;
+
 	public MainMenu(){
 		super.setTitrePrincipal("INSERER TITRE ICI");
 		super.setTitreSecondaire("SOUS TITRE");
 
-		super.setItems("salut","tgd","comment ","vas","tu","toi ?","pret","a","faire","un","jeu");
+		super.setItems("Worms (les premiers)","tgd","comment ","vas","tu","toi ?","pret","a","faire","un","jeu");
 		//super.setItems(World1.GAME_NAME,World2.GAME_NAME,World3.GAME_NAME,"Scores", "Quitter");
 
 		super.setEnableClignote(false);
@@ -27,8 +27,9 @@ public class MainMenu extends Menu{
 		switch (position) {
 		case 0:
 			//appeler le reset du world du jeu correspondant
-			//puis faire un game.enterState(ID du world, transition de sortie comme new FadeOutTransition(), 
+			//puis faire un game.enterState(ID du world, transition de sortie comme new FadeOutTransition(),
 			//											 transition d'entree comme new FadeInTransition())
+			game.enterState(42);
 			break;
 		case 1:
 			//Pareil pour le deuxieme item, etc
@@ -39,16 +40,11 @@ public class MainMenu extends Menu{
 			break;
 		}
 	}
-	
+
 	@Override
 	public int getID() {
 		return ID;
 	}
 
-	@Override
-	public void onOptionItemFocusedChanged(int position) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
