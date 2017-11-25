@@ -47,6 +47,17 @@ public class Vector2
 		return new Vector2(vect1.x*vect2.x,vect1.y*vect2.y);
 	}
 	
+	public void mult(float mult)
+	{
+		this.x*=mult;
+		this.y*=mult;
+	}
+	
+	public static Vector2 mult(float mult,Vector2 vector2)
+	{
+		return new Vector2(vector2.x*mult,vector2.y*mult);
+	}
+	
 	public void normalise()
 	{
 		this.x = (float) Math.sqrt(this.x*this.x + this.y*this.y);
@@ -57,4 +68,6 @@ public class Vector2
 	{
 		return new Vector2((float) Math.sqrt(vector2.x*vector2.x + vector2.y*vector2.y));
 	}
+	
+	
 }
