@@ -8,11 +8,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import survival.gameobjects.GameObject;
 
-public class ItemsInventory extends GameObject {
+public abstract class ItemsInventory extends GameObject {
 
-	public ItemsInventory() {
-		
-	}
+	//private static Player player;
+	protected String name;
+	
+	public abstract void action();
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// render
