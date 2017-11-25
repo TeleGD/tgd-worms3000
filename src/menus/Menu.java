@@ -4,12 +4,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import general.Main;
@@ -56,7 +51,9 @@ public abstract class Menu extends BasicGameState {
 	
 	private TrueTypeFont fontTitrePrincipal;
 	private TrueTypeFont fontTitreSecondaire;
+
 	protected TrueTypeFont fontItem;
+	protected TrueTypeFont fontConfirmText;
 
 	protected int selection;
 	protected long tempsClignote=400;
@@ -67,7 +64,6 @@ public abstract class Menu extends BasicGameState {
 	protected StateBasedGame game;
 	protected long time;
 
-	protected TrueTypeFont fontConfirmText;
 
 	protected int indexItemPlusGrand;
 	private int decalage;
@@ -75,15 +71,19 @@ public abstract class Menu extends BasicGameState {
 
 
 	public Menu(){
-		setFontTitrePrincipal("PressStart2P.ttf",Font.BOLD,40,false);
-		setFontTitreSecondaire("Kalinga",Font.BOLD,24,true);
-		setFontItem("Kalinga",Font.BOLD,14,true);
-		
-		fontConfirmText=FontUtils.loadCustomFont("PressStart2P.ttf",Font.PLAIN,20);
+
 	}
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		time=System.currentTimeMillis();
+
+		setFontTitrePrincipal("PressStart2P.ttf",Font.BOLD,40,false);
+		setFontTitreSecondaire("PT_Sans.ttf",Font.BOLD,24,false);
+		setFontItem("PT_Sans.ttf",Font.BOLD,14,false);
+
+		fontConfirmText=FontUtils.loadCustomFont("PressStart2P.ttf",Font.PLAIN,20);
+
 		this.container = container;
 		this.game = game;
 		container.setShowFPS(false);
@@ -124,6 +124,7 @@ public abstract class Menu extends BasicGameState {
 	public void renderTitrePrincipal(GameContainer arg0, StateBasedGame arg1, Graphics g) {
 		g.setColor(Color.red);
 		g.setFont(fontTitrePrincipal);
+
 		g.drawString(titrePrincipal,(Main.longueur-fontTitrePrincipal.getWidth(titrePrincipal))/2 , 120);
 		g.setColor(Color.white);
 		g.setFont(fontTitrePrincipal);
@@ -133,7 +134,7 @@ public abstract class Menu extends BasicGameState {
 
 	public void renderTitreSecondaire(GameContainer arg0, StateBasedGame arg1, Graphics g) {
 		g.setFont(fontTitreSecondaire);
-		g.drawString(titreSecondaire, Main.longueur/2-fontTitreSecondaire.getWidth(titreSecondaire)/2, 232);		
+		g.drawString(titreSecondaire, Main.longueur/2-fontTitreSecondaire.getWidth(titreSecondaire)/2, 232);
 	}
 
 	public void renderMenusItems(GameContainer arg0, StateBasedGame arg1, Graphics g) {
@@ -200,7 +201,9 @@ public abstract class Menu extends BasicGameState {
 	}
 
 
-	public abstract void onOptionItemFocusedChanged(int position);
+	public void onOptionItemFocusedChanged(int position){
+		time = System.currentTimeMillis();
+	}
 	public abstract void onOptionItemSelected(int position);
 	
 	public String getTitrePrincipal() {
@@ -237,15 +240,14 @@ public abstract class Menu extends BasicGameState {
 		}		
 	}
 	public void setFontTitrePrincipal(String name, int type, int size, boolean isSystemFont) {
-		fontTitrePrincipal=FontUtils.loadFont(name,type,size,isSystemFont);
+		fontTitrePrincipal = FontUtils.loadFont(name,type,size,isSystemFont);
 	}
 	
 	public void setFontTitreSecondaire(String name, int type, int size, boolean isSystemFont) {
-		fontTitreSecondaire=FontUtils.loadFont(name,type,size,isSystemFont);	
+		fontTitreSecondaire=FontUtils.loadFont(name,type,size,isSystemFont);
 	}
 	public void setFontItem(String name, int type, int size, boolean isSystemFont) {
 		fontItem=FontUtils.loadFont(name,type,size,isSystemFont);
-		
 	}
 
 	
