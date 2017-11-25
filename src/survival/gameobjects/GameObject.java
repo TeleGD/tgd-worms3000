@@ -34,12 +34,16 @@ public abstract class GameObject {
 		
 	}
 	
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+	public void render(GameContainer container, StateBasedGame game, Graphics g, boolean useCamera) throws SlickException
 	{
 		if(sprite != null)
-			g.drawImage(sprite, location.x - Camera.location.x - sprite.getWidth()/2, location.y - Camera.location.y- sprite.getHeight()/2);
+		{
+			if(useCamera)
+				g.drawImage(sprite, location.x - Camera.location.x - sprite.getWidth()/2, location.y - Camera.location.y- sprite.getHeight()/2);
+			else
+				g.drawImage(sprite, location.x - sprite.getWidth()/2, location.y- sprite.getHeight()/2);
+		}
 	}
-	
 	public void move(Vector2 direction)
 	{
 		location.x += direction.x;

@@ -11,5 +11,5 @@ public class MapObject extends GameObject{
 		super(spr);
 		location = loc;
 		sprite = spr;
-	}
+	}	
 }

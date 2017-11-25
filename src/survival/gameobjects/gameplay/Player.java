@@ -22,9 +22,9 @@ public class Player extends GameObject {
 		this.itemList = itemList;
 		this.activatedWeapons = null;
 		this.location = location;
-		this.life = new Compteur("life",100);
+		/*this.life = new Compteur("life",100);
 		this.hunger = new Compteur("hunger",100);
-		this.thirst = new Compteur("thirst",100);
+		this.thirst = new Compteur("thirst",100);*/
 		}
 	
 	public void addItem(Items  Item) {
