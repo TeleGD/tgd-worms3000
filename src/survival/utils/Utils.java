@@ -1,5 +1,10 @@
 package survival.utils;
 
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+
+import survival.worlds.CityWorld;
+
 public class Utils 
 {
 	
@@ -14,12 +19,6 @@ public class Utils
 			step = 1;
 		}
 		return (start - (start - end) * step);
-	}
-	
-	public static void main (String argv[])
-	{
-		System.out.println(Utils.lerp(0.0f,1f,0.2f));
-		System.out.println(Utils.lerp(0.0f,1f,100f));
 	}
 
 }
