@@ -7,31 +7,34 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.tests.xml.Item;
 
 import survival.gameobjects.GameObject;
+import survival.gameobjects.items.Items;
 
 public class Player extends GameObject {
-	public ArrayList<Item> itemList;
-	public double horizontal;
-	public double vertical;
-	//public 		life;
-	//public 		hunger;
-	//public 		thirst;
+	public ArrayList<Items> itemList;
+	public float location;
+	public 	Compteur life;
+	public 	Compteur hunger;
+	public 	Compteur thirst;
+	public Items activatedWeapons;
 	
-	public Player(ArrayList<Item> itemList,double horizontal,double vertical/*, life, hunger, thirst*/) {
+	
+	public Player(ArrayList<Items> itemList,float location) {
 		this.itemList = itemList;
-		//this.position   initialiser la position
-		/*this.life = life;
-		this.hunger = hunger;
-		this.thirst = thirst;*/
+		this.activatedWeapons = null;
+		this.location = location;
+		this.life = new Compteur("life",100);
+		this.hunger = new Compteur("hunger",100);
+		this.thirst = new Compteur("thirst",100);
 		}
 	
-	/*public void addItem(   Item) {
-		itemList = itemList.add(Item);
+	public void addItem(Items  Item) {
+		itemList.add(Item);
 	}
 	
-	public void removeItem(   Item) {
-		itemList = itemList.remove(   Item); 
+	public void removeItem(Items Item) {
+		itemList.remove(Item); 
 	}
-	*/
+	
 	
 	
 

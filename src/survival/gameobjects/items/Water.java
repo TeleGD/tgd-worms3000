@@ -1,10 +1,10 @@
 package survival.gameobjects.items;
 
-public class Food extends Items {
+public class Water extends Items {
 	
 	public float amount;
 	
-	public Food (String name,float amount)
+	public Water(String name,float amount)
 	{
 		this.name = name;
 		this.amount = amount;
@@ -13,7 +13,7 @@ public class Food extends Items {
 	//the action that made the item
 	public void action()
 	{
-		//player.food.addAmount(amount);
+		//player.water.addAmount(amount);
 	}
 
 }
