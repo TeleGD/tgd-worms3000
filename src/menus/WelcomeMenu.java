@@ -30,7 +30,7 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 
 		background=new Image("Images/LogoTGD_transparent.png");
         fontCopyright = FontUtils.loadCustomFont("PT_Sans.ttf",java.awt.Font.BOLD,20);
-        textCopyright = "A TGD Production - Â© " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
+        textCopyright = "A TGD Production - © " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
 	}
 
 	
