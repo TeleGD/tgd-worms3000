@@ -15,6 +15,13 @@ public abstract class GameObject {
 	public Vector2 location;
 	public Vector2 boundingBox;
 	
+	public GameObject()
+	{
+		sprite = null;
+		boundingBox = null;
+		location = new Vector2(0,0);
+	}
+	
 	public GameObject(Image spr)
 	{
 		sprite = spr;
@@ -29,7 +36,8 @@ public abstract class GameObject {
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
-		g.drawImage(sprite, location.x - Camera.location.x - sprite.getWidth()/2, location.y - Camera.location.y- sprite.getHeight()/2);
+		if(sprite != null)
+			g.drawImage(sprite, location.x - Camera.location.x - sprite.getWidth()/2, location.y - Camera.location.y- sprite.getHeight()/2);
 	}
 	
 	public void move(Vector2 direction)
@@ -40,14 +48,17 @@ public abstract class GameObject {
 	
 	public Vector2 isCollidingWith(GameObject other)
 	{
-		if(other.equals(this))
-			return null;
-		if(other.location.x + other.boundingBox.x/2f + boundingBox.x/2f > location.x)
-			if(other.location.x - other.boundingBox.x/2f - boundingBox.x/2f < location.x)
-				if(other.location.y + other.boundingBox.y/2f + boundingBox.y/2f > location.y)
-					if(other.location.y - other.boundingBox.y/2f - boundingBox.y/2f < location.y)
-						return new Vector2(other.location.x - location.x, other.location.y - location.y);
+		if(boundingBox != null && other.boundingBox != null)
+		{
+			if(other.equals(this))
+				return null;
+			if(other.location.x + other.boundingBox.x/2f + boundingBox.x/2f > location.x)
+				if(other.location.x - other.boundingBox.x/2f - boundingBox.x/2f < location.x)
+					if(other.location.y + other.boundingBox.y/2f + boundingBox.y/2f > location.y)
+						if(other.location.y - other.boundingBox.y/2f - boundingBox.y/2f < location.y)
+							return new Vector2(other.location.x - location.x, other.location.y - location.y);
 		//A NORMALISER
+		}
 		return null;
 	}
 }
