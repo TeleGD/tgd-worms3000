@@ -37,9 +37,13 @@ public class Main extends StateBasedGame{
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		addState(new WelcomeMenu());
+	    long time = System.currentTimeMillis();
+
+	    addState(new WelcomeMenu());
 		addState(new MainMenu());
-		
-		this.enterState(WelcomeMenu.ID);
+
+        System.out.println("time to load game = "+(System.currentTimeMillis()-time));
+
+        this.enterState(WelcomeMenu.ID);
 	}
 }

@@ -45,10 +45,5 @@ public class MainMenu extends Menu{
 		return ID;
 	}
 
-	@Override
-	public void onOptionItemFocusedChanged(int position) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
