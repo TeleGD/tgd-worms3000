@@ -7,22 +7,18 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import survival.gameobjects.GameObject;
+import survival.gameobjects.gameplay.Player;
 
-public class ItemsOnGround extends GameObject {
+public abstract class Items extends GameObject {
 	
-	// private static Player player;
+	private static Player player;
+	protected String name;
 	
-	public ItemsOnGround() {
+	public Items() {
 		
 	}
 	
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		// render
-	}
-
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// update
-	}
+	public abstract void action();
 	
 	public void pick() {
 		// this.destroy();
