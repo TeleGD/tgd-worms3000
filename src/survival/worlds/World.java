@@ -2,9 +2,15 @@ package survival.worlds;
 
 import java.util.LinkedList;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
 import survival.gameobjects.GameObject;
 
-public abstract class World {
+public abstract class World extends BasicGameState {
 	public static World activeWorld;
 	
 	protected LinkedList<GameObject> objects;
@@ -20,9 +26,9 @@ public abstract class World {
 			i.update();
 	}
 	
-	public void render()
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
 		for(GameObject i : objects)
-			i.render();
+			i.render(container, game, g);
 	}
 }
