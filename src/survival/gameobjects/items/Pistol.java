@@ -14,4 +14,9 @@ public class Pistol {
 		this.range = range;
 		this.ammo = ammo;
 	}
+	
+	public void action() {
+		// Tir à distance
+	}
+	
 }

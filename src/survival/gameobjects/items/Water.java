@@ -13,7 +13,8 @@ public class Water extends Items {
 	//the action that made the item
 	public void action()
 	{
-		//player.water.addAmount(amount);
+		Items.player.thirst.canAdd(amount);
+		// this.destroy()
 	}
 
 }
