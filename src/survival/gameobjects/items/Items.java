@@ -5,7 +5,7 @@ import survival.gameobjects.gameplay.Player;
 
 public abstract class Items extends GameObject {
 	
-	private static Player player;
+	public static Player player;
 	protected String name;
 	private boolean onGround;
 	

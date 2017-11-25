@@ -34,12 +34,4 @@ public class Player extends GameObject {
 	public void removeItem(Items Item) {
 		itemList.remove(Item); 
 	}
-	
-	
-	
-
-
-
-
-
 }

@@ -1,5 +1,8 @@
 package survival.gameobjects.items;
 
+import survival.gameobjects.gameplay.Compteur;
+import survival.gameobjects.gameplay.Player;
+
 public class Food extends Items {
 	
 	public float amount;
@@ -13,7 +16,11 @@ public class Food extends Items {
 	//the action that made the item
 	public void action()
 	{
-		//player.food.addAmount(amount);
+		Items.player.hunger.canAdd(amount);
+		//this.destroy()
 	}
+
+	
+
 
 }

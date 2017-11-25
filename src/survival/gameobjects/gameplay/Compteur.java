@@ -3,17 +3,15 @@ package survival.gameobjects.gameplay;
 public class Compteur {
 	
 	private static int maxValue = 100;
-	private int currentValue;
+	private float currentValue;
 	private String type;
 	
-	
-	
-	public Compteur(String type,int currentValue) {
+	public Compteur(String type,float currentValue) {
 		this.currentValue = currentValue;
 		this.type = type;
 	}
 		
-	public boolean canAdd(int amount) {
+	public boolean canAdd(float amount) {
 		currentValue = currentValue + amount;
 		if (currentValue > maxValue) {
 			currentValue = 100;
