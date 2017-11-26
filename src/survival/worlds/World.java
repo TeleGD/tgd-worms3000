@@ -9,10 +9,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import survival.gameobjects.GameObject;
+import survival.gameobjects.gameplay.Character;
+import survival.gameobjects.gameplay.TestObject;
 import survival.input.CustomInput;
 
 public abstract class World extends BasicGameState {
 	public static World activeWorld;
+	public static TestObject activePlayer;
 	
 	protected LinkedList<GameObject> objects;
 	protected LinkedList<GameObject> uiobjects;
