@@ -12,6 +12,8 @@ public class Projectile {
 	protected int weight;
 	protected Weapon firingWeapon;
 	protected int t; // time since firing
+    private float width=5,height=5;
+
 	// graphisms
 
 	public Projectile(int x0, int y0, float alpha0, int v0, int weight, Weapon firingWeapon) {
@@ -33,6 +35,7 @@ public class Projectile {
 			return true;
 		}
 		this.y = (int) (Math.sin(alpha0) * (-v0*t/1000) + 0.5*weight*9.81*t*t/1000000 + y0);
+
 		if (this.y < 0 || this.y > 720) {
 			return true;
 		}
@@ -45,6 +48,20 @@ public class Projectile {
 
 	public void render(Graphics g) {
 		g.setColor(new Color(255,0,0));
-		g.fillRect(x,y,3,3);
+		g.fillRect(x,y,width,height);
+	}
+
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+	public float getHeight() {
+		return height;
 	}
 }
