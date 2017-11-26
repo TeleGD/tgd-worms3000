@@ -1,4 +1,4 @@
-package general.worms;
+package worms;
 
 import menus.Menu;
 import org.newdawn.slick.Color;
@@ -17,7 +17,7 @@ public class LoadLevelMenu extends Menu{
 
 	public static int ID = 45;
 
-	public LoadLevelMenu(){
+    public LoadLevelMenu(){
 		super.setTitrePrincipal("Worms 3000");
 		super.setTitreSecondaire("Jouer au worms !");
 
@@ -38,15 +38,23 @@ public class LoadLevelMenu extends Menu{
             if(list[i].endsWith(".txt"))
                 listfile.add(list[i]);
         }
+
         super.setItems(listfile.toArray(new String[listfile.size()]));
+        super.addItem("Retour");
 
     }
 
     @Override
 	public void onOptionItemSelected(int position) {
-		World.reset();
-        World.setLevel(getItems().get(position));
-        game.enterState(World.ID,new FadeOutTransition(),new FadeInTransition());
+
+	    if(position==items.size()-1){
+	        game.enterState(WormMenu.ID,new FadeOutTransition(),new FadeInTransition());
+        }else{
+	        World.reset();
+	        World.setLevel(getItems().get(position));
+            game.enterState(LoadPlayerMenu.ID,new FadeOutTransition(),new FadeInTransition());
+        }
+
 
 	}
 

@@ -1,14 +1,17 @@
-package general.worms;
+package general.worms.weapons;
 
+import general.worms.PathUtils;
+import general.worms.ProjectileSinusoidal;
+import general.worms.World;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class BeletteLauncher extends Weapon {
 
 	public BeletteLauncher(){
-		super(99,500000,0,200,1,UNLIMITED);
+		super(10,5,0,200,1,UNLIMITED);
 		try {
-			image = new Image(PathUtils.Bazooka);
+			image = new Image(PathUtils.Bazooka_Belette);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -17,8 +20,13 @@ public class BeletteLauncher extends Weapon {
 	@Override
 	protected void fireOneShot(int x, int y, float alpha) {
 		ProjectileSinusoidal proj = new ProjectileSinusoidal(x, y, alpha, this.firepower, this.weight, this);
-		World.addProjectile(proj);
+        proj.setImages(PathUtils.Belette_1,PathUtils.Belette_2);
+        proj.setExplodeDamage(destruction);
+		proj.setDamage(dmg);
 
-	}
+        World.addProjectile(proj);
+
+
+    }
 
 }

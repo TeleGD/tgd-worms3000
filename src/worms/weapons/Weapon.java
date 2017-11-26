@@ -1,4 +1,4 @@
-package general.worms;
+package general.worms.weapons;
 
 import org.newdawn.slick.Image;
 
@@ -21,6 +21,7 @@ public abstract class Weapon {
 		this.firepower = firepower;
 		this.nbProjectiles = nbProjectiles;
 		this.ammo = ammo;
+
 	}
 
 	public Image getImage() {
@@ -29,18 +30,14 @@ public abstract class Weapon {
 
 	protected abstract void fireOneShot(int x, int y, float alpha);
 
-	public void fire(int x, int y, int x2, int y2) {
+	public void fire(int x, int y, float angle) {
 
-		float alpha = (float) 0.0;
-		if (x2-x >= 0) {
-			alpha = (float) Math.atan((float)(y-y2)/(float)(x2-x));
-		} else {
-			alpha = - (float) Math.atan((float)(y-y2)/(float)(x2-x));
-		}
-		System.out.println(alpha);
+		if(angle>Math.PI/2 && angle<Math.PI*3/2)angle = (float) (Math.PI-angle);
+		else angle = -angle;
+
 
 		// StTocard was here
-		this.fireOneShot(x, y, alpha);
+		this.fireOneShot(x, y, angle);
 		// dirty trick :'(
 		if (this.nbProjectiles > 1) {
 			// aled
@@ -54,4 +51,11 @@ public abstract class Weapon {
 	}
 
 
+    public void setFirepower(int firepower) {
+        this.firepower = firepower;
+    }
+
+    public int getFirepower() {
+        return firepower;
+    }
 }

@@ -1,4 +1,4 @@
-package general.worms;
+package worms;
 
 import menus.MainMenu;
 import menus.Menu;
@@ -35,7 +35,6 @@ public class WormMenu extends Menu{
 			break;
 		case 2:
 			game.enterState(MainMenu.ID,new FadeOutTransition(),new FadeInTransition());
-
 			break;
 		}
 	}

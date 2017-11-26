@@ -1,8 +1,6 @@
-package general.worms;
+package worms;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,28 +24,39 @@ public class Terrain {
             int i=0;
             Polygon polygon = null;
             int type = 0;
+            float a=0,r=0,g=0,b=0;
+
+            World.imageBackground  = new Image(PathUtils.UI+"Background/"+br.readLine());
+            
             while((ligne = br.readLine())!=null){
                 i++;
                 if(ligne.equals("new_polygone")){
-                    if(polygon!=null)grounds.add(new GroundPolygon(polygon,type));
+                    if(polygon!=null){
+                        Color color = new Color((int)(r*255),(int)(g*255),(int)(b*255),(int)(a*255));
+                        grounds.add(new GroundPolygon(polygon,type,color));
+                    }
                     polygon = new Polygon();
 
                     type = Integer.valueOf(br.readLine());
+                    a = Float.valueOf(br.readLine());
+                    r = Float.valueOf(br.readLine());
+                    g = Float.valueOf(br.readLine());
+                    b = Float.valueOf(br.readLine());
                     ligne = br.readLine();
+
                 }
 
                 polygon.addPoint(Float.valueOf(ligne),Float.valueOf(br.readLine()));
 
             }
-            grounds.add(new GroundPolygon(polygon,type));
+            Color color = new Color((int)(r*255),(int)(g*255),(int)(b*255),(int)(a*255));
+
+            grounds.add(new GroundPolygon(polygon,type,color));
             br.close();
 
-            for(i=0;i<grounds.size();i++){
-               grounds.get(i).loadImagePolygon();
-            }
-
-
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SlickException e) {
             e.printStackTrace();
         }
 
@@ -55,9 +64,9 @@ public class Terrain {
     }
 
 
-
     public void enter(GameContainer container, StateBasedGame game) {
         loadMap(levelName);
+
     }
 
 
@@ -65,15 +74,8 @@ public class Terrain {
         int x,y;
 
         for(int i=0;i<grounds.size();i++){
-            g.drawImage(grounds.get(i).getOuter(),0,0);
-            g.drawImage(grounds.get(i).getInner(),0,5);
-        }
-
-
-        for(int i=0;i<grounds.size();i++){
-            g.setColor(Color.white);
-
-            g.draw(grounds.get(i).getPolygon());
+            g.setColor(grounds.get(i).getColor());
+            g.texture(grounds.get(i).getPolygon(),GroundPolygon.images[grounds.get(i).getImageType()],1,1,true);
         }
 
         g.setColor(new Color(255,255,255));
@@ -82,6 +84,14 @@ public class Terrain {
     }
 
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
+        for(int i=0;i<grounds.size();i++){
+
+            if(grounds.get(i).getPolygon().getPoints().length<3)
+            {
+                grounds.remove(i);
+                i--;
+            }
+        }
     }
 
 
@@ -89,17 +99,26 @@ public class Terrain {
         this.levelName = levelName;
     }
 
-    public boolean intersects(Player player, float x, float y) {
+    public boolean intersects(Player player) {
 		//System.out.println(player.getCenterX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
 		for(int i=0;i<grounds.size();i++){
-			if (grounds.get(i).getPolygon().contains(x,y)) {
-				return true;
-			}
+            if (grounds.get(i).getPolygon().intersects(player)) {
+                return true;
+            }
 		}
 		return false;
 	}
 
     public ArrayList<GroundPolygon> getGroundPolygonList() {
         return grounds;
+    }
+
+    public boolean intersects(float x, float y) {
+        for(int i=0;i<grounds.size();i++){
+            if (grounds.get(i).getPolygon().contains(x,y)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

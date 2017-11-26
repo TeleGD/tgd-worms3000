@@ -1,9 +1,9 @@
-package general.worms;
+package worms;
 
 public class PathUtils {
 
 	private static String Weapons = "images/Worms/Weapons/";
-	private static String UI = "images/Worms/UI/";
+	public static String UI = "images/Worms/UI/";
 	private static String Terrain = "images/Worms/Terrain/";
 	private static String Perso = "images/Worms/Perso/";
 	private static String OldTerrain = "images/Worms/OldTerrain/";
@@ -13,6 +13,8 @@ public class PathUtils {
 	
 	public static String Bazooka = Weapons + "Bazooka.png";
 	public static String Bazooka_Bullet = Weapons + "Bazooka_Bullet.png";
+	public static String Bazooka_Belette = Weapons+"Bazooka_Belette.png";
+
 	public static String Shotgun = Weapons + "Shotgun.png";
 	public static String Sword = Weapons + "Sword.png";
 	public static String Uzy = Weapons + "Uzy.png";
@@ -24,7 +26,8 @@ public class PathUtils {
 	public static String DirtMap_2 = Terrain + "DirtMap_2.png";
 	public static String DirtTile = Terrain + "DirtTile.png";
 	public static String Grass = Terrain + "Grass.png";
-	
+	public static String Dirt_JPEG = Terrain + "Dirt_Old2.jpeg";
+
 	private static String Idle = Perso + "Idle/";
 	private static String Jump = Perso + "Jump/";
 	private static String Walk = Perso + "Walk/";
@@ -58,6 +61,8 @@ public class PathUtils {
 	public static String Parachute = Loot + "Parachute.png";
 	
 	public static String Belette_1 = Belette + "Belette_1.png";
-	public static String Belette_2 = Loot + "Belette_2.png";
-	
+	public static String Belette_2 = Belette + "Belette_2.png";
+
+    public static String Background = UI + "Background/decor.png";
+    public static String arrow = UI + "arrow.png";;
 }
