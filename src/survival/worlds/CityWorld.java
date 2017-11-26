@@ -41,6 +41,7 @@ public class CityWorld extends World{
 		World.activeWorld = this;
 		
 		objects = new LinkedList<GameObject>();
+		deleteObjects = new LinkedList<GameObject>();
 		uiobjects = new LinkedList<GameObject>();
 		backgrounds = new LinkedList<GameObject>();
 		
