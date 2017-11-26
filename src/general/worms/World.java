@@ -3,6 +3,7 @@ package general.worms;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -25,17 +26,9 @@ public class World extends BasicGameState {
 	private static Player player = new Player(500,0);
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-	// kill me pls
-	public static Weapon dirtyMachineGun = null;
-	public static int dirtyX = 0;
-	public static int dirtyY = 0;
-	public static float dirtyAlpha = (float) 0;
-	private int t; // used with dirtyMachineGun
-//	private Projectile proj = new Projectile(500, 500, (float) 45, 425, 25, (Weapon) null);
-//	private Bazooka baz = new Bazooka();
-//	private Shotgun cykablyat = new Shotgun();
-//	private MachineGun johnson = new MachineGun();
-//	private BeletteLauncher machette = new BeletteLauncher();
+
+	private Projectile proj = new Projectile(100, 100, (float) 45, 425, 25,null);
+
 
 	public static void setLevel(String levelName) {
 		terrain.setLevelName(levelName);
@@ -52,7 +45,9 @@ public class World extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
 		if(terrain!=null)terrain.enter(container,game);
-	}
+        World.addProjectile(proj);
+
+    }
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
@@ -70,28 +65,52 @@ public class World extends BasicGameState {
 		player.update(arg0, arg1, arg2);
 		// TODO Auto-generated method stub
 
-		// handle all projectiles ingame
-		List<Projectile> toRemove = new ArrayList<>();
-		for (Projectile proj : projectiles) {
-			if (proj.updatePosition(arg2)) {
-				toRemove.add(proj);
-			}
-		}
-		projectiles.removeAll(toRemove);
+		for (int i=0;i<projectiles.size(); i++) {
 
-		// dirty handling of machinegun delayed firing
-		this.t += arg2;
-		if (World.dirtyMachineGun != null) {
-			if (t % 100 < arg2) {
-				dirtyMachineGun.fireOneShot(World.dirtyX, World.dirtyY, World.dirtyAlpha);
-			}
-			if (t / 100.0 >= dirtyMachineGun.nbProjectiles - 1) {
-				this.dirtyMachineGun = null;
-				this.t = 0;
-			}
+            boolean needRemove= projectiles.get(i).updatePosition(arg2);
+
+			Object o = collide(projectiles.get(i));
+
+            if(o instanceof GroundPolygon){
+                System.out.println("collide = "+o);
+
+                ((GroundPolygon)o).destroyPartOfGround(projectiles.get(i).getX(),projectiles.get(i).getY(),100);
+			    needRemove = true;
+            }else{
+
+            }
+            if(needRemove){
+                World.removeProjectile(projectiles.get(i));
+                i--;
+            }
+
+
 		}
 	}
 
+    private static void removeProjectile(Projectile p) {
+	    projectiles.remove(p);
+    }
+
+
+    private Object collide(Projectile p){
+
+        for(int i=0;i<terrain.getGroundPolygonList().size();i++){
+            System.out.println("x="+i);
+
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX(),p.getY())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX()+p.getWidth(),p.getY())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX()+p.getWidth(),p.getY()+p.getHeight())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX(),p.getY()+p.getHeight())) return terrain.getGroundPolygonList().get(i);
+        }
+
+        if(player.contains(p.getX(),p.getY())) return player;
+        if(player.contains(p.getX()+p.getWidth(),p.getY())) return player;
+        if(player.contains(p.getX()+p.getWidth(),p.getY()+p.getHeight())) return player;
+        if(player.contains(p.getX(),p.getY()+p.getHeight())) return player;
+
+        return null;
+    }
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
