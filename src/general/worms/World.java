@@ -1,12 +1,15 @@
 package general.worms;
 
-import general.Main;
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import general.Main;
 
 public class World extends BasicGameState {
 
@@ -19,6 +22,11 @@ public class World extends BasicGameState {
 	public static Terrain terrain = new Terrain();
 	private StateBasedGame game;
 	private static Player player = new Player(500,0);
+
+	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+//	private Projectile proj = new Projectile(500, 500, (float) 45, 425, 25, (Weapon) null);
+//	private Bazooka baz = new Bazooka();
+//	private Shotgun cykablyat = new Shotgun();
 
 	public static void setLevel(String levelName) {
 		terrain.setLevelName(levelName);
@@ -42,7 +50,9 @@ public class World extends BasicGameState {
 		if(terrain!=null)terrain.render(arg0,arg1,arg2);
 		player.render(arg0,arg1,arg2);
 		// TODO Auto-generated method stub
-
+		for (Projectile proj : this.projectiles) {
+			proj.render(arg2);
+		}
 	}
 
 	@Override
@@ -50,7 +60,11 @@ public class World extends BasicGameState {
 		terrain.update(arg0,arg1,arg2);
 		player.update(arg0, arg1, arg2);
 		// TODO Auto-generated method stub
-
+		for (Projectile proj : this.projectiles) {
+			if (proj.updatePosition(arg2)) {
+				projectiles.remove(proj);
+			}
+		}
 	}
 
 	@Override
@@ -65,7 +79,7 @@ public class World extends BasicGameState {
 		if(key == Input.KEY_ESCAPE)game.enterState(WormMenu.ID);
 		player.keyReleased(key, c);
 	}
-	
+
 	@Override
 	public void keyPressed(int key, char c) {
 		player.keyPressed(key, c);
@@ -74,4 +88,9 @@ public class World extends BasicGameState {
 	public static void reset() {
 		terrain = new Terrain();
 	}
+
+	public static void addProjectile(Projectile proj) {
+		World.projectiles.add(proj);
+	}
+
 }
