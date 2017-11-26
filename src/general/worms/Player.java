@@ -15,16 +15,18 @@ public class Player extends Rectangle {
 
 	private double newX,newY,speedY,speedX,speed=0.1,accY=0.015,maxSpeedY=0.6;
 	private double beforeJump, jumpHeight=40, jumpSpeed=0.28;
-	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft,jump;
-	private Image image, imageJump, imageBasic;
-	private int hp;
+	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft;
+	private boolean jump,falling;
+	private Image image, imageJump, imageBasic, imageWalk;
+	private Weapon holdWeapon;
 
 	public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
 		
 		try {
-			imageBasic = new Image("images/Worms/Terrain/PersoRightRed.png");
-			imageJump = new Image("images/Worms/Terrain/PersoRightRedJump.png");
+			imageBasic = new Image(PathUtils.PersoRightRed);
+			imageJump = new Image(PathUtils.PersoRightRedJump);
+			imageWalk = new Image(PathUtils.PersoRightRedWalk);
 			//image = image.getScaledCopy((float) 1);
 		} catch (SlickException e) {
 			// nous donne la trace de l'erreur si on ne peut charger l'image correctement
@@ -32,7 +34,6 @@ public class Player extends Rectangle {
 		}
 		
 		image = imageBasic;
-		hp = 100;
 		faceLeft = false;
 		this.height = image.getHeight();
 		this.width = image.getWidth();
@@ -69,6 +70,14 @@ public class Player extends Rectangle {
 			}
 		}
 		
+		if (!falling && !jump && speedX != 0) {
+			if (faceLeft) {
+				image = imageWalk.getFlippedCopy(true, false);
+			} else {
+				image = imageWalk;
+			}
+		}
+		
 		if (newY<(beforeJump-jumpHeight) && jump) {
 			jump = false;
 		}
@@ -101,6 +110,7 @@ public class Player extends Rectangle {
 		if (newY<(Main.hauteur-height) && !World.terrain.intersects(this,(float)(newX+width/2),(float)(newY+height)) && !jump) {
 			if(speedY<maxSpeedY) {
 				speedY += accY;
+				falling = true;
 			}
 		} else if (upPress || jump) {
 			if (World.terrain.intersects(this,(float)(newX+width/2),(float)(newY))) {
@@ -110,17 +120,19 @@ public class Player extends Rectangle {
 			} else if(!jump) {
 				beforeJump = y;
 				jump = true;
+				falling = false;
 				speedY = -jumpSpeed;
 			}
 			speedY += accY;
 		} else {
 			speedY = 0;
+			falling = false;
 		}
 		
 	}
-
-	public void loseHP() {
-		hp -= 1;
+	
+	public void getWeapon(Weapon newWeapon) {
+		holdWeapon = newWeapon;
 	}
 	
 	public void keyReleased(int key, char c) {
@@ -128,12 +140,21 @@ public class Player extends Rectangle {
 		case Input.KEY_UP:
 			upPress = false;
 			break;
-
+		case Input.KEY_Z:
+			upPress = false;
+			break;
+			
 		case Input.KEY_LEFT:
+			leftPress = false;
+			break;
+		case Input.KEY_Q:
 			leftPress = false;
 			break;
 
 		case Input.KEY_RIGHT:
+			rightPress = false;
+			break;
+		case Input.KEY_D:
 			rightPress = false;
 			break;
 		}
@@ -144,13 +165,24 @@ public class Player extends Rectangle {
 		case Input.KEY_UP:
 			upPress = true;
 			break;
+		case Input.KEY_Z:
+			upPress = true;
+			break;
 
 		case Input.KEY_LEFT:
 			leftPress = true;
 			rightLeft = false;
 			break;
+		case Input.KEY_Q:
+			leftPress = true;
+			rightLeft = false;
+			break;
 			
 		case Input.KEY_RIGHT:
+			rightPress = true;
+			rightLeft = true;
+			break;
+		case Input.KEY_D:
 			rightPress = true;
 			rightLeft = true;
 			break;
