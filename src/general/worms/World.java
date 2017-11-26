@@ -1,6 +1,7 @@
 package general.worms;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,9 +25,17 @@ public class World extends BasicGameState {
 	private static Player player = new Player(500,0);
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	// kill me pls
+	public static Weapon dirtyMachineGun = null;
+	public static int dirtyX = 0;
+	public static int dirtyY = 0;
+	public static float dirtyAlpha = (float) 0;
+	private int t; // used with dirtyMachineGun
 //	private Projectile proj = new Projectile(500, 500, (float) 45, 425, 25, (Weapon) null);
-//	private Bazooka baz = new Bazooka();
+	private Bazooka baz = new Bazooka();
 //	private Shotgun cykablyat = new Shotgun();
+//	private MachineGun johnson = new MachineGun();
+//	private BeletteLauncher machette = new BeletteLauncher();
 
 	public static void setLevel(String levelName) {
 		terrain.setLevelName(levelName);
@@ -37,6 +46,7 @@ public class World extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		game = arg1;
+		baz.fire(150, 400, 300, 300);
 	}
 
 	@Override
@@ -60,9 +70,25 @@ public class World extends BasicGameState {
 		terrain.update(arg0,arg1,arg2);
 		player.update(arg0, arg1, arg2);
 		// TODO Auto-generated method stub
-		for (Projectile proj : this.projectiles) {
+
+		// handle all projectiles ingame
+		List<Projectile> toRemove = new ArrayList<>();
+		for (Projectile proj : projectiles) {
 			if (proj.updatePosition(arg2)) {
-				projectiles.remove(proj);
+				toRemove.add(proj);
+			}
+		}
+		projectiles.removeAll(toRemove);
+
+		// dirty handling of machinegun delayed firing
+		this.t += arg2;
+		if (World.dirtyMachineGun != null) {
+			if (t % 100 < arg2) {
+				dirtyMachineGun.fireOneShot(World.dirtyX, World.dirtyY, World.dirtyAlpha);
+			}
+			if (t / 100.0 >= dirtyMachineGun.nbProjectiles - 1) {
+				this.dirtyMachineGun = null;
+				this.t = 0;
 			}
 		}
 	}
