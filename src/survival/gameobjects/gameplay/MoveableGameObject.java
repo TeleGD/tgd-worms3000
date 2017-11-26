@@ -1,5 +1,7 @@
 package survival.gameobjects.gameplay;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 
 import survival.gameobjects.GameObject;
@@ -9,6 +11,7 @@ import survival.worlds.World;
 public class MoveableGameObject extends GameObject {
 
 	protected Vector2 old_location;
+	protected GameObject collisionOn;
 	
 	public MoveableGameObject(Image spr) {
 		super(spr);
@@ -33,9 +36,24 @@ public class MoveableGameObject extends GameObject {
 		{
 			if(isCollidingWith(i) != null)
 			{
+				collisionOn = i;
 				return true;
 			}
 		}
+		collisionOn = null;
 		return false;
+	}
+	
+	public static ArrayList<GameObject> overlapPoint(Vector2 point)
+	{
+		ArrayList<GameObject> res = new ArrayList<GameObject>();
+		for(GameObject i : World.activeWorld.getObjectList())
+		{
+			if(i.isCollidingWithPoint(point))
+			{
+				res.add(i);
+			}
+		}
+		return res;
 	}
 }
