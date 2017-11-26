@@ -121,10 +121,10 @@ public class Terrain {
         this.levelName = levelName;
     }
 
-	public boolean intersect(Player player) {
-		//System.out.println(player.getX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
+    public boolean intersects(Player player, float x, float y) {
+		//System.out.println(player.getCenterX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
 		for(int i=0;i<grounds.size();i++){
-			if (grounds.get(i).getPolygon().contains(player.getCenterX(),player.getY()+player.getHeight())) {
+			if (grounds.get(i).getPolygon().contains(x,y)) {
 				return true;
 			}
 		}
