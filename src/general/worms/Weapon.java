@@ -39,6 +39,7 @@ public abstract class Weapon {
 		}
 		System.out.println(alpha);
 
+		this.fireOneShot(x, y, alpha);
 		// StTocard was here
 
 		this.ammo--;
@@ -48,5 +49,6 @@ public abstract class Weapon {
 		return this.ammo != 0;
 	}
 
+	public void update(int timeDelta) {	}
 
 }

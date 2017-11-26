@@ -24,6 +24,9 @@ public class MachineGun extends Weapon{
 	@Override
 	protected void fireOneShot(int x, int y, float alpha) {
 		this.firing = true;
+		this.dirtyX = x;
+		this.dirtyY = y;
+		this.dirtyAlpha = alpha;
 		float deltaAlpha = (float) ((Math.random() * 3 - 0.5) * (2*Math.PI) / 360.);
 		Projectile proj = new Projectile(x, y, alpha + deltaAlpha, this.firepower, this.weight, this);
 		World.addProjectile(proj);
@@ -33,10 +36,10 @@ public class MachineGun extends Weapon{
 	public void update(int timeDelta){
 		if (this.firing) {
 			this.t += timeDelta;
-			if (t % 100 < timeDelta) {
+			if (t % 200 < timeDelta) {
 				this.fireOneShot(this.dirtyX, this.dirtyY, this.dirtyAlpha);
 			}
-			if (t / 100.0 >= this.nbProjectiles - 1) {
+			if (t / 200.0 >= this.nbProjectiles - 1) {
 				this.firing = false;
 				this.t = 0;
 			}

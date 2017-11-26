@@ -69,7 +69,7 @@ public class Player extends Rectangle {
 				image = imageBasic;
 			}
 		}
-		
+
 		if (!falling && !jump && speedX != 0) {
 			if (faceLeft) {
 				image = imageWalk.getFlippedCopy(true, false);
@@ -77,7 +77,7 @@ public class Player extends Rectangle {
 				image = imageWalk;
 			}
 		}
-		
+
 		if (newY<(beforeJump-jumpHeight) && jump) {
 			jump = false;
 		}
@@ -130,7 +130,7 @@ public class Player extends Rectangle {
 		}
 
 	}
-	
+
 	public void setWeapon(Weapon newWeapon) {
 		holdWeapon = newWeapon;
 	}
@@ -143,7 +143,7 @@ public class Player extends Rectangle {
 		case Input.KEY_Z:
 			upPress = false;
 			break;
-			
+
 		case Input.KEY_LEFT:
 			leftPress = false;
 			break;
@@ -177,7 +177,7 @@ public class Player extends Rectangle {
 			leftPress = true;
 			rightLeft = false;
 			break;
-			
+
 
 		case Input.KEY_RIGHT:
 			rightPress = true;

@@ -106,6 +106,9 @@ public class World extends BasicGameState {
                 i--;
             }
 
+            player.getWeapon().update(arg2);
+            player2.getWeapon().update(arg2);
+
 		}
 
 
