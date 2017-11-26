@@ -17,6 +17,8 @@ public class World extends BasicGameState {
     public static Terrain terrain = new Terrain();
     private static Player player = new Player(400,0);
     private static Player player2 = new Player(800,0);
+    
+    private static LootHandler looter = new LootHandler();
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
@@ -78,7 +80,8 @@ public class World extends BasicGameState {
         arg2.drawImage(player.getWeapon().getImage().getScaledCopy(128,64),40,40);
         arg2.drawImage(player2.getWeapon().getImage().getScaledCopy(128,64),Main.longueur-148,30);
 
-
+        looter.render(arg0, arg1, arg2);
+        
     }
 
 	@Override
@@ -108,7 +111,7 @@ public class World extends BasicGameState {
 
 		}
 
-
+		looter.update(arg0, arg1, arg2);
 
 	}
 
