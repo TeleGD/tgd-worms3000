@@ -5,14 +5,14 @@ import general.ui.TGDComponent;
 import general.ui.TextField;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.BufferedImageUtil;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class LevelEditor extends BasicGameState{
@@ -28,6 +28,7 @@ public class LevelEditor extends BasicGameState{
 
     public static ArrayList<GroundPolygon> grounds = new ArrayList<>();
     private Button changeTexture;
+    private int selected = -1;
 
     public LevelEditor()
 	{
@@ -49,20 +50,26 @@ public class LevelEditor extends BasicGameState{
 
         texture = new Image(ground.getImagePath());
 
-        newPolyGon = new Button(gameContainer,Main.longueur-200,80, TGDComponent.AUTOMATIC,TGDComponent.AUTOMATIC);
+        newPolyGon = new Button(gameContainer,Main.longueur-200,100, TGDComponent.AUTOMATIC,TGDComponent.AUTOMATIC);
         newPolyGon.setText("NOUVEAU POLYGONE");
         newPolyGon.setOnClickListener(new TGDComponent.OnClickListener() {
             @Override
             public void onClick(TGDComponent componenent) {
-                grounds.add(ground);
-                ground = new GroundPolygon(new Polygon(),currentType);
+
+                if(ground.getPolygon().getPoints().length>3){
+                    loadImagePolygon();
+
+                    grounds.add(ground);
+                    ground = new GroundPolygon(new Polygon(),currentType);
+                }
+
 
             }
         });
 
 
 
-        changeTexture = new Button(gameContainer,Main.longueur-200,110, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        changeTexture = new Button(gameContainer,Main.longueur-200,140, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         changeTexture.setText("CHANGER TEXTURE");
         changeTexture.setOnClickListener(new TGDComponent.OnClickListener() {
             @Override
@@ -80,7 +87,7 @@ public class LevelEditor extends BasicGameState{
             }
         });
 
-        button = new Button(gameContainer,Main.longueur-200,50, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        button = new Button(gameContainer,Main.longueur-200,60, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         button.setText("SAUVEGARDER");
         button.setOnClickListener(new TGDComponent.OnClickListener() {
             @Override
@@ -117,10 +124,40 @@ public class LevelEditor extends BasicGameState{
         textField.setMaxNumberOfLetter(15);
         textField.setOnlyFigures(false);
 
-
     }
 
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
+    private void loadImagePolygon() {
+        BufferedImage image2 = null;
+        try {
+            long time = System.currentTimeMillis();
+            image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
+            setAlpha(image2, (byte) 125);
+
+            BufferedImage image = ImageIO.read(new File(ground.getImagePath()));
+            setAlpha(image, (byte) 125);
+            System.out.println("time = "+(System.currentTimeMillis()-time));
+
+            Texture text = BufferedImageUtil.getTexture("", image);
+            Texture text2 = BufferedImageUtil.getTexture("", image2);
+
+            Image texture = new Image(text.getImageWidth(), text.getImageHeight());
+            texture.setTexture(text);
+
+            ground.setInner(texture);
+
+            Image textureContour = new Image(text2.getImageWidth(), text2.getImageHeight() );
+            textureContour.setTexture(text2);
+
+            ground.setOuter(textureContour);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
         try {
             button.update(arg0,arg1,arg2);
             newPolyGon.update(arg0,arg1,arg2);
@@ -147,6 +184,7 @@ public class LevelEditor extends BasicGameState{
         {
             for(int i=0;i<ground.getPolygon().getPoints().length/2;i++){
                 g.setColor(Color.white);
+
                 float[] f = ground.getPolygon().getPoint(i);
                 g.drawOval(f[0]-1,f[1]-1,5,5);
                 g.setColor(Color.black);
@@ -154,16 +192,23 @@ public class LevelEditor extends BasicGameState{
             }
         }
 
-        for(int i=0;i<grounds.size();i++){
-            g.draw(grounds.get(i).getPolygon());
-        }
-
-        /*
+        
         for(int i=0;i<grounds.size();i++){
             g.drawImage(grounds.get(i).getOuter(),0,0);
             g.drawImage(grounds.get(i).getInner(),0,5);
-        }*/
+        }
 
+        for(int i=0;i<grounds.size();i++){
+            if(selected == i){
+                g.setColor(Color.red);
+            }else{
+                g.setColor(Color.white);
+            }
+
+            g.draw(grounds.get(i).getPolygon());
+        }
+
+        g.setColor(Color.white);
 
         if(ground.getPolygon()!=null && ground.getPolygon().getPoints().length>0)
             g.draw(ground.getPolygon());
@@ -178,33 +223,18 @@ public class LevelEditor extends BasicGameState{
                 !newPolyGon.contains(oldx,oldy) &&
                 !textField.contains(oldx,oldy) &&
                 !changeTexture.contains(oldx,oldy)){
-            ground.getPolygon().addPoint(oldx,oldy);
-/*
-            BufferedImage image2 = null;
-            try {
-                image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
-                setAlpha(image2, (byte) 125);
 
-                BufferedImage image = ImageIO.read(new File(ground.getImagePath()));
-                setAlpha(image, (byte) 125);
 
-                Texture text = BufferedImageUtil.getTexture("", image);
-                Texture text2 = BufferedImageUtil.getTexture("", image2);
+            selected = -1;
+            if(button==1){
+                for(int i = 0;i<grounds.size();i++)
+                {
+                    if(grounds.get(i).contains(oldx,oldy))selected = i;
+                }
+            }else{
+                ground.getPolygon().addPoint(oldx,oldy);
+            }
 
-                Image texture = new Image(text.getImageWidth(), text.getImageHeight());
-                texture.setTexture(text);
-
-                ground.setInner(texture);
-
-                Image textureContour = new Image(text2.getImageWidth(), text2.getImageHeight() );
-                textureContour.setTexture(text2);
-
-                ground.setOuter(textureContour);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SlickException e) {
-                e.printStackTrace();
-            }*/
 
 
         }
@@ -230,9 +260,15 @@ public class LevelEditor extends BasicGameState{
     public void keyPressed(int key, char c) {
         super.keyPressed(key, c);
         if(key==Input.KEY_BACK){
-            if(ground.getPolygon().getPoints().length>0){
-                removeLastPoint();
+
+            if(selected != -1){
+                grounds.remove(selected);
+            }else{
+                if(ground.getPolygon().getPoints().length>0){
+                    removeLastPoint();
+                }
             }
+
         }else if(key == Input.KEY_ESCAPE){
             game.enterState(WormMenu.ID);
         }
@@ -244,6 +280,8 @@ public class LevelEditor extends BasicGameState{
         for(int i=0;i<f.length/2;i++){
             p.addPoint(f[i],f[i+1]);
         }
+
+        ground.setPolygon(p);
 
     }
 
