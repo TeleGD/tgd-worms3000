@@ -1,19 +1,16 @@
 package general.worms;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.BufferedImageUtil;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.BitSet;
 
 public class Terrain {
 
@@ -91,10 +88,10 @@ public class Terrain {
         this.levelName = levelName;
     }
 
-	public boolean intersect(Player player) {
-		//System.out.println(player.getX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
+    public boolean intersects(Player player, float x, float y) {
+		//System.out.println(player.getCenterX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
 		for(int i=0;i<grounds.size();i++){
-			if (grounds.get(i).getPolygon().contains(player.getCenterX(),player.getY()+player.getHeight())) {
+			if (grounds.get(i).getPolygon().contains(x,y)) {
 				return true;
 			}
 		}

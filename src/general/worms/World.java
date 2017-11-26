@@ -1,6 +1,7 @@
 package general.worms;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
@@ -25,10 +26,9 @@ public class World extends BasicGameState {
 	private static Player player = new Player(500,0);
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+
 	private Projectile proj = new Projectile(100, 100, (float) 45, 425, 25,null);
 
-//	private Bazooka baz = new Bazooka();
-//	private Shotgun cykablyat = new Shotgun();
 
 	public static void setLevel(String levelName) {
 		terrain.setLevelName(levelName);
@@ -64,9 +64,10 @@ public class World extends BasicGameState {
 		terrain.update(arg0,arg1,arg2);
 		player.update(arg0, arg1, arg2);
 		// TODO Auto-generated method stub
+
 		for (int i=0;i<projectiles.size(); i++) {
 
-            projectiles.get(i).updatePosition(arg2);
+            boolean needRemove= projectiles.get(i).updatePosition(arg2);
 
 			Object o = collide(projectiles.get(i));
 
@@ -74,9 +75,16 @@ public class World extends BasicGameState {
                 System.out.println("collide = "+o);
 
                 ((GroundPolygon)o).destroyPartOfGround(projectiles.get(i).getX(),projectiles.get(i).getY(),100);
-                World.removeProjectile(projectiles.get(i));
-			    i--;
+			    needRemove = true;
+            }else{
+
             }
+            if(needRemove){
+                World.removeProjectile(projectiles.get(i));
+                i--;
+            }
+
+
 		}
 	}
 

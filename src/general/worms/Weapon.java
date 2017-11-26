@@ -30,10 +30,17 @@ public abstract class Weapon {
 		}
 		System.out.println(alpha);
 
-		for (int i = 0; i < nbProjectiles; i++) { // fire as many times as nbProjectiles
-			// StTocard was here
-			this.fireOneShot(x, y, alpha);
+		// StTocard was here
+		this.fireOneShot(x, y, alpha);
+		// dirty trick :'(
+		if (this.nbProjectiles > 1) {
+			World.dirtyMachineGun = this;
+			World.dirtyX = x;
+			World.dirtyY = y;
+			World.dirtyAlpha = alpha;
+			// aled
 		}
+
 		this.ammo--;
 	}
 
