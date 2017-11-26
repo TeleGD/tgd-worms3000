@@ -2,6 +2,9 @@ package general;
 
 import java.io.File;
 
+import general.worms.LevelEditor;
+import general.worms.LoadLevelMenu;
+import general.worms.WormMenu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -43,6 +46,9 @@ public class Main extends StateBasedGame{
 	    addState(new WelcomeMenu());
 		addState(new MainMenu());
 		addState(new World());
+		addState(new WormMenu());
+		addState(new LevelEditor());
+		addState(new LoadLevelMenu());
 
         System.out.println("time to load game = "+(System.currentTimeMillis()-time));
 
