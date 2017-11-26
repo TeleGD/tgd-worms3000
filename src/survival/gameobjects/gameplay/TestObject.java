@@ -15,12 +15,12 @@ import survival.worlds.World;
 public class TestObject extends Character{
 	
 	//protected Compteur health;
-	protected float attackRange = 150;
+	protected float attackRange = 50;
 	protected float attackDamage = 1;
 	
 	public TestObject(Image spr) throws SlickException
 	{
-		super(spr, 10);
+		super(spr, 5);
 		health = new Compteur(100,100, new Vector2(200,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HealthBar.png"));
 		World.activeWorld.addUiGameObject(health);
 		location = new Vector2(0, 0);

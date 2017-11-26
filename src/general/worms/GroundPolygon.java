@@ -58,4 +58,8 @@ public class GroundPolygon {
     public void setImageType(int imageType) {
         this.imageType = imageType;
     }
+
+    public void setPolygon(Polygon polygon) {
+        this.polygon = polygon;
+    }
 }
