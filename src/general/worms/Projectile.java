@@ -5,13 +5,13 @@ import org.newdawn.slick.Graphics;
 
 public class Projectile {
 
-	private int x, y;
-	private int x0, y0; // initial position
-	private float alpha0; // initial orientation
-	private int v0; // initial speed
-	private int weight;
-	private Weapon firingWeapon;
-	private int t; // time since firing
+	protected int x, y;
+	protected int x0, y0; // initial position
+	protected float alpha0; // initial orientation
+	protected int v0; // initial speed
+	protected int weight;
+	protected Weapon firingWeapon;
+	protected int t; // time since firing
 	// graphisms
 
 	public Projectile(int x0, int y0, float alpha0, int v0, int weight, Weapon firingWeapon) {
@@ -36,10 +36,10 @@ public class Projectile {
 		if (this.y < 0 || this.y > 720) {
 			return true;
 		}
-		System.out.println(this.x);
-		System.out.println(this.y);
-		System.out.println(this.t);
-		System.out.println("___________________________");
+		//System.out.println(this.x);
+		//System.out.println(this.y);
+		//System.out.println(this.t);
+		//System.out.println("___________________________");
 		return false;
 	}
 
