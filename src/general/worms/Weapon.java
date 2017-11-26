@@ -34,10 +34,6 @@ public abstract class Weapon {
 		this.fireOneShot(x, y, alpha);
 		// dirty trick :'(
 		if (this.nbProjectiles > 1) {
-			World.dirtyMachineGun = this;
-			World.dirtyX = x;
-			World.dirtyY = y;
-			World.dirtyAlpha = alpha;
 			// aled
 		}
 

@@ -3,7 +3,10 @@ package general.worms;
 import menus.MainMenu;
 import menus.Menu;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -19,15 +22,21 @@ public class LoadLevelMenu extends Menu{
 		super.setTitreSecondaire("Jouer au worms !");
 
 
-		String[] list = new File("levels").list();
-		super.setItems(list);
 
 		super.setEnableClignote(false);
 		super.setCouleurClignote(Color.red);
 		super.setTempsClignote(400);
 	}
 
-	@Override
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+        super.enter(container, game);
+        String[] list = new File("levels").list();
+        super.setItems(list);
+
+    }
+
+    @Override
 	public void onOptionItemSelected(int position) {
 		World.reset();
         World.setLevel(getItems().get(position));
