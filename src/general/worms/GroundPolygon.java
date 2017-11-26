@@ -7,9 +7,11 @@ public class GroundPolygon {
 
     private  Polygon polygon;
     private Image inner,outer;
+    private int imageType = 0;
 
-    public GroundPolygon(Polygon polygon) {
+    public GroundPolygon(Polygon polygon,int type) {
         this.polygon = polygon;
+        this.imageType = type;
 
     }
 
@@ -31,5 +33,13 @@ public class GroundPolygon {
 
     public Image getInner() {
         return inner;
+    }
+
+    public Polygon getPolygon() {
+        return polygon;
+    }
+
+    public int getImageType() {
+        return imageType;
     }
 }
