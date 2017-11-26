@@ -131,7 +131,7 @@ public class Player extends Rectangle {
 		
 	}
 	
-	public void getWeapon(Weapon newWeapon) {
+	public void setWeapon(Weapon newWeapon) {
 		holdWeapon = newWeapon;
 	}
 	
@@ -187,6 +187,10 @@ public class Player extends Rectangle {
 			rightLeft = true;
 			break;
 		}
+	}
+
+	public Weapon getWeapon() {
+		return holdWeapon;
 	}
 
 }
