@@ -27,33 +27,35 @@ public class Terrain {
             String ligne;
             int i=0;
             Polygon polygon = null;
+            int type = 0;
             while((ligne = br.readLine())!=null){
                 i++;
                 if(ligne.equals("new_polygone")){
-                    ligne = br.readLine();
-                    if(polygon!=null)grounds.add(new GroundPolygon(polygon));
+                    if(polygon!=null)grounds.add(new GroundPolygon(polygon,type));
                     polygon = new Polygon();
+
+                    type = Integer.valueOf(br.readLine());
+                    ligne = br.readLine();
                 }
 
                 polygon.addPoint(Float.valueOf(ligne),Float.valueOf(br.readLine()));
 
             }
-            grounds.add(new GroundPolygon(polygon));
+            grounds.add(new GroundPolygon(polygon,type));
             br.close();
 
-            System.out.println("grounds = "+grounds.size());
             for(i=0;i<grounds.size();i++){
 
                 BufferedImage image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
                 setAlpha(image2, (byte) 125,i);
 
-                BufferedImage image = ImageIO.read(new File("images/Worms/Terrain/Dirt.png"));
+                BufferedImage image = ImageIO.read(new File(grounds.get(i).getImagePath()));
                 setAlpha(image, (byte) 125,i);
 
                 Texture text = BufferedImageUtil.getTexture("", image);
                 Texture text2 = BufferedImageUtil.getTexture("", image2);
 
-                Image texture = new Image(text.getImageWidth(), text.getImageHeight() );
+                Image texture = new Image(text.getImageWidth(), text.getImageHeight());
                 texture.setTexture(text);
 
                 grounds.get(i).setInner(texture);
@@ -78,6 +80,7 @@ public class Terrain {
 
 
     }
+
 
     public void setAlpha(BufferedImage image,byte alpha , int i) {
         for (int cx=0;cx<image.getWidth();cx++) {
@@ -117,4 +120,14 @@ public class Terrain {
     public void setLevelName(String levelName) {
         this.levelName = levelName;
     }
+
+	public boolean intersect(Player player) {
+		//System.out.println(player.getX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
+		for(int i=0;i<grounds.size();i++){
+			if (grounds.get(i).getPolygon().contains(player.getCenterX(),player.getY()+player.getHeight())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

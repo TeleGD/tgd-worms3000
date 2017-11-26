@@ -18,13 +18,29 @@ public abstract class Weapon {
 		this.ammo = ammo;
 	}
 
-	protected abstract void fireOneShot();
+	protected abstract void fireOneShot(int x, int y, float alpha);
 
-	public void fire() {
-		for (int i = 0; i < nbProjectiles; i++) { // fire as many times as nbProjectiles
-			// StTocard was here
-			this.fireOneShot();
+	public void fire(int x, int y, int x2, int y2) {
+
+		float alpha = (float) 0.0;
+		if (x2-x >= 0) {
+			alpha = (float) Math.atan((float)(y-y2)/(float)(x2-x));
+		} else {
+			alpha = - (float) Math.atan((float)(y-y2)/(float)(x2-x));
 		}
+		System.out.println(alpha);
+
+		// StTocard was here
+		this.fireOneShot(x, y, alpha);
+		// dirty trick :'(
+		if (this.nbProjectiles > 1) {
+			World.dirtyMachineGun = this;
+			World.dirtyX = x;
+			World.dirtyY = y;
+			World.dirtyAlpha = alpha;
+			// aled
+		}
+
 		this.ammo--;
 	}
 

@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import survival.Camera;
 import survival.utils.Vector2;
+import survival.worlds.World;
 
 public abstract class GameObject {
 
@@ -25,7 +26,8 @@ public abstract class GameObject {
 	public GameObject(Image spr)
 	{
 		sprite = spr;
-		boundingBox = new Vector2(spr.getWidth(), spr.getHeight());
+		if(spr != null)
+			boundingBox = new Vector2(spr.getWidth(), spr.getHeight());
 		location = new Vector2(0,0);
 	}
 	
@@ -48,6 +50,29 @@ public abstract class GameObject {
 	{
 		location.x += direction.x;
 		location.y += direction.y;
+	}
+	
+	public boolean isCollidingWithPoint(Vector2 loc)
+	{
+		if(boundingBox != null)
+		{
+			if(loc.x+ boundingBox.x/2f > location.x)
+				if(loc.x - boundingBox.x/2f < location.x)
+					if(loc.y + boundingBox.y/2f > location.y)
+						if(loc.y - boundingBox.y/2f < location.y)
+							return true;
+		//A NORMALISER
+		}
+		return false;
+	}
+	
+	public void hurt(float damage)
+	{
+		
+	}
+	
+	public static void destroy(GameObject obj) {
+		World.deleteObjects.add(obj);
 	}
 	
 	public Vector2 isCollidingWith(GameObject other)

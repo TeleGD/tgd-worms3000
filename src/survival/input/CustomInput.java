@@ -8,6 +8,7 @@ public class CustomInput {
 	public static boolean right;
 	public static boolean left;
 	public static boolean down;
+	public static boolean space;
 	
 	public static void keyPressed(int key, char c)
 	{
@@ -23,6 +24,9 @@ public class CustomInput {
 			break;
 		case Input.KEY_S:
 			down=true;
+			break;
+		case Input.KEY_SPACE:
+			space=true;
 			break;
 		}
 	}
@@ -41,6 +45,9 @@ public class CustomInput {
 			break;
 		case Input.KEY_S:
 			down=false;
+			break;
+		case Input.KEY_SPACE:
+			space=false;
 			break;
 		}
 	}

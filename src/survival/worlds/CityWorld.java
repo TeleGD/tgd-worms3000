@@ -10,6 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import survival.SurvivalMain;
 import survival.gameobjects.GameObject;
 import survival.gameobjects.gameplay.Compteur;
+import survival.gameobjects.gameplay.Infected;
 import survival.gameobjects.gameplay.TestObject;
 import survival.gameobjects.mapping.MapObject;
 import survival.gameobjects.mapping.RepeatBackground;
@@ -37,16 +38,20 @@ public class CityWorld extends World{
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		World.activeWorld = this;
+		
 		objects = new LinkedList<GameObject>();
+		deleteObjects = new LinkedList<GameObject>();
 		uiobjects = new LinkedList<GameObject>();
 		backgrounds = new LinkedList<GameObject>();
 		
-		addGameObject(new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png")));
-		addUiGameObject(new Compteur(50,100, new Vector2(200,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HealthBar.png")));
+		World.activePlayer = new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png"));
+		addGameObject(World.activePlayer);
+		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png"), new Vector2(-400,-400),1f,5f));
 		addUiGameObject(new Compteur(30,100, new Vector2(500,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HungryBar.png")));
 		addUiGameObject(new Compteur(80,100, new Vector2(800,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/WaterBar.png")));
 		
-		World.activeWorld = this;
+		
 		mapGeneration(0);
 	}
 

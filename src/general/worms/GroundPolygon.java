@@ -7,9 +7,12 @@ public class GroundPolygon {
 
     private  Polygon polygon;
     private Image inner,outer;
+    private int imageType = 0;
 
-    public GroundPolygon(Polygon polygon) {
+    public static int NB_IMAGE = 3;
+    public GroundPolygon(Polygon polygon,int type) {
         this.polygon = polygon;
+        this.imageType = type;
 
     }
 
@@ -31,5 +34,32 @@ public class GroundPolygon {
 
     public Image getInner() {
         return inner;
+    }
+
+    public Polygon getPolygon() {
+        return polygon;
+    }
+
+    public int getImageType() {
+        return imageType;
+    }
+
+
+    public String getImagePath() {
+        switch (imageType){
+            case 0: return "images/Worms/Terrain/Dirt_Old.png";
+            case 1: return "images/Worms/Terrain/DirtMap_1.png";
+            case 2: return "images/Worms/Terrain/DirtMap_2.png";
+        }
+
+        return "images/Worms/Terrain/Dirt_Old.png";
+    }
+
+    public void setImageType(int imageType) {
+        this.imageType = imageType;
+    }
+
+    public void setPolygon(Polygon polygon) {
+        this.polygon = polygon;
     }
 }
