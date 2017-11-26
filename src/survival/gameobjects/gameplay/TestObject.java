@@ -19,8 +19,7 @@ public class TestObject extends Character{
 	
 	protected float attackRange = 50;
 	protected float attackDamage = 1;
-	public ArrayList<Items> itemList;
-	public Vector2 location;
+	public ArrayList<Items> itemList;	
 	protected Compteur health;
 	protected Compteur hunger;
 	protected Compteur thirst;
