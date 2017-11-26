@@ -21,9 +21,9 @@ public class TestObject extends Character{
 	
 	protected float attackRange = 50;
 	protected float attackDamage = 1;
-	public static ArrayList<Items> itemList;	
-	protected Compteur hunger;
-	protected Compteur thirst;
+	public ArrayList<Items> itemList;	
+	public Compteur hunger;
+	public Compteur thirst;
 	protected Items activatedWeapons;
 	
 	public TestObject(Image spr) throws SlickException
@@ -42,14 +42,16 @@ public class TestObject extends Character{
 		sprite = spr;
 	}
 
-	public void addItem(Items  Item) {
-		itemList.add(Item);
+	public void addItem(Items item) {
+		System.out.println("fghjr");
+		itemList.add(item);
 		this.nextPostionUI.add(new Vector2(70,0));
-		World.activeWorld.addUiGameObject(this);
+		World.activeWorld.addUiGameObject(item);
 	}
 	
-	public static void removeItem(Items Item) {
-		itemList.remove(Item); 
+	public void removeItem(Items Item) {
+		itemList.remove(Item);
+		
 	}
 	
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException
@@ -107,7 +109,10 @@ public class TestObject extends Character{
 		
 		if(isCollidingWithSomething())
 		{
-			undoLocation();
+			if((collisionOn instanceof Items)==false){
+				undoLocation();
+			}
+			
 		}
 		
 		Camera.follow(location, 5, arg2);

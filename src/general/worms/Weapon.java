@@ -39,12 +39,8 @@ public abstract class Weapon {
 		}
 		System.out.println(alpha);
 
-		// StTocard was here
 		this.fireOneShot(x, y, alpha);
-		// dirty trick :'(
-		if (this.nbProjectiles > 1) {
-			// aled
-		}
+		// StTocard was here
 
 		this.ammo--;
 	}
@@ -53,5 +49,6 @@ public abstract class Weapon {
 		return this.ammo != 0;
 	}
 
+	public void update(int timeDelta) {	}
 
 }

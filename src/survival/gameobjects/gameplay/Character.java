@@ -42,7 +42,7 @@ public class Character extends MoveableGameObject{
 	{
 		if(this instanceof Infected){
 			if(health.canAdd(-damage)==false) {
-				destroy(this);
+				destroy(this);				
 			}
 		} else {
 			health.canAdd(-damage);

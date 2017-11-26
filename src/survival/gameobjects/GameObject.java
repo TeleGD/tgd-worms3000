@@ -15,6 +15,7 @@ public abstract class GameObject {
 	protected Image sprite;
 	public Vector2 location;
 	public Vector2 boundingBox;
+	protected GameObject collisionOn;
 	
 	public GameObject()
 	{
@@ -66,6 +67,20 @@ public abstract class GameObject {
 		return false;
 	}
 	
+	protected boolean isCollidingWithSomething()
+	{
+		for(GameObject i : World.activeWorld.getObjectList())
+		{
+			if(isCollidingWith(i) != null)
+			{
+				collisionOn = i;
+				return true;
+			}
+		}
+		collisionOn = null;
+		return false;
+	}
+	
 	public void hurt(float damage)
 	{
 		
@@ -91,3 +106,4 @@ public abstract class GameObject {
 		return null;
 	}
 }
+	
