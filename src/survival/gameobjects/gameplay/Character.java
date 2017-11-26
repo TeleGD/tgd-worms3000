@@ -15,6 +15,8 @@ public class Character extends MoveableGameObject{
 
 	protected Compteur health;
 	protected float walkSpeed = 0.25f;
+	protected float walkAnimation = 1;
+	protected float walkAnimationSens = 0.1f;
 	
 	/**
 	 * 0 = up
@@ -79,6 +81,21 @@ public class Character extends MoveableGameObject{
 		{
 			move(Vector2.mult(walkSpeed , Vector2.normalize(direction)));
 			updateDirection(direction);
+			walkAnimation += walkAnimationSens;
+			if(walkAnimation < 0.5f)
+			{
+				walkAnimation = 0.5f;
+				walkAnimationSens = -walkAnimationSens;
+			}
+			if(walkAnimation > 2.5f)
+			{
+				walkAnimation = 2.5f;
+				walkAnimationSens = -walkAnimationSens;
+			}
+		}
+		else
+		{
+			walkAnimation = 1;
 		}
 	}
 
@@ -96,14 +113,31 @@ public class Character extends MoveableGameObject{
 		
 		if(sprite != null)
 		{
+			
+			int dir = 0;
+			switch(direction)
+			{
+			case 0:
+				dir = 3;
+				break;
+			case 1:
+				dir = 1;
+				break;
+			case 2:
+				dir = 0;
+				break;
+			case 3:
+				dir = 2;
+				break;
+			}
 			float w = sprite.getWidth()/3;
 			
 			float h = sprite.getHeight()/4;
 			//System.out.println(h);
-			float yyy = direction*h;
-			float xxx = 0;
+			float yyy = dir*h;
+			float xxx = ((int)walkAnimation)*w;
 			
-			g.drawImage(sprite, xx, yy,xx+boundingBox.x,yy+boundingBox.y,xxx,yyy,xxx+w,yyy+h);
+			g.drawImage(sprite, xx+boundingBox.x*0.5f, yy+boundingBox.y*0.5f,xx+boundingBox.x*1.5f,yy+boundingBox.y*1.5f,xxx,yyy,xxx+w,yyy+h);
 		}
 	}
 }
