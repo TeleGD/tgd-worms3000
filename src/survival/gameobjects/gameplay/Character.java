@@ -2,6 +2,7 @@ package survival.gameobjects.gameplay;
 
 import org.newdawn.slick.Image;
 
+import survival.gameobjects.GameObject;
 import survival.input.CustomInput;
 import survival.utils.Vector2;
 
@@ -32,7 +33,15 @@ public class Character extends MoveableGameObject{
 	
 	public void hurt(float damage)
 	{
-		health.canAdd(-damage);
+		if(this instanceof Infected){
+			if(health.canAdd(-damage)==false) {
+				destroy(this);
+			}
+		} else {
+			health.canAdd(-damage);
+		}
+			
+		
 		//System.out.println("touchee");
 	}
 	
