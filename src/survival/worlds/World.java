@@ -1,5 +1,6 @@
 package survival.worlds;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
@@ -17,7 +18,8 @@ public abstract class World extends BasicGameState {
 	public static World activeWorld;
 	public static TestObject activePlayer;
 	
-	protected LinkedList<GameObject> objects;
+	public static LinkedList<GameObject> objects;
+	public static LinkedList<GameObject> deleteObjects ;
 	protected LinkedList<GameObject> uiobjects;
 	protected LinkedList<GameObject> backgrounds;
 	
@@ -47,6 +49,11 @@ public abstract class World extends BasicGameState {
 			i.update(arg0, arg1, arg2);
 		for(GameObject i : uiobjects)
 			i.update(arg0, arg1, arg2);
+		if (deleteObjects!=null){
+			for(GameObject i : deleteObjects)
+				objects.remove(i) ;
+				deleteObjects = new LinkedList<GameObject>();
+			}
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException

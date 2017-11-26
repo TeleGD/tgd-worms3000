@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import survival.Camera;
 import survival.utils.Vector2;
+import survival.worlds.World;
 
 public abstract class GameObject {
 
@@ -68,6 +69,10 @@ public abstract class GameObject {
 	public void hurt(float damage)
 	{
 		
+	}
+	
+	public static void destroy(GameObject obj) {
+		World.deleteObjects.add(obj);
 	}
 	
 	public Vector2 isCollidingWith(GameObject other)
