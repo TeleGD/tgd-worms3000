@@ -22,7 +22,7 @@ public class Player extends Rectangle {
 
 	public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
-		
+
 		try {
 			imageBasic = new Image(PathUtils.PersoRightRed);
 			imageJump = new Image(PathUtils.PersoRightRedJump);
@@ -32,7 +32,7 @@ public class Player extends Rectangle {
 			// nous donne la trace de l'erreur si on ne peut charger l'image correctement
 			e.printStackTrace();
 		}
-		
+
 		image = imageBasic;
 		faceLeft = false;
 		this.height = image.getHeight();
@@ -49,13 +49,13 @@ public class Player extends Rectangle {
 
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		move();
-		
+
 		x+=speedX*delta;
 		y+=speedY*delta;
-		
+
 		newX=x+speedX;
 		newY=y+speedY;
-		
+
 		if (jump) {
 			if (faceLeft) {
 				image = imageJump.getFlippedCopy(true, false);
@@ -81,12 +81,12 @@ public class Player extends Rectangle {
 		if (newY<(beforeJump-jumpHeight) && jump) {
 			jump = false;
 		}
-		
+
 	}
 
 	public void move() {
-		
-		speedX = 0;		
+
+		speedX = 0;
 		if (leftPress && !rightPress|| leftPress && rightPress && !rightLeft) {
 			if (!faceLeft) {
 				image = image.getFlippedCopy(true, false);
@@ -128,13 +128,13 @@ public class Player extends Rectangle {
 			speedY = 0;
 			falling = false;
 		}
-		
+
 	}
 	
 	public void setWeapon(Weapon newWeapon) {
 		holdWeapon = newWeapon;
 	}
-	
+
 	public void keyReleased(int key, char c) {
 		switch (key) {
 		case Input.KEY_UP:
@@ -159,7 +159,7 @@ public class Player extends Rectangle {
 			break;
 		}
 	}
-	
+
 	public void keyPressed(int key, char c) {
 		switch (key) {
 		case Input.KEY_UP:
@@ -178,6 +178,7 @@ public class Player extends Rectangle {
 			rightLeft = false;
 			break;
 			
+
 		case Input.KEY_RIGHT:
 			rightPress = true;
 			rightLeft = true;
