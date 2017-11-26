@@ -117,4 +117,14 @@ public class Terrain {
     public void setLevelName(String levelName) {
         this.levelName = levelName;
     }
+
+	public boolean intersect(Player player) {
+		//System.out.println(player.getX()+"   "+player.getY()+"   "+player.getWidth()+"   "+player.getHeight());
+		for(int i=0;i<grounds.size();i++){
+			if (grounds.get(i).getPolygon().contains(player.getCenterX(),player.getY()+player.getHeight())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

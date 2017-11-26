@@ -13,15 +13,12 @@ import general.Main;
 
 public class Player extends Rectangle {
 
-	private double x,y,newX,newY,speedY,speedX,speed=0.3,accY=0.025,jumpSpeed=0.5,maxSpeedY=1;
+	private double newX,newY,speedY,speedX,speed=0.3,accY=0.005,jumpSpeed=0.5,maxSpeedY=1;
 	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft,jump=false;
-	private int height,width;
 	private Image image;
 
 	public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,48,65);
-		this.x = spawnX;
-		this.y = spawnY;
 		
 		try {
 			image = new Image("images/Worms/Terrain/Red.png");
@@ -79,8 +76,7 @@ public class Player extends Rectangle {
 		} else {
 			speedX = 0;
 		}
-		
-		if (newY<(Main.hauteur-height) && !jump) {
+		if (newY<(Main.hauteur-height) && !jump && !World.terrain.intersect(this)) {
 			if(speedY<maxSpeedY) {
 				speedY += accY;
 			}
