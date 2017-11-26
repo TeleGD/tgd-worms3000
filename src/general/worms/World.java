@@ -32,7 +32,7 @@ public class World extends BasicGameState {
 	public static float dirtyAlpha = (float) 0;
 	private int t; // used with dirtyMachineGun
 //	private Projectile proj = new Projectile(500, 500, (float) 45, 425, 25, (Weapon) null);
-	private Bazooka baz = new Bazooka();
+//	private Bazooka baz = new Bazooka();
 //	private Shotgun cykablyat = new Shotgun();
 //	private MachineGun johnson = new MachineGun();
 //	private BeletteLauncher machette = new BeletteLauncher();
@@ -46,7 +46,6 @@ public class World extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		game = arg1;
-		baz.fire(150, 400, 300, 300);
 	}
 
 	@Override
