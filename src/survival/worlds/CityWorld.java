@@ -22,18 +22,29 @@ public class CityWorld extends World{
 	
 	public void mapGeneration(int seed) throws SlickException
 	{
+		Image[] batiments = new Image[2];
+		batiments[0] = new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/Batiments1.png");
+		batiments[1] = new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/batiment2.png");
+		
+		Image road = new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/road0.png");
+		
 		addBackground(new RepeatBackground(new Image(SurvivalMain.DIRECTORY_IMAGES + "backgrounds/concrete0.jpg"), new Vector2(0,0)));
 		
 		for(int i=0; i<25; i++)
 		{
-			addGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/Batiments1.png"), new Vector2(i*240,-200)));
+			addGameObject(new MapObject(road, new Vector2(i*256,75), false));
+		}
+		
+		for(int i=0; i<25; i++)
+		{
+			addGameObject(new MapObject(batiments[(int)(Math.random()+0.5f)], new Vector2(i*240,-200)));
 		}
 		
 		addGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/PanneauStop.png"), new Vector2(-140,-100), false));
 		
 		for(int i=0; i<25; i++)
 		{
-			addGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "/deccors/Batiments1.png"), new Vector2(i*240,200)));
+			addGameObject(new MapObject(batiments[(int)(Math.random()+0.5f)], new Vector2(i*240,300)));
 		}
 	}
 
@@ -46,6 +57,8 @@ public class CityWorld extends World{
 		deleteObjects = new LinkedList<GameObject>();
 		uiobjects = new LinkedList<GameObject>();
 		backgrounds = new LinkedList<GameObject>();
+		
+		mapGeneration(0);
 		
 		World.activePlayer = new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "chara.png"));
 		addGameObject(World.activePlayer);
@@ -62,7 +75,7 @@ public class CityWorld extends World{
 		
 		addUiGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/inventory.png"), new Vector2(500,690)));
 		
-		mapGeneration(0);
+		
 	}
 
 
