@@ -29,7 +29,13 @@ public class Projectile {
 	public boolean updatePosition(int deltaT) {
 		this.t += deltaT;
 		this.x = (int) (Math.cos(alpha0) * (v0*t/1000) + x0);
+		if (this.x < 0 || this.x > 1280) {
+			return true;
+		}
 		this.y = (int) (Math.sin(alpha0) * (-v0*t/1000) + 0.5*weight*9.81*t*t/1000000 + y0);
+		if (this.y < 0 || this.y > 720) {
+			return true;
+		}
 		System.out.println(this.x);
 		System.out.println(this.y);
 		System.out.println(this.t);
