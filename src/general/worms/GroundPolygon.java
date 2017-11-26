@@ -26,10 +26,10 @@ public class GroundPolygon {
         if(images[0] == null){
             try {
 
-                images[0] = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
-                images[1] = ImageIO.read(new File("images/Worms/Terrain/Dirt_Old.png"));
-                images[2] = ImageIO.read(new File("images/Worms/Terrain/DirtMap_1.png"));
-                images[3] = ImageIO.read(new File("images/Worms/Terrain/DirtMap_2.png"));
+                images[0] = ImageIO.read(new File(PathUtils.Grass));
+                images[1] = ImageIO.read(new File(PathUtils.Dirt));
+                images[2] = ImageIO.read(new File(PathUtils.DirtMap_1));
+                images[3] = ImageIO.read(new File(PathUtils.DirtMap_2));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -75,16 +75,16 @@ public class GroundPolygon {
     public String getImagePath() {
         switch (imageType) {
             case 0:
-                return "images/Worms/Terrain/Grass.png";
+                return PathUtils.Grass;
             case 1:
-                return "images/Worms/Terrain/Dirt_Old.png";
+                return PathUtils.Dirt;
             case 2:
-                return "images/Worms/Terrain/DirtMap_1.png";
+                return PathUtils.DirtMap_1;
             case 3:
-                return "images/Worms/Terrain/DirtMap_2.png";
+                return PathUtils.DirtMap_2;
         }
 
-        return "images/Worms/Terrain/Dirt_Old.png";
+        return PathUtils.Dirt;
     }
 
     public void setImageType(int imageType) {
@@ -107,18 +107,16 @@ public class GroundPolygon {
             BufferedImage image = images[imageType];
             setAlpha(image, (byte) 125);
 
-            System.out.println("time = " + (System.currentTimeMillis() - time));
 
             Texture text = BufferedImageUtil.getTexture("", image);
-            Texture text2 = BufferedImageUtil.getTexture("", image2);
+            //Texture text2 = BufferedImageUtil.getTexture("", image2);
 
             Image texture = new Image(text.getImageWidth(), text.getImageHeight());
             texture.setTexture(text);
 
             this.setInner(texture);
 
-            Image textureContour = new Image(text2.getImageWidth(), text2.getImageHeight());
-            textureContour.setTexture(text2);
+            Image textureContour = new Image(1280,720);
 
             this.setOuter(textureContour);
 

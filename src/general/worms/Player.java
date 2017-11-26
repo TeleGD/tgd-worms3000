@@ -18,13 +18,14 @@ public class Player extends Rectangle {
 	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft,jump;
 	private Image image, imageJump, imageBasic;
 	private int hp;
+	private Weapon weapon = new Bazooka();
 
 	public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
 		
 		try {
-			imageBasic = new Image("images/Worms/Terrain/PersoRightRed.png");
-			imageJump = new Image("images/Worms/Terrain/PersoRightRedJump.png");
+			imageBasic = new Image(PathUtils.PersoRightRed);
+			imageJump = new Image(PathUtils.PersoRightRedJump);
 			//image = image.getScaledCopy((float) 1);
 		} catch (SlickException e) {
 			// nous donne la trace de l'erreur si on ne peut charger l'image correctement
@@ -154,7 +155,17 @@ public class Player extends Rectangle {
 			rightPress = true;
 			rightLeft = true;
 			break;
+		case Input.KEY_SPACE:
+
+			break;
 		}
 	}
 
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
 }

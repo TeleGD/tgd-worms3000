@@ -1,9 +1,18 @@
 package general.worms;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 public class BeletteLauncher extends Weapon {
 
 	public BeletteLauncher(){
-		super(99,500000,0,200,1,-1);
+		super(99,500000,0,200,1,UNLIMITED);
+		try {
+			image = new Image(PathUtils.Bazooka);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+
 	}
 	@Override
 	protected void fireOneShot(int x, int y, float alpha) {

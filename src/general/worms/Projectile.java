@@ -1,5 +1,6 @@
 package general.worms;
 
+import general.Main;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -12,7 +13,7 @@ public class Projectile {
 	protected int weight;
 	protected Weapon firingWeapon;
 	protected int t; // time since firing
-    private float width=5,height=5;
+    private float width=5, height=5;
 
 	// graphisms
 
@@ -36,11 +37,11 @@ public class Projectile {
 		}
 		this.y = (int) (Math.sin(alpha0) * (-v0*t/1000) + 0.5*weight*9.81*t*t/1000000 + y0);
 
-		if (this.y < 0 || this.y > 720) {
+		if (this.y < -Main.hauteur || this.y > Main.hauteur) {
 			return true;
 		}
-		//System.out.println(this.x);
-		//System.out.println(this.y);
+		System.out.println(this.x);
+		System.out.println(this.y);
 		//System.out.println(this.t);
 		//System.out.println("___________________________");
 		return false;

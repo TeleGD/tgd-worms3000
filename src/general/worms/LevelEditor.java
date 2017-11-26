@@ -5,14 +5,14 @@ import general.ui.TGDComponent;
 import general.ui.TextField;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.BufferedImageUtil;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LevelEditor extends BasicGameState{
@@ -77,6 +77,7 @@ public class LevelEditor extends BasicGameState{
             public void onClick(TGDComponent componenent) {
                 currentType ++;
                 currentType = currentType%GroundPolygon.NB_IMAGE;
+
                 ground.setImageType(currentType);
 
                 try {
