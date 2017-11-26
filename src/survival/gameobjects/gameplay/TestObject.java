@@ -40,6 +40,13 @@ public class TestObject extends Character{
 		sprite = spr;
 	}
 
+	public void addItem(Items  Item) {
+		itemList.add(Item);
+	}
+	
+	public void removeItem(Items Item) {
+		itemList.remove(Item); 
+	}
 	
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException
 	{
