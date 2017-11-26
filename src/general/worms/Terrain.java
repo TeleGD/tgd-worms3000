@@ -69,6 +69,7 @@ public class Terrain {
             g.drawImage(grounds.get(i).getInner(),0,5);
         }
 
+
         for(int i=0;i<grounds.size();i++){
             g.setColor(Color.white);
 
