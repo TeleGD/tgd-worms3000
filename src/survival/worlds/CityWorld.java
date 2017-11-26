@@ -1,6 +1,7 @@
 package survival.worlds;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -12,6 +13,8 @@ import survival.gameobjects.GameObject;
 import survival.gameobjects.gameplay.Compteur;
 import survival.gameobjects.gameplay.Infected;
 import survival.gameobjects.gameplay.TestObject;
+import survival.gameobjects.items.Food;
+import survival.gameobjects.items.Water;
 import survival.gameobjects.mapping.MapObject;
 import survival.gameobjects.mapping.RepeatBackground;
 import survival.utils.Vector2;
@@ -81,7 +84,14 @@ public class CityWorld extends World{
 		{
 			addGameObject(new Infected(infect, new Vector2(i*256,0),1f,2.5f));
 			addGameObject(new Infected(infect, new Vector2(-i*256,0),1f,2.5f));
-			
+
+			double test = Math.random();
+			if (test <= 0.5) {
+				addGameObject(new Water(new Vector2(-i*256+128,0),"e",20,new Image (SurvivalMain.DIRECTORY_IMAGES + "/items/water.png")));
+			}
+			if (test > 0.5) {
+				addGameObject(new Food(new Vector2(-i*256+128,0),"a",5,new Image (SurvivalMain.DIRECTORY_IMAGES + "/items/food.png")));
+			}
 			addGameObject(new Infected(infect, new Vector2(-256,i*256),1f,2.5f));
 			addGameObject(new Infected(infect, new Vector2(-256,-i*256),1f,2.5f));
 		}

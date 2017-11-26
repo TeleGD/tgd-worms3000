@@ -26,6 +26,7 @@ public class Infected extends Character{
 		World.activeWorld.addGameObject(health);
 		this.wlkspeed = wlkspeed;
 		this.location = location;
+		this.old_location = new Vector2(location.x, location.y);
 		runspeed = rnspeed;
 	}
 

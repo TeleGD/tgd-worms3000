@@ -11,7 +11,6 @@ import survival.worlds.World;
 public class MoveableGameObject extends GameObject {
 
 	protected Vector2 old_location;
-	protected GameObject collisionOn;
 	
 	public MoveableGameObject(Image spr) {
 		super(spr);
@@ -30,19 +29,7 @@ public class MoveableGameObject extends GameObject {
 		location.y = old_location.y;
 	}
 
-	protected boolean isCollidingWithSomething()
-	{
-		for(GameObject i : World.activeWorld.getObjectList())
-		{
-			if(isCollidingWith(i) != null)
-			{
-				collisionOn = i;
-				return true;
-			}
-		}
-		collisionOn = null;
-		return false;
-	}
+	
 	
 	public static ArrayList<GameObject> overlapPoint(Vector2 point)
 	{

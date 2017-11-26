@@ -35,13 +35,8 @@ public abstract class Weapon {
 		if(angle>Math.PI/2 && angle<Math.PI*3/2)angle = (float) (Math.PI-angle);
 		else angle = -angle;
 
-
-		// StTocard was here
 		this.fireOneShot(x, y, angle);
-		// dirty trick :'(
-		if (this.nbProjectiles > 1) {
-			// aled
-		}
+
 
 		this.ammo--;
 	}
@@ -50,6 +45,7 @@ public abstract class Weapon {
 		return this.ammo != 0;
 	}
 
+	public void update(int timeDelta) {	}
 
     public void setFirepower(int firepower) {
         this.firepower = firepower;
