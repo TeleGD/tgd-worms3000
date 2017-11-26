@@ -45,7 +45,7 @@ public class CityWorld extends World{
 		uiobjects = new LinkedList<GameObject>();
 		backgrounds = new LinkedList<GameObject>();
 		
-		World.activePlayer = new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png"));
+		World.activePlayer = new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "chara.png"));
 		addGameObject(World.activePlayer);
 		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png"), new Vector2(-400,-400),1f,5f));
 		addUiGameObject(new Compteur(30,100, new Vector2(500,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HungryBar.png")));
