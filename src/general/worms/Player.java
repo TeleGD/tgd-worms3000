@@ -13,24 +13,27 @@ import general.Main;
 
 public class Player extends Rectangle {
 
-	private double newX,newY,speedY,speedX,speed=0.3,accY=0.005,jumpSpeed=0.5,maxSpeedY=1;
-	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft,jump=false;
+	private double newX,newY,speedY,speedX,speed=0.1,accY=0.015,jumpSpeed=0.28,maxSpeedY=0.6;
+	private boolean faceLeft,upPress,leftPress,rightPress,rightLeft,jump;
 	private Image image;
+	private int hp;
 
 	public Player(double spawnX, double spawnY) {
-		super((float)spawnX,(float)spawnY,48,65);
+		super((float)spawnX,(float)spawnY,24,43);
 		
 		try {
-			image = new Image("images/Worms/Terrain/Red.png");
-			image = image.getScaledCopy((float) 0.08);
+			image = new Image("images/Worms/Terrain/PersoRightRed.png");
+			image = image.getScaledCopy((float) 1);
 		} catch (SlickException e) {
 			// nous donne la trace de l'erreur si on ne peut charger l'image correctement
 			e.printStackTrace();
 		}
 		
-		this.faceLeft = false;
+		hp = 100;
+		faceLeft = false;
 		this.height = image.getHeight();
 		this.width = image.getWidth();
+		//System.out.println(width+"   "+height);
 	}
 
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
@@ -58,30 +61,36 @@ public class Player extends Rectangle {
 		
 		speedX = 0;		
 		if (leftPress && !rightPress|| leftPress && rightPress && !rightLeft) {
-			if (newX>0) {
-				if (!faceLeft) {
-					image = image.getFlippedCopy(true, false);
-					faceLeft = true;
-				}
+			if (!faceLeft) {
+				image = image.getFlippedCopy(true, false);
+				faceLeft = true;
+			}
+			if (newX>0 && !World.terrain.intersects(this,(float)(newX),(float)(newY+height/2))) {
 				speedX = -speed;
 			}
 		} else if (rightPress && !leftPress|| leftPress && rightPress && rightLeft) {
-			if (newX<(Main.longueur-width)) {
-				if (faceLeft) {
-					image = image.getFlippedCopy(true, false);
-					faceLeft = false;
-				}
+			if (faceLeft) {
+				image = image.getFlippedCopy(true, false);
+				faceLeft = false;
+			}
+			if (newX<(Main.longueur-width) && !World.terrain.intersects(this,(float)(newX+width),(float)(newY+height/2))) {
 				speedX = speed;
 			}
 		} else {
 			speedX = 0;
 		}
-		if (newY<(Main.hauteur-height) && !jump && !World.terrain.intersect(this)) {
+		//System.out.println(World.terrain.intersect(this));
+		if (newY<(Main.hauteur-height) && !World.terrain.intersects(this,(float)(newX+width/2),(float)(newY+height)) && !jump) {
 			if(speedY<maxSpeedY) {
 				speedY += accY;
 			}
-		} else if (upPress && newY>=(Main.hauteur-height) || jump) {
-			if(!jump) {
+		} else if (upPress || jump) {
+			if (World.terrain.intersects(this,(float)(newX+width/2),(float)(newY))) {
+				//System.out.println("test");
+				speedY = 0;
+				jump = false;
+				upPress = false;
+			} else if(!jump) {
 				jump = true;
 				speedY = -jumpSpeed;
 			}
@@ -92,6 +101,10 @@ public class Player extends Rectangle {
 		
 	}
 
+	public void loseHP() {
+		hp -= 1;
+	}
+	
 	public void keyReleased(int key, char c) {
 		switch (key) {
 		case Input.KEY_UP:
