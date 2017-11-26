@@ -23,6 +23,8 @@ public class LevelEditor extends BasicGameState{
     private Button newPolyGon;
     private TextField textField;
     private StateBasedGame game;
+    private int currentType = 0;
+    private ArrayList<GroundPolygon> grounds = new ArrayList<>();
 
     public LevelEditor()
 	{
@@ -63,18 +65,20 @@ public class LevelEditor extends BasicGameState{
             public void onClick(TGDComponent componenent) {
                 try {
                     BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Terrain.FOLDER_LEVEL+"/"+textField.getText()+".txt")));
-                    listPolygon.add(polygon);
+                    grounds.add(new GroundPolygon(polygon,currentType));
 
-                    for(int i=0;i<listPolygon.size();i++)
+                    for(int i=0;i<grounds.size();i++)
                     {
                         bw.write("new_polygone");
                         bw.newLine();
+                        bw.write(grounds.get(i).getImageType());
+                        bw.newLine();
 
-                        for(int j=0;j<listPolygon.get(i).getPoints().length/2;j++){
+                        for(int j=0;j<grounds.get(i).getPolygon().getPoints().length/2;j++){
 
-                            bw.write(""+listPolygon.get(i).getPoint(j)[0]);
+                            bw.write(""+grounds.get(i).getPolygon().getPoint(j)[0]);
                             bw.newLine();
-                            bw.write(""+listPolygon.get(i).getPoint(j)[1]);
+                            bw.write(""+grounds.get(i).getPolygon().getPoint(j)[1]);
                             bw.newLine();
                         }
                     }
