@@ -2,14 +2,15 @@ package survival.gameobjects.items;
 
 import survival.gameobjects.gameplay.TestObject;
 import survival.utils.Vector2;
+import org.newdawn.slick.Image;
 
 public class Water extends Items {
 	
 	public float amount;
 	
-	public Water(Vector2 location, String name,float amount)
+	public Water(Vector2 location, String name,float amount,Image sprite)
 	{
-		super(location);
+		super(location,sprite);
 		this.name = name;
 		this.amount = amount;
 	}

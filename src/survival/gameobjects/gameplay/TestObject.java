@@ -17,6 +17,8 @@ import survival.worlds.World;
 
 public class TestObject extends Character{
 	
+	protected Vector2 nextPostionUI;
+	
 	protected float attackRange = 50;
 	protected float attackDamage = 1;
 	public static ArrayList<Items> itemList;	
@@ -27,6 +29,8 @@ public class TestObject extends Character{
 	public TestObject(Image spr) throws SlickException
 	{
 		super(spr, 5);
+		itemList = new ArrayList<Items> ();
+		this.nextPostionUI = new Vector2(140,690);
 		health = new Compteur(100,100, new Vector2(200,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HealthBar.png"));
 		World.activeWorld.addUiGameObject(health);
 		hunger = new Compteur(30,100, new Vector2(500,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HungryBar.png"));
@@ -40,6 +44,8 @@ public class TestObject extends Character{
 
 	public void addItem(Items  Item) {
 		itemList.add(Item);
+		this.nextPostionUI.add(new Vector2(70,0));
+		World.activeWorld.addUiGameObject(this);
 	}
 	
 	public static void removeItem(Items Item) {
@@ -75,7 +81,6 @@ public class TestObject extends Character{
 		
 		if(CustomInput.space)
 		{
-			System.out.println(direction);
 			Vector2 attackPoint = new Vector2(location.x, location.y);
 			switch(direction)
 			{

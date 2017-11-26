@@ -10,7 +10,7 @@ import survival.gameobjects.GameObject;
 import survival.gameobjects.items.Items;
 
 public class Player extends GameObject {
-	public ArrayList<Items> itemList;
+	public static ArrayList<Items> itemList = new ArrayList<Items>();
 	public float location;
 	public 	Compteur life;
 	public 	Compteur hunger;
@@ -19,7 +19,6 @@ public class Player extends GameObject {
 	
 	
 	public Player(ArrayList<Items> itemList,float location) {
-		this.itemList = itemList;
 		this.activatedWeapons = null;
 		this.location = location;
 		/*this.life = new Compteur("life",100);
@@ -27,7 +26,7 @@ public class Player extends GameObject {
 		this.thirst = new Compteur("thirst",100);*/
 		}
 	
-	public void addItem(Items  Item) {
+	public static void addItem(Items  Item) {
 		itemList.add(Item);
 	}
 	
