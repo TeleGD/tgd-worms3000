@@ -1,6 +1,5 @@
 package general.worms;
 
-import menus.MainMenu;
 import menus.Menu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,6 +10,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class LoadLevelMenu extends Menu{
@@ -21,8 +21,6 @@ public class LoadLevelMenu extends Menu{
 		super.setTitrePrincipal("Worms 3000");
 		super.setTitreSecondaire("Jouer au worms !");
 
-
-
 		super.setEnableClignote(false);
 		super.setCouleurClignote(Color.red);
 		super.setTempsClignote(400);
@@ -32,7 +30,15 @@ public class LoadLevelMenu extends Menu{
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
         super.enter(container, game);
         String[] list = new File("levels").list();
-        super.setItems(list);
+
+        ArrayList<String> listfile = new ArrayList<>();
+
+        for(int i=0;i<list.length;i++)
+        {
+            if(list[i].endsWith(".txt"))
+                listfile.add(list[i]);
+        }
+        super.setItems(listfile.toArray(new String[listfile.size()]));
 
     }
 

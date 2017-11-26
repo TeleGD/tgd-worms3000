@@ -1,9 +1,17 @@
 package general.worms;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 public class Shotgun extends Weapon{
 
 	public Shotgun(){
 		super(14,10,0,750,1,-1);
+		try {
+			image = new Image(PathUtils.Shotgun);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	protected void fireOneShot(int x, int y, float alpha) {

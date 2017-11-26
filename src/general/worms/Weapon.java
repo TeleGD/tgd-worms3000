@@ -1,6 +1,10 @@
 package general.worms;
 
+import org.newdawn.slick.Image;
+
 public abstract class Weapon {
+
+	public static final int UNLIMITED = -1;
 
 	protected int dmg;
 	protected int destruction; // impact on terrain
@@ -8,6 +12,7 @@ public abstract class Weapon {
 	protected int firepower; // initial velocity of projectile
 	protected int nbProjectiles; // number of shots per use
 	protected int ammo; // number of uses remaining
+	protected  Image image;
 
 	public Weapon(int dmg, int destruction, int weight, int firepower, int nbProjectiles, int ammo) {
 		this.dmg = dmg;
@@ -16,6 +21,10 @@ public abstract class Weapon {
 		this.firepower = firepower;
 		this.nbProjectiles = nbProjectiles;
 		this.ammo = ammo;
+	}
+
+	public Image getImage() {
+		return image;
 	}
 
 	protected abstract void fireOneShot(int x, int y, float alpha);
@@ -43,5 +52,6 @@ public abstract class Weapon {
 	protected boolean hasAmmo() {
 		return this.ammo != 0;
 	}
+
 
 }

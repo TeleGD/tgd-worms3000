@@ -19,7 +19,7 @@ public class PathUtils {
 	
 	public static String HPBar = UI + "HPBar.png";
 	
-	public static String Dirt = Terrain + "Dirt.png";
+	public static String Dirt = Terrain + "Dirt_Old.png";
 	public static String DirtMap_1 = Terrain + "DirtMap_1.png";
 	public static String DirtMap_2 = Terrain + "DirtMap_2.png";
 	public static String DirtTile = Terrain + "DirtTile.png";
