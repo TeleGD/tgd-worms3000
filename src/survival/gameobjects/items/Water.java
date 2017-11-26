@@ -1,11 +1,14 @@
 package survival.gameobjects.items;
 
+import survival.utils.Vector2;
+
 public class Water extends Items {
 	
 	public float amount;
 	
-	public Water(String name,float amount)
+	public Water(Vector2 location, String name,float amount)
 	{
+		super(location);
 		this.name = name;
 		this.amount = amount;
 	}
@@ -13,7 +16,8 @@ public class Water extends Items {
 	//the action that made the item
 	public void action()
 	{
-		//player.water.addAmount(amount);
+		Items.player.thirst.canAdd(amount);
+		// this.destroy()
 	}
 
 }

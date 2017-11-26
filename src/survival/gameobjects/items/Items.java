@@ -2,15 +2,17 @@ package survival.gameobjects.items;
 
 import survival.gameobjects.GameObject;
 import survival.gameobjects.gameplay.Player;
+import survival.utils.Vector2;
 
 public abstract class Items extends GameObject {
 	
-	private static Player player;
+	public static Player player;
 	protected String name;
 	private boolean onGround;
 	
-	public Items() {
-		
+	public Items(Vector2 location) {
+		this.onGround = true;
+		this.location = location;
 	}
 	
 	public abstract void action();
@@ -20,9 +22,10 @@ public abstract class Items extends GameObject {
 	}
 	
 	public void pick() {
+		this.onGround=false;
+		// Player.addItem();
 		// this.destroy();
-		// to do
-		// objet rammassé par joueur --> inventaire
+		// objet rammassé par joueur --> inventaire		
 	}
 	
 }

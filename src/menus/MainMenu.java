@@ -1,5 +1,6 @@
 package menus;
 
+import general.worms.WormMenu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
@@ -29,7 +30,7 @@ public class MainMenu extends Menu{
 			//appeler le reset du world du jeu correspondant
 			//puis faire un game.enterState(ID du world, transition de sortie comme new FadeOutTransition(),
 			//											 transition d'entree comme new FadeInTransition())
-			game.enterState(42);
+			game.enterState(WormMenu.ID);
 			break;
 		case 1:
 			//Pareil pour le deuxieme item, etc
