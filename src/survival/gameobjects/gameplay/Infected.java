@@ -67,7 +67,9 @@ public class Infected extends Character{
 				playerSpotted = true;
 				World.activePlayer.hurt((float)arg2/100f);
 			}
-			undoLocation();
+			
+			if((collisionOn instanceof Infected)== false )
+				undoLocation();
 		}
 		
 		updateCollisionData();
