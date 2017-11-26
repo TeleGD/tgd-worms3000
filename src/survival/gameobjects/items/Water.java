@@ -1,5 +1,6 @@
 package survival.gameobjects.items;
 
+import survival.gameobjects.gameplay.TestObject;
 import survival.utils.Vector2;
 
 public class Water extends Items {
@@ -17,7 +18,7 @@ public class Water extends Items {
 	public void action()
 	{
 		Items.player.thirst.canAdd(amount);
-		// this.destroy()
+		TestObject.removeItem(this);
 	}
 
 }

@@ -19,7 +19,7 @@ public class TestObject extends Character{
 	
 	protected float attackRange = 50;
 	protected float attackDamage = 1;
-	public ArrayList<Items> itemList;	
+	public static ArrayList<Items> itemList;	
 	protected Compteur hunger;
 	protected Compteur thirst;
 	protected Items activatedWeapons;
@@ -42,7 +42,7 @@ public class TestObject extends Character{
 		itemList.add(Item);
 	}
 	
-	public void removeItem(Items Item) {
+	public static void removeItem(Items Item) {
 		itemList.remove(Item); 
 	}
 	
