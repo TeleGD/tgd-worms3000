@@ -3,6 +3,7 @@ package general.worms;
 import menus.MainMenu;
 import menus.Menu;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -39,5 +40,11 @@ public class LoadLevelMenu extends Menu{
 		return ID;
 	}
 
-
+    @Override
+    public void keyReleased(int key, char c) {
+        super.keyReleased(key, c);
+        if(key == Input.KEY_ESCAPE){
+            game.enterState(WormMenu.ID);
+        }
+    }
 }

@@ -44,19 +44,18 @@ public class Terrain {
             grounds.add(new GroundPolygon(polygon,type));
             br.close();
 
-            System.out.println("grounds = "+grounds.size());
             for(i=0;i<grounds.size();i++){
 
                 BufferedImage image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
                 setAlpha(image2, (byte) 125,i);
 
-                BufferedImage image = ImageIO.read(new File(selectType(grounds.get(i).getImageType())));
+                BufferedImage image = ImageIO.read(new File(grounds.get(i).getImagePath()));
                 setAlpha(image, (byte) 125,i);
 
                 Texture text = BufferedImageUtil.getTexture("", image);
                 Texture text2 = BufferedImageUtil.getTexture("", image2);
 
-                Image texture = new Image(text.getImageWidth(), text.getImageHeight() );
+                Image texture = new Image(text.getImageWidth(), text.getImageHeight());
                 texture.setTexture(text);
 
                 grounds.get(i).setInner(texture);
@@ -82,15 +81,6 @@ public class Terrain {
 
     }
 
-    private String selectType(int imageType) {
-        switch (imageType){
-            case 0: return "images/Worms/Terrain/Dirt_Old.png";
-            case 1: return "images/Worms/Terrain/DirtMap_1.png";
-            case 2: return "images/Worms/Terrain/DirtMap_2.png";
-        }
-
-        return "images/Worms/Terrain/Dirt_Old.png";
-    }
 
     public void setAlpha(BufferedImage image,byte alpha , int i) {
         for (int cx=0;cx<image.getWidth();cx++) {
