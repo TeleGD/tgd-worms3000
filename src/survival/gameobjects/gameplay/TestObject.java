@@ -29,6 +29,7 @@ public class TestObject extends Character{
 	public TestObject(Image spr) throws SlickException
 	{
 		super(spr, 5);
+		itemList = new ArrayList<Items> ();
 		this.nextPostionUI = new Vector2(140,690);
 		health = new Compteur(100,100, new Vector2(200,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HealthBar.png"));
 		World.activeWorld.addUiGameObject(health);
@@ -80,7 +81,6 @@ public class TestObject extends Character{
 		
 		if(CustomInput.space)
 		{
-			System.out.println(direction);
 			Vector2 attackPoint = new Vector2(location.x, location.y);
 			switch(direction)
 			{
