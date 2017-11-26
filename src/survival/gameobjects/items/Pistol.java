@@ -2,6 +2,7 @@ package survival.gameobjects.items;
 
 import survival.gameobjects.gameplay.Player;
 import survival.utils.Vector2;
+import org.newdawn.slick.Image;
 
 public class Pistol extends Items {
 	
@@ -10,8 +11,8 @@ public class Pistol extends Items {
 	private float range;
 	private int ammo;
 	
-	public Pistol(Vector2 location, float damage, float range, int ammo) {
-		super(location);
+	public Pistol(Vector2 location, float damage, float range, int ammo,Image sprite) {
+		super(location,sprite);
 		this.damage = damage;
 		this.range = range;
 		this.ammo = ammo;
