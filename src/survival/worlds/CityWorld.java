@@ -52,6 +52,8 @@ public class CityWorld extends World{
 		addUiGameObject(new Compteur(80,100, new Vector2(800,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/WaterBar.png")));
 		
 		
+		addUiGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/inventory.png"), new Vector2(500,690)));
+		
 		mapGeneration(0);
 	}
 
