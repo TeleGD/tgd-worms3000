@@ -2,6 +2,8 @@ package survival.gameobjects.items;
 
 import survival.gameobjects.gameplay.TestObject;
 import survival.utils.Vector2;
+import survival.worlds.World;
+
 import org.newdawn.slick.Image;
 
 public class Water extends Items {
@@ -18,8 +20,8 @@ public class Water extends Items {
 	//the action that made the item
 	public void action()
 	{
-		Items.player.thirst.canAdd(amount);
-		TestObject.removeItem(this);
+		World.activePlayer.thirst.canAdd(amount);
+		World.activePlayer.removeItem(this);
 	}
 
 }

@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 import survival.gameobjects.gameplay.Player;
 import survival.gameobjects.gameplay.TestObject;
 import survival.utils.Vector2;
+import survival.worlds.World;
 
 public class Food extends Items {
 	
@@ -20,8 +21,8 @@ public class Food extends Items {
 	//the action that made the item
 	public void action()
 	{
-		Items.player.hunger.canAdd(amount);
-		TestObject.removeItem(this);
+		World.activePlayer.hunger.canAdd(amount);
+		World.activePlayer.removeItem(this);
 	}
 
 	

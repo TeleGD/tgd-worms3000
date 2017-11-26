@@ -30,7 +30,8 @@ public abstract class World extends BasicGameState {
 	
 	public void addGameObject(GameObject obj)
 	{
-		objects.add(obj);
+		if(objects.contains(obj) == false)
+			objects.add(obj);
 	}
 	
 	public void addBackground(GameObject obj)
@@ -40,7 +41,8 @@ public abstract class World extends BasicGameState {
 	
 	public void addUiGameObject(GameObject obj)
 	{
-		uiobjects.add(obj);
+		if(uiobjects.contains(obj) == false)
+			uiobjects.add(obj);
 	}
 	
 	@Override
@@ -49,11 +51,14 @@ public abstract class World extends BasicGameState {
 			i.update(arg0, arg1, arg2);
 		for(GameObject i : uiobjects)
 			i.update(arg0, arg1, arg2);
-		if (deleteObjects!=null){
-			for(GameObject i : deleteObjects)
-				objects.remove(i) ;
-				deleteObjects = new LinkedList<GameObject>();
-			}
+		
+		for(GameObject i : deleteObjects)
+		{
+			objects.remove(i);
+			uiobjects.remove(i);
+		}
+		deleteObjects = new LinkedList<GameObject>();
+			
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
