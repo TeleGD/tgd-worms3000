@@ -10,7 +10,6 @@ public class Bazooka extends Weapon {
 	protected void fireOneShot(int x, int y, float alpha) {
 		Projectile proj = new Projectile(x, y, alpha, this.firepower, this.weight, this);
 		World.addProjectile(proj);
-
 	}
 
 
