@@ -57,9 +57,10 @@ public class LevelEditor extends BasicGameState{
             public void onClick(TGDComponent componenent) {
 
                 if(ground.getPolygon().getPoints().length>3){
-                    loadImagePolygon();
 
+                    ground.loadImagePolygon();
                     grounds.add(ground);
+
                     ground = new GroundPolygon(new Polygon(),currentType);
                 }
 
@@ -94,6 +95,7 @@ public class LevelEditor extends BasicGameState{
             public void onClick(TGDComponent componenent) {
                 try {
                     BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Terrain.FOLDER_LEVEL+"/"+textField.getText()+".txt")));
+                    ground.loadImagePolygon();
                     grounds.add(ground);
 
                     for(int i=0;i<grounds.size();i++)
@@ -126,36 +128,7 @@ public class LevelEditor extends BasicGameState{
 
     }
 
-    private void loadImagePolygon() {
-        BufferedImage image2 = null;
-        try {
-            long time = System.currentTimeMillis();
-            image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
-            setAlpha(image2, (byte) 125);
 
-            BufferedImage image = ImageIO.read(new File(ground.getImagePath()));
-            setAlpha(image, (byte) 125);
-            System.out.println("time = "+(System.currentTimeMillis()-time));
-
-            Texture text = BufferedImageUtil.getTexture("", image);
-            Texture text2 = BufferedImageUtil.getTexture("", image2);
-
-            Image texture = new Image(text.getImageWidth(), text.getImageHeight());
-            texture.setTexture(text);
-
-            ground.setInner(texture);
-
-            Image textureContour = new Image(text2.getImageWidth(), text2.getImageHeight() );
-            textureContour.setTexture(text2);
-
-            ground.setOuter(textureContour);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
         try {
@@ -177,9 +150,6 @@ public class LevelEditor extends BasicGameState{
         g.setColor(Color.white);
 
 
-
-
-
         if(ground.getPolygon().getPoints().length>0)
         {
             for(int i=0;i<ground.getPolygon().getPoints().length/2;i++){
@@ -192,7 +162,7 @@ public class LevelEditor extends BasicGameState{
             }
         }
 
-        
+
         for(int i=0;i<grounds.size();i++){
             g.drawImage(grounds.get(i).getOuter(),0,0);
             g.drawImage(grounds.get(i).getInner(),0,5);

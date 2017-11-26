@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 public class Terrain {
 
@@ -45,55 +46,18 @@ public class Terrain {
             br.close();
 
             for(i=0;i<grounds.size();i++){
-
-                BufferedImage image2 = ImageIO.read(new File("images/Worms/Terrain/Grass.png"));
-                setAlpha(image2, (byte) 125,i);
-
-                BufferedImage image = ImageIO.read(new File(grounds.get(i).getImagePath()));
-                setAlpha(image, (byte) 125,i);
-
-                Texture text = BufferedImageUtil.getTexture("", image);
-                Texture text2 = BufferedImageUtil.getTexture("", image2);
-
-                Image texture = new Image(text.getImageWidth(), text.getImageHeight());
-                texture.setTexture(text);
-
-                grounds.get(i).setInner(texture);
-
-                Image textureContour = new Image(text2.getImageWidth(), text2.getImageHeight() );
-                textureContour.setTexture(text2);
-
-                grounds.get(i).setOuter(textureContour);
-
+               grounds.get(i).loadImagePolygon();
             }
-
-
-
 
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SlickException e) {
-            e.printStackTrace();
         }
-
 
 
     }
 
 
-    public void setAlpha(BufferedImage image,byte alpha , int i) {
-        for (int cx=0;cx<image.getWidth();cx++) {
-            for (int cy=0;cy<image.getHeight();cy++) {
-                int rgba = new java.awt.Color(0 , 0, 0, 0).getRGB();
-                if(!grounds.get(i).contains(cx,cy)){
-                    image.setRGB(cx, cy, rgba);
-                }
-
-            }
-
-        }
-    }
 
     public void enter(GameContainer container, StateBasedGame game) {
         loadMap(levelName);
@@ -106,6 +70,12 @@ public class Terrain {
         for(int i=0;i<grounds.size();i++){
             g.drawImage(grounds.get(i).getOuter(),0,0);
             g.drawImage(grounds.get(i).getInner(),0,5);
+        }
+
+        for(int i=0;i<grounds.size();i++){
+            g.setColor(Color.white);
+
+            g.draw(grounds.get(i).getPolygon());
         }
 
         g.setColor(new Color(255,255,255));
@@ -130,4 +100,8 @@ public class Terrain {
 		}
 		return false;
 	}
+
+    public ArrayList<GroundPolygon> getGroundPolygonList() {
+        return grounds;
+    }
 }

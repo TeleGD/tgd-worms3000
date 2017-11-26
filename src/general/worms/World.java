@@ -2,6 +2,7 @@ package general.worms;
 
 import java.util.ArrayList;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -24,7 +25,8 @@ public class World extends BasicGameState {
 	private static Player player = new Player(500,0);
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-//	private Projectile proj = new Projectile(500, 500, (float) 45, 425, 25, (Weapon) null);
+	private Projectile proj = new Projectile(100, 100, (float) 45, 425, 25,null);
+
 //	private Bazooka baz = new Bazooka();
 //	private Shotgun cykablyat = new Shotgun();
 
@@ -43,7 +45,9 @@ public class World extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
 		if(terrain!=null)terrain.enter(container,game);
-	}
+        World.addProjectile(proj);
+
+    }
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
@@ -60,13 +64,45 @@ public class World extends BasicGameState {
 		terrain.update(arg0,arg1,arg2);
 		player.update(arg0, arg1, arg2);
 		// TODO Auto-generated method stub
-		for (Projectile proj : this.projectiles) {
-			if (proj.updatePosition(arg2)) {
-				projectiles.remove(proj);
-			}
+		for (int i=0;i<projectiles.size(); i++) {
+
+            projectiles.get(i).updatePosition(arg2);
+
+			Object o = collide(projectiles.get(i));
+
+            if(o instanceof GroundPolygon){
+                System.out.println("collide = "+o);
+
+                ((GroundPolygon)o).destroyPartOfGround(projectiles.get(i).getX(),projectiles.get(i).getY(),100);
+                World.removeProjectile(projectiles.get(i));
+			    i--;
+            }
 		}
 	}
 
+    private static void removeProjectile(Projectile p) {
+	    projectiles.remove(p);
+    }
+
+
+    private Object collide(Projectile p){
+
+        for(int i=0;i<terrain.getGroundPolygonList().size();i++){
+            System.out.println("x="+i);
+
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX(),p.getY())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX()+p.getWidth(),p.getY())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX()+p.getWidth(),p.getY()+p.getHeight())) return terrain.getGroundPolygonList().get(i);
+            if(terrain.getGroundPolygonList().get(i).getPolygon().contains(p.getX(),p.getY()+p.getHeight())) return terrain.getGroundPolygonList().get(i);
+        }
+
+        if(player.contains(p.getX(),p.getY())) return player;
+        if(player.contains(p.getX()+p.getWidth(),p.getY())) return player;
+        if(player.contains(p.getX()+p.getWidth(),p.getY()+p.getHeight())) return player;
+        if(player.contains(p.getX(),p.getY()+p.getHeight())) return player;
+
+        return null;
+    }
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
