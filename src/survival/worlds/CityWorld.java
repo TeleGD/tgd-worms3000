@@ -47,10 +47,15 @@ public class CityWorld extends World{
 		
 		World.activePlayer = new TestObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "chara.png"));
 		addGameObject(World.activePlayer);
-		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "william.png"), new Vector2(-400,-400),1f,2.5f));
+		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "infected.png"), new Vector2(-400,-400),1f,2.5f));
+		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "infected.png"), new Vector2(-460,-400),1f,2.5f));
+		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "infected.png"), new Vector2(-520,-400),1f,2.5f));
+		addGameObject(new Infected(new Image(SurvivalMain.DIRECTORY_IMAGES + "infected.png"), new Vector2(-580,-400),1f,2.5f));
 		addUiGameObject(new Compteur(30,100, new Vector2(500,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/HungryBar.png")));
 		addUiGameObject(new Compteur(80,100, new Vector2(800,650), new Vector2(10,11),new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/barre.png"), new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/WaterBar.png")));
 		
+		
+		addUiGameObject(new MapObject(new Image(SurvivalMain.DIRECTORY_IMAGES + "ui/inventory.png"), new Vector2(500,690)));
 		
 		mapGeneration(0);
 	}
