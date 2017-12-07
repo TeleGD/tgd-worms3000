@@ -1,10 +1,10 @@
-package general.worms.weapons;
+package worms.weapons;
 
-import general.worms.PathUtils;
-import general.worms.Projectile;
-import general.worms.World;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import worms.World;
+import worms.utils.PathUtils;
+import worms.weapons.projectiles.Projectile;
 
 public class MachineGun extends Weapon {
 

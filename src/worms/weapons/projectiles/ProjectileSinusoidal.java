@@ -1,4 +1,4 @@
-package worms;
+package worms.weapons.projectiles;
 
 import worms.weapons.Weapon;
 

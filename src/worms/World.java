@@ -1,14 +1,17 @@
-package general.worms;
+package worms;
 
 import general.Main;
 import general.utils.FontUtils;
-import general.worms.weapons.*;
+import worms.ground.GroundPolygon;
+import worms.ground.Terrain;
+import worms.menus.WormMenu;
+import worms.utils.PathUtils;
+import worms.weapons.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.w3c.dom.css.Rect;
+import worms.weapons.projectiles.Projectile;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -124,7 +127,7 @@ public class World extends BasicGameState {
 
             Object o = collide(loots.get(i));
 
-            if(o instanceof  GroundPolygon ){
+            if(o instanceof GroundPolygon){
                 loots.get(i).setCollide(true);
                 loots.get(i).leaveLoot();
             }else if(o instanceof  Loot ){

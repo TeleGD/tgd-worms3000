@@ -1,4 +1,4 @@
-package general.worms;
+package worms;
 import general.Main;
 import general.ui.Button;
 import general.ui.ColorPicker;
@@ -8,6 +8,10 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import worms.ground.GroundPolygon;
+import worms.ground.Terrain;
+import worms.menus.WormMenu;
+import worms.utils.PathUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,6 +1,7 @@
-package general.worms.weapons;
+package worms.weapons;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Sound;
 
 public abstract class Weapon {
 
@@ -13,6 +14,7 @@ public abstract class Weapon {
 	protected int nbProjectiles; // number of shots per use
 	protected int ammo; // number of uses remaining
 	protected  Image image;
+    protected Sound sound;
 
 	public Weapon(int dmg, int destruction, int weight, int firepower, int nbProjectiles, int ammo) {
 		this.dmg = dmg;
@@ -53,5 +55,9 @@ public abstract class Weapon {
 
     public int getFirepower() {
         return firepower;
+    }
+
+    public Sound getSound() {
+        return sound;
     }
 }

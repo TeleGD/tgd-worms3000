@@ -1,10 +1,11 @@
-package general.worms.weapons;
+package worms.weapons;
 
-import general.worms.PathUtils;
-import general.worms.Projectile;
-import general.worms.World;
+import org.newdawn.slick.Sound;
+import worms.utils.PathUtils;
+import worms.World;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import worms.weapons.projectiles.Projectile;
 
 public class Bazooka extends Weapon {
 
@@ -14,7 +15,9 @@ public class Bazooka extends Weapon {
 
 		try {
 			image = new Image(PathUtils.Bazooka);
-		} catch (SlickException e) {
+            sound = new Sound(PathUtils.Bazooka_sound);
+
+        } catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}

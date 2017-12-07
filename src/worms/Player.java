@@ -1,8 +1,9 @@
-package general.worms;
+package worms;
 
-import general.worms.weapons.Bazooka;
-import general.worms.weapons.BeletteLauncher;
-import general.worms.weapons.Weapon;
+import general.Main;
+import worms.utils.PathUtils;
+import worms.weapons.*;
+import worms.weapons.BeletteLauncher;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -12,7 +13,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-import general.Main;
 
 public class Player extends Rectangle {
 
@@ -43,6 +43,7 @@ public class Player extends Rectangle {
     private  Image imageRightWalk;
     private int compteur=0;
     private int typePerso;
+    private boolean shootPressed;
 
     public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
@@ -125,6 +126,20 @@ public class Player extends Rectangle {
 
 
 
+        if(shootPressed && (((weapon instanceof MachineGun) && compteur<2) || !(weapon instanceof  MachineGun))){
+            int posX = (int) (getX()+(radius+20)*Math.cos(angle));
+            int posY = (int) (getY()+(radius+20)*Math.sin(angle))+10;
+
+            if(faceLeft){
+                weapon.setFirepower(- Math.abs(weapon.getFirepower()));
+                weapon.fire(posX,posY, (float) angle);
+            }else{
+                weapon.setFirepower( Math.abs(weapon.getFirepower()));
+                weapon.fire(posX,posY, (float) angle);
+            }
+
+            if(! (weapon instanceof MachineGun)) shootPressed = false;
+        }
 
         if(compteur >14)compteur =0;
 
@@ -178,24 +193,23 @@ public class Player extends Rectangle {
 		    speedY = 0;
         }
 
-        if(upPress && !jump && World.terrain.intersects(getCenterX(),getMaxY()+1)) {
+        if(upPress && !jump && (World.terrain.intersects(getCenterX(),getMaxY()+1) || newY+1>=Main.hauteur-height)) {
 		    //si onveut sauter et qu'on est pas entrain de sauter
             beforeJump = y;
             jump = true;
             speedY = -jumpSpeed;
         }
 
-        if(downMiddleCollision){
+        if(downMiddleCollision || newY>=Main.hauteur-height){
             this.setY(this.getY()-1);
             needGravity = false;
             jump = false;
             speedY=0;
         }
 
-        if(!World.terrain.intersects(getCenterX(),getMaxY()+1)){
+        if(!World.terrain.intersects(getCenterX(),getMaxY()+1) && newY+1<Main.hauteur-height){
             needGravity = true;
         }
-
         //gravité. dans la map ou que pas de collision on decend
 		if (newY<(Main.hauteur-getHeight())) {
 
@@ -217,6 +231,8 @@ public class Player extends Rectangle {
             angle -=0.05;
             faceLeft = angle>Math.PI/2 && angle<Math.PI*3/2;
         }
+
+
 
 
 
@@ -248,6 +264,12 @@ public class Player extends Rectangle {
         }else if(key == buttonWeaponLeft)
         {
             leftWeaponPress=false;
+        }else if(key == buttonShoot)
+        {
+            shootPressed = false;
+            if(weapon.getSound()!=null){
+                if( (weapon instanceof MachineGun)) weapon.getSound().stop();
+            }
         }
 
 	}
@@ -271,16 +293,9 @@ public class Player extends Rectangle {
         }
         else if(key == buttonShoot){
 
-            int posX = (int) (getX()+(radius+20)*Math.cos(angle));
-            int posY = (int) (getY()+(radius+20)*Math.sin(angle))+10;
+            shootPressed = true;
+            if(weapon.getSound()!=null)weapon.getSound().play();
 
-            if(faceLeft){
-                weapon.setFirepower(- Math.abs(weapon.getFirepower()));
-                weapon.fire(posX,posY, (float) angle);
-            }else{
-                weapon.setFirepower( Math.abs(weapon.getFirepower()));
-                weapon.fire(posX,posY, (float) angle);
-            }
         }
 
 	}

@@ -76,6 +76,7 @@ public class Button extends TGDComponent{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
+		if(!isVisible())return;
 
 		if(mousePressed)g.setColor(textColorPressed);
 		else if(mouseEntered)g.setColor(textColorEntered);

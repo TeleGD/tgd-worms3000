@@ -8,6 +8,7 @@ import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class TGDComponent extends Rectangle implements MouseListener, KeyListener{
@@ -34,8 +35,9 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	protected long time;
 
 	protected long timeInit;
+	private boolean visible;
 
-	
+
 	public TGDComponent(GameContainer container,float x, float y, float width, float height) {
 		super(x, y, width, height);
 		initDefaultUI();
@@ -54,6 +56,7 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 		setBorderWidth(0);
 		
 		hasFocus=true;
+		visible = true;
 		
 	}
 	
@@ -62,10 +65,14 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+	    if(!visible)return;
+
 		g.setAntiAlias(true);
 		g.resetLineWidth();
 		
 		time=System.currentTimeMillis();
+
+
 
 		if(mousePressed && backgroundColorPressed!=null)g.setColor(backgroundColorPressed);
 		else if(mouseEntered  && backgroundColorEntered!=null)g.setColor(backgroundColorEntered);
@@ -215,32 +222,42 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	
 	@Override
 	public void mouseClicked(int type, int x, int y, int count) {
-		if( listener!=null){
+        if(!isVisible())return;
+
+        if( listener!=null){
 		    if(contains(x,y))listener.onClick(this);
         }
 	}
 
 	@Override
 	public void mouseDragged(int arg0, int arg1, int arg2, int arg3) {
-		if(System.currentTimeMillis()-time>500)hasFocus=false;
+        if(!isVisible())return;
+
+        if(System.currentTimeMillis()-time>500)hasFocus=false;
 		if(!hasFocus)return;
 	}
 
 	@Override
 	public void mouseMoved(int ox, int oy, int x, int y) {
-		if(System.currentTimeMillis()-time>500)hasFocus=false;
+        if(!isVisible())return;
+
+        if(System.currentTimeMillis()-time>500)hasFocus=false;
 		mouseEntered=contains(x, y);
 	}
 
 	@Override
 	public void mousePressed(int arg0, int x, int y) {
-		if(System.currentTimeMillis()-time>500)hasFocus=false;
+        if(!isVisible())return;
+
+        if(System.currentTimeMillis()-time>500)hasFocus=false;
 		mousePressed=contains(x, y);
 	}
 
 	@Override
 	public void mouseReleased(int arg0, int x, int y) {
-		if(System.currentTimeMillis()-time>500)hasFocus=false;
+        if(!isVisible())return;
+
+        if(System.currentTimeMillis()-time>500)hasFocus=false;
 		mousePressed=false;
 		
 	}
@@ -276,6 +293,7 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	
 	@Override
 	public boolean contains(float x, float y){
+        if(!isVisible())return false;
 
 		if(x<this.x)return false;
 	    if(x>this.x+getWidth()) return false;
@@ -290,7 +308,15 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	public void setOnClickListener(OnClickListener listener){
 		this.listener=listener;
 	}
-	
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
 	public interface OnClickListener{
 		void onClick(TGDComponent componenent);
 	}
@@ -301,5 +327,6 @@ public class TGDComponent extends Rectangle implements MouseListener, KeyListene
 	public void setHasFocus(boolean hasFocus) {
 		this.hasFocus = hasFocus;
 	}
+
 }
 

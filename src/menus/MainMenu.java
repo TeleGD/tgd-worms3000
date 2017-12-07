@@ -1,21 +1,19 @@
 package menus;
 
-import general.worms.WormMenu;
+import survival.worlds.CityWorld;
+import worms.menus.WormMenu;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-
 
 
 public class MainMenu extends Menu{
 
-	public static int ID = -3;
+	public static int ID = -5;
 
 	public MainMenu(){
 		super.setTitrePrincipal("INSERER TITRE ICI");
 		super.setTitreSecondaire("SOUS TITRE");
 
-		super.setItems("Worms (les premiers)","tgd","comment ","vas","tu","toi ?","pret","a","faire","un","jeu");
+		super.setItems("Worms 3000","Survival","Quitter");
 		//super.setItems(World1.GAME_NAME,World2.GAME_NAME,World3.GAME_NAME,"Scores", "Quitter");
 
 		super.setEnableClignote(false);
@@ -33,7 +31,8 @@ public class MainMenu extends Menu{
 			game.enterState(WormMenu.ID);
 			break;
 		case 1:
-			//Pareil pour le deuxieme item, etc
+			game.enterState(CityWorld.ID);
+
 			break;
 		case 2:
 			System.out.println("exit");

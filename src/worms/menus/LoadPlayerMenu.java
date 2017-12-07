@@ -1,4 +1,4 @@
-package worms;
+package worms.menus;
 
 import general.Main;
 import menus.Menu;
@@ -6,6 +6,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import worms.utils.PathUtils;
+import worms.World;
 
 
 public class LoadPlayerMenu extends Menu{
@@ -14,6 +16,8 @@ public class LoadPlayerMenu extends Menu{
     private  int playerIndex =  1;
     public static Image[] images;
     private int typePerso,typePerso2;
+
+    private Sound sound ;
 
     public LoadPlayerMenu(){
 		super.setTitrePrincipal("SELECT YOUR PLAYER");
@@ -24,7 +28,13 @@ public class LoadPlayerMenu extends Menu{
 		super.setCouleurClignote(Color.red);
 		super.setTempsClignote(400);
 
-	}
+
+        try {
+            sound = new Sound(PathUtils.Menu_sound);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
@@ -37,6 +47,7 @@ public class LoadPlayerMenu extends Menu{
             images[3] = new Image(PathUtils.PersoRightRed);
 
         }
+        sound.play();
     }
 
 

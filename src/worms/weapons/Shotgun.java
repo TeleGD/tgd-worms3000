@@ -1,10 +1,11 @@
-package general.worms.weapons;
+package worms.weapons;
 
-import general.worms.PathUtils;
-import general.worms.Projectile;
-import general.worms.World;
+import org.newdawn.slick.Sound;
+import worms.utils.PathUtils;
+import worms.World;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import worms.weapons.projectiles.Projectile;
 
 public class Shotgun extends Weapon {
 
@@ -12,6 +13,7 @@ public class Shotgun extends Weapon {
 		super(8,5,0,750,1,-1);
 		try {
 			image = new Image(PathUtils.Shotgun);
+			sound = new Sound(PathUtils.Shotgun_sound);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

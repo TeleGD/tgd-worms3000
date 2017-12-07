@@ -1,8 +1,11 @@
-package worms;
+package worms.ground;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.state.StateBasedGame;
+import worms.utils.PathUtils;
+import worms.Player;
+import worms.World;
 
 import java.io.BufferedReader;
 import java.io.File;

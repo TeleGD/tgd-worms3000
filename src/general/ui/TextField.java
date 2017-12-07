@@ -106,12 +106,14 @@ public class TextField extends TGDComponent{
         setMaxNumberOfLetter(-1);
         setOnlyFigures(false);
         setUpperCaseLock(false);
+        setVisible(true);
     }
 	
 	//SLICK METHOD
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
+		if(!isVisible())return;
 		if(text.length()>0){
 			
 			g.setColor(textColor);

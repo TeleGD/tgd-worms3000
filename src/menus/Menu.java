@@ -42,7 +42,7 @@ public abstract class Menu extends BasicGameState {
 	private static final int START_MENU_Y=Main.hauteur/2-130;
 	private static final int END_MENU_Y=Main.hauteur-200;
 
-	private static final int MAX_ITEMS_VISIBLE = (END_MENU_Y-START_MENU_Y)/HEIGHT_ITEM-3;
+	protected static final int MAX_ITEMS_VISIBLE = (END_MENU_Y-START_MENU_Y)/HEIGHT_ITEM-3;
 
 
 	private String titrePrincipal="";
@@ -66,7 +66,7 @@ public abstract class Menu extends BasicGameState {
 
 
 	protected int indexItemPlusGrand;
-	private int decalage;
+	protected int decalage;
 	private String bottomText="PRESS ENTER";
 
 
@@ -149,9 +149,14 @@ public abstract class Menu extends BasicGameState {
 
 	}
 
-	private int getYMenu() {
+	protected int getYMenu() {
 		return START_MENU_Y+37+(END_MENU_Y-START_MENU_Y-37)/2-HEIGHT_ITEM*Math.min(MAX_ITEMS_VISIBLE,items.size())/2;
 	}
+	protected float getYitem(int i) {
+		return getYMenu() + HEIGHT_ITEM * (i-decalage);
+
+	}
+
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 

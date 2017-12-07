@@ -33,6 +33,7 @@ public class ColorPicker extends TGDComponent {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         super.render(container, game, g);
+        if(!isVisible())return;;
         float h = height-paddingTop-paddingBottom;
         float w = width -paddingLeft-paddingRight;
 
@@ -69,6 +70,12 @@ public class ColorPicker extends TGDComponent {
     }
 
     @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        bouton.setVisible(visible);
+    }
+
+    @Override
     public void setX(float x) {
     	super.setX(x);
     	bouton.setX(x);
@@ -101,12 +108,16 @@ public class ColorPicker extends TGDComponent {
     @Override
     public void mousePressed(int arg0, int xM, int yM) {
         super.mousePressed(arg0, xM, yM);
+        if(!isVisible())return;;
+
         changeColor(xM,yM);
     }
 
     @Override
     public void mouseDragged(int arg0, int arg1, int xM, int yM) {
         super.mouseDragged(arg0, arg1, xM, yM);
+        if(!isVisible())return;;
+
         changeColor(xM,yM);
     }
 
@@ -117,19 +128,11 @@ public class ColorPicker extends TGDComponent {
                 int row = (int) ((yM-y)/((height-paddingTop-paddingBottom)/6));
                 int etat = (int) (255*((double)(xM-x)/(double)(width-paddingLeft-paddingRight)));
 
-                //System.out.println("etat = "+etat);
                 if(row<4){
                     c[row] = etat;
                 }
             }
 
-
-            /*
-
-            if((yM-y)/(height-paddingLeft-paddingRight)<4){
-                c[(int) ((yM-y)/(height))] = (int) (255*(x/width));
-            }
-            */
         }
     }
 }

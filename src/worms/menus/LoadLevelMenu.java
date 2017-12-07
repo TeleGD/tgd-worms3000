@@ -1,4 +1,4 @@
-package worms;
+package worms.menus;
 
 import menus.Menu;
 import org.newdawn.slick.Color;
@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import worms.World;
 
 import java.io.File;
 import java.util.ArrayList;

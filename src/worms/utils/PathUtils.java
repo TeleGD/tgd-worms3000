@@ -1,4 +1,4 @@
-package worms;
+package worms.utils;
 
 public class PathUtils {
 
@@ -65,4 +65,12 @@ public class PathUtils {
 
     public static String Background = UI + "Background/decor.png";
     public static String arrow = UI + "arrow.png";;
+    public static String machine_gun = "sounds/worms/machine_gun.ogg";
+    public static String Shotgun_sound = "sounds/worms/shotgun_sound.ogg";
+    public static String Menu_sound = "sounds/worms/menu.ogg";
+    public static String Bazooka_sound = "sounds/worms/bazooka_sound.ogg";
+    public static String Bellete_sound = "sounds/worms/belette.ogg";
+
+
+
 }
