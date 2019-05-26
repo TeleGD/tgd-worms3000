@@ -11,14 +11,14 @@ import survival.worlds.CityWorld;
 
 
 public class SurvivalMain extends StateBasedGame{
-	
+
 	public static int longueur=1280;
 	public static int hauteur=720;
-	
+
 	public final static String GAME_FOLDER_NAME="tgd_survival";
-	
+
 	public final static String DIRECTORY_IMAGES="images"+File.separator+GAME_FOLDER_NAME+File.separator;
-	
+
 	public static void main(String[] args) throws SlickException {
 		//Normalement c'est plus necessaire, c'est fait dans le setup du projet en theorie
 		//System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
@@ -28,7 +28,7 @@ public class SurvivalMain extends StateBasedGame{
 		app.setShowFPS(true);
 		app.start();
 	}
-	
+
 
 	public SurvivalMain() {
 		super("TGD SURVIVAL PRE-ALPHA");

@@ -17,7 +17,7 @@ public class Character extends MoveableGameObject{
 	protected float walkSpeed = 0.25f;
 	protected float walkAnimation = 1;
 	protected float walkAnimationSens = 0.1f;
-	
+
 	/**
 	 * 0 = up
 	 * 1 = left
@@ -27,7 +27,7 @@ public class Character extends MoveableGameObject{
 	protected int direction = 0;
 
 	/**
-	 * 
+	 *
 	 * @param spr
 	 * @param wlkspeed
 	 */
@@ -37,21 +37,21 @@ public class Character extends MoveableGameObject{
 		boundingBox = new Vector2(50,80);
 		walkSpeed = wlkspeed;
 	}
-	
+
 	public void hurt(float damage)
 	{
 		if(this instanceof Infected){
 			if(health.canAdd(-damage)==false) {
-				destroy(this);				
+				destroy(this);
 			}
 		} else {
 			health.canAdd(-damage);
 		}
-			
-		
+
+
 		//System.out.println("touchee");
 	}
-	
+
 	public void updateDirection(Vector2 dir)
 	{
 		if(Math.abs(dir.x) > Math.abs(dir.y) )
@@ -68,13 +68,13 @@ public class Character extends MoveableGameObject{
 				direction = 0;
 		}
 	}
-	
-	
+
+
 	public void setWalkSpeed(float val)
 	{
 		walkSpeed = val;
 	}
-	
+
 	public void walk(Vector2 direction)
 	{
 		if(direction.magnitude() > 0.1f)
@@ -99,21 +99,21 @@ public class Character extends MoveableGameObject{
 		}
 	}
 
-	
+
 	public void render(GameContainer container, StateBasedGame game, Graphics g, boolean useCamera) throws SlickException
 	{
 		float xx = location.x - boundingBox.x;
 		float yy = location.y- boundingBox.y;
-		
+
 		if(useCamera)
 		{
 			xx -= Camera.location.x;
 			yy -= Camera.location.y;
 		}
-		
+
 		if(sprite != null)
 		{
-			
+
 			int dir = 0;
 			switch(direction)
 			{
@@ -131,12 +131,12 @@ public class Character extends MoveableGameObject{
 				break;
 			}
 			float w = sprite.getWidth()/3;
-			
+
 			float h = sprite.getHeight()/4;
 			//System.out.println(h);
 			float yyy = dir*h;
 			float xxx = ((int)walkAnimation)*w;
-			
+
 			g.drawImage(sprite, xx+boundingBox.x*0.5f, yy+boundingBox.y*0.5f,xx+boundingBox.x*1.5f,yy+boundingBox.y*1.5f,xxx,yyy,xxx+w,yyy+h);
 		}
 	}

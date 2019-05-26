@@ -16,8 +16,8 @@ public class Player extends GameObject {
 	public 	Compteur hunger;
 	public 	Compteur thirst;
 	public Items activatedWeapons;
-	
-	
+
+
 	public Player(ArrayList<Items> itemList,float location) {
 		this.activatedWeapons = null;
 		this.location = location;
@@ -25,12 +25,12 @@ public class Player extends GameObject {
 		this.hunger = new Compteur("hunger",100);
 		this.thirst = new Compteur("thirst",100);*/
 		}
-	
+
 	public static void addItem(Items  Item) {
 		itemList.add(Item);
 	}
-	
+
 	public void removeItem(Items Item) {
-		itemList.remove(Item); 
+		itemList.remove(Item);
 	}
 }

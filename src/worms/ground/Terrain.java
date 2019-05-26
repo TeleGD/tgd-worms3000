@@ -30,7 +30,7 @@ public class Terrain {
             float a=0,r=0,g=0,b=0;
 
             World.imageBackground  = new Image(PathUtils.UI+"Background/"+br.readLine());
-            
+
             while((ligne = br.readLine())!=null){
                 i++;
                 if(ligne.equals("new_polygone")){

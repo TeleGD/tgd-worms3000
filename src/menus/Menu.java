@@ -31,7 +31,7 @@ import general.utils.FontUtils;
  *on peut add/remove item maintenant
  *ajouter autant d'item qu'on veut
  *
- *@author J�r�me
+ *@author Jérôme
  */
 public abstract class Menu extends BasicGameState {
 
@@ -78,11 +78,11 @@ public abstract class Menu extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		time=System.currentTimeMillis();
 
-		setFontTitrePrincipal("PressStart2P.ttf",Font.BOLD,40,false);
+		setFontTitrePrincipal("press-start-2p.ttf",Font.BOLD,40,false);
 		setFontTitreSecondaire("PT_Sans.ttf",Font.BOLD,24,false);
 		setFontItem("PT_Sans.ttf",Font.BOLD,14,false);
 
-		fontConfirmText=FontUtils.loadCustomFont("PressStart2P.ttf",Font.PLAIN,20);
+		fontConfirmText=FontUtils.loadCustomFont("press-start-2p.ttf",Font.PLAIN,20);
 
 		this.container = container;
 		this.game = game;

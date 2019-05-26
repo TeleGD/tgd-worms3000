@@ -16,14 +16,14 @@ public abstract class GameObject {
 	public Vector2 location;
 	public Vector2 boundingBox;
 	protected GameObject collisionOn;
-	
+
 	public GameObject()
 	{
 		sprite = null;
 		boundingBox = null;
 		location = new Vector2(0,0);
 	}
-	
+
 	public GameObject(Image spr)
 	{
 		sprite = spr;
@@ -31,12 +31,12 @@ public abstract class GameObject {
 			boundingBox = new Vector2(spr.getWidth(), spr.getHeight());
 		location = new Vector2(0,0);
 	}
-	
+
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException
 	{
-		
+
 	}
-	
+
 	public void render(GameContainer container, StateBasedGame game, Graphics g, boolean useCamera) throws SlickException
 	{
 		if(sprite != null)
@@ -52,7 +52,7 @@ public abstract class GameObject {
 		location.x += direction.x;
 		location.y += direction.y;
 	}
-	
+
 	public boolean isCollidingWithPoint(Vector2 loc)
 	{
 		if(boundingBox != null)
@@ -66,7 +66,7 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-	
+
 	protected boolean isCollidingWithSomething()
 	{
 		for(GameObject i : World.activeWorld.getObjectList())
@@ -80,16 +80,16 @@ public abstract class GameObject {
 		collisionOn = null;
 		return false;
 	}
-	
+
 	public void hurt(float damage)
 	{
-		
+
 	}
-	
+
 	public static void destroy(GameObject obj) {
 		World.deleteObjects.add(obj);
 	}
-	
+
 	public Vector2 isCollidingWith(GameObject other)
 	{
 		if(boundingBox != null && other.boundingBox != null)
@@ -106,4 +106,3 @@ public abstract class GameObject {
 		return null;
 	}
 }
-	

@@ -47,8 +47,8 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
 
 	}
 
-	
-	
+
+
 	@Override
 	public int getID() {
 		return ID;
@@ -227,7 +227,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         }
 
 	}
-	
+
 	public void mousePressed(int buttonType, int oldx,int oldy){
 	    if(!button.contains(oldx,oldy) &&
             !newPolyGon.contains(oldx,oldy) &&

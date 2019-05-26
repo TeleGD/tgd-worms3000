@@ -47,9 +47,9 @@ public class Player extends Rectangle {
 
     public Player(double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
-		
+
 		updateImages();
-		
+
 		image = imageBasic;
 		HP = 100;
 		faceLeft = false;
@@ -95,10 +95,10 @@ public class Player extends Rectangle {
 
 		this.setX((float) (this.getX()+speedX*delta));
         this.setY((float) (this.getY()+speedY*delta));
-		
+
 		newX=getX()+speedX;
 		newY=getY()+speedY;
-		
+
 		if (jump) {
 			if (faceLeft) {
 				image = imageJump.getFlippedCopy(true, false);
@@ -249,7 +249,7 @@ public class Player extends Rectangle {
         }
 		return false;
 	}
-	
+
 	public void keyReleased(int key, char c) {
 
         if(key == buttonRight){
@@ -273,7 +273,7 @@ public class Player extends Rectangle {
         }
 
 	}
-	
+
 	public void keyPressed(int key, char c) {
         if(key == buttonRight){
             rightPress = true;

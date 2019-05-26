@@ -12,7 +12,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class FontUtils {
 
-	public static final String FONT_DIRECTORY_NAME="font";
+	public static final String FONT_DIRECTORY_NAME="fonts";
 	public static final String FONT_PATH=FONT_DIRECTORY_NAME+File.separator;
 	public static final boolean ENABLE_LOG = false;
 	private static HashMap<String,TrueTypeFont> ttfMaps = new HashMap<>();
@@ -25,7 +25,7 @@ public class FontUtils {
 	 */
 	public static TrueTypeFont loadSystemFont(String name, int type, int size) {
 		if(ENABLE_LOG)System.out.println("FontUtils >> loadSystemFont >> name="+name+"  size="+size+ "  type="+type);
-		
+
 		Font fontTemp = new Font(FONT_PATH+name, type, size);
 
 		return new TrueTypeFont(fontTemp, true);
@@ -52,7 +52,7 @@ public class FontUtils {
         return uniFont;
     }
 
-	
+
 	/**
 	 * Charger une police personnalisé qui se trouve dans le répertoire font
 	 * @param name :  nom de la police
@@ -124,9 +124,9 @@ public class FontUtils {
 
 
 
-	
+
 	/**
-	 * Charger une police 
+	 * Charger une police
 	 * @param name :  nom de la police
 	 * @param type : PLAIN, BOLD   -> Font.BOLD, Font.PLAIN
 	 * @param size : taille de la police

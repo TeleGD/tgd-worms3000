@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class WelcomeMenu extends Menu implements OnClickListener{
 
-	public static int ID = -2;	
-	
+	public static int ID = -2;
+
 	private static final String CONFIRM_TEXT="PRESS ENTER";
 
 	private Image background;
@@ -28,30 +28,30 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		super.init(container, game);
 
-		background=new Image("Images/LogoTGD_transparent.png");
+		background=new Image("images/logo.png");
         fontCopyright = FontUtils.loadCustomFont("PT_Sans.ttf",java.awt.Font.BOLD,20);
-        textCopyright = "A TGD Production - © " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
+        textCopyright = "A TGD Production - Â© " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
 	}
 
-	
+
 	@Override
 	public void onOptionItemSelected(int position) {
 		game.enterState(MainMenu.ID, new FadeOutTransition(),new FadeInTransition());
 	}
-	
+
 	@Override
 	public int getID() {
 		return ID;
 	}
-	
-	
+
+
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		//g.drawImage(new Image("img/accueil.png"), 0, 0);
 		g.setColor(Color.white);
 
 		g.drawRect(Main.longueur/2-300,25, 600,37);
-		
+
 		;
 		g.setFont(fontConfirmText);
 		int alpha=(int) ((System.currentTimeMillis()/blinkPeriod)%1000);
@@ -66,7 +66,7 @@ public class WelcomeMenu extends Menu implements OnClickListener{
         g.drawString(textCopyright,Main.longueur/2-fontCopyright.getWidth(textCopyright)/2,Main.hauteur-80);
 		g.setColor(Color.white);
 	}
-	
+
 	@Override
 	public void keyPressed(int key, char c) {
 
@@ -78,8 +78,7 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 
 	@Override
 	public void onClick(TGDComponent componenent) {
-		
+
 	}
 
 }
-

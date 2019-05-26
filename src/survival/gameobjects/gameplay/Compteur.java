@@ -11,13 +11,13 @@ import survival.gameobjects.GameObject;
 import survival.utils.Vector2;
 
 public class Compteur extends GameObject{
-	
+
 	private float maxValue = 100;
 	private float currentValue;
 	private Vector2 backgroundDelta;
 	public Vector2 globalDelta;
 	protected Image fillSprite;
-	
+
 	public Compteur(float currentValue, float maxValue, Vector2 location, Vector2 bgdelta , Image background, Image fill) {
 		super(background);
 		this.globalDelta = new Vector2(0,0);
@@ -28,7 +28,7 @@ public class Compteur extends GameObject{
 		this.location = location;
 		this.boundingBox = null;
 	}
-		
+
 	public boolean canAdd(float amount) {
 		currentValue = currentValue + amount;
 		if (currentValue > maxValue) {
@@ -41,18 +41,18 @@ public class Compteur extends GameObject{
 		}
 		return(true);
 	}
-	
+
 	public void render(GameContainer container, StateBasedGame game, Graphics g, boolean useCamera) throws SlickException
 	{
 		super.render(container, game, g, useCamera);
-		
+
 		float sprh = 16;
 		if(sprite != null)
 			sprh = sprite.getHeight();
 		float sprw = 160;
 		if(sprite != null)
 			sprw = sprite.getWidth();
-		
+
 		if(fillSprite != null)
 		{
 			if(useCamera)
@@ -63,5 +63,5 @@ public class Compteur extends GameObject{
 					g.drawImage(fillSprite, location.x + i*160 + backgroundDelta.x - sprw/2 + globalDelta.x, location.y +globalDelta.y + backgroundDelta.y - sprh/2-8);
 		}
 	}
-	
+
 }

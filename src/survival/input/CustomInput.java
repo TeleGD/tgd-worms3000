@@ -3,7 +3,7 @@ package survival.input;
 import org.newdawn.slick.Input;
 
 public class CustomInput {
-	
+
 	public static boolean up;
 	public static boolean right;
 	public static boolean left;
@@ -12,7 +12,7 @@ public class CustomInput {
 	public static boolean one;
 	public static boolean two;
 	public static boolean three;
-	
+
 	public static void keyPressed(int key, char c)
 	{
 		switch (key) {
@@ -42,7 +42,7 @@ public class CustomInput {
 			break;
 		}
 	}
-	
+
 	public static void keyReleased(int key, char c)
 	{
 		switch (key) {

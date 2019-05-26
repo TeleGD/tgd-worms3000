@@ -8,16 +8,16 @@ import survival.utils.Vector2;
 import survival.worlds.World;
 
 public class Food extends Items {
-	
+
 	public float amount;
-	
+
 	public Food (Vector2 location, String name,float amount,Image sprite)
 	{
 		super(location,sprite);
 		this.name = name;
 		this.amount = amount;
 	}
-	
+
 	//the action that made the item
 	public void action()
 	{
@@ -25,7 +25,7 @@ public class Food extends Items {
 		World.activePlayer.removeItem(this);
 	}
 
-	
+
 
 
 }

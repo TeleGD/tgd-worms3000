@@ -20,8 +20,8 @@ public class RepeatBackground extends MapObject{
 	{
 		float start_x = location.x + (int)((Camera.location.x - SurvivalMain.longueur/2) / sprite.getWidth()) * sprite.getWidth();
 		float start_y = location.y + (int)((Camera.location.y - SurvivalMain.hauteur/2) / sprite.getHeight()) * sprite.getHeight();
-		
-		
+
+
 		if(sprite != null)
 		{
 			if(useCamera)
