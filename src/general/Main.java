@@ -2,7 +2,6 @@ package general;
 
 import java.io.File;
 
-import survival.worlds.CityWorld;
 import worms.LevelEditor;
 import worms.menus.LoadLevelMenu;
 import worms.menus.LoadPlayerMenu;
@@ -47,7 +46,6 @@ public class Main extends StateBasedGame{
 		addState(new LevelEditor());
 		addState(new LoadLevelMenu());
 		addState(new LoadPlayerMenu());
-        addState(new CityWorld());
 
         System.out.println("time to load game = "+(System.currentTimeMillis()-time));
 
