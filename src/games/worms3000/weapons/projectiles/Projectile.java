@@ -1,12 +1,14 @@
-package worms.weapons.projectiles;
+package games.worms3000.weapons.projectiles;
 
 import general.Main;
-import worms.weapons.Weapon;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+
+import games.worms3000.weapons.Weapon;
 
 
 public class Projectile extends Rectangle {

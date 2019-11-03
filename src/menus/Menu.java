@@ -79,8 +79,8 @@ public abstract class Menu extends BasicGameState {
 		time=System.currentTimeMillis();
 
 		setFontTitrePrincipal("press-start-2p.ttf",Font.BOLD,40,false);
-		setFontTitreSecondaire("PT_Sans.ttf",Font.BOLD,24,false);
-		setFontItem("PT_Sans.ttf",Font.BOLD,14,false);
+		setFontTitreSecondaire("worms3000/PT_Sans.ttf",Font.BOLD,24,false);
+		setFontItem("worms3000/PT_Sans.ttf",Font.BOLD,14,false);
 
 		fontConfirmText=FontUtils.loadCustomFont("press-start-2p.ttf",Font.PLAIN,20);
 

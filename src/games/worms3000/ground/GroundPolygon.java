@@ -1,4 +1,4 @@
-package worms.ground;
+package games.worms3000.ground;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -6,7 +6,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
-import worms.utils.PathUtils;
+
+import games.worms3000.utils.PathUtils;
 
 import java.util.ArrayList;
 

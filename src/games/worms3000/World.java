@@ -1,17 +1,19 @@
-package worms;
+package games.worms3000;
 
 import general.Main;
 import general.utils.FontUtils;
-import worms.ground.GroundPolygon;
-import worms.ground.Terrain;
-import worms.menus.WormMenu;
-import worms.utils.PathUtils;
-import worms.weapons.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import worms.weapons.projectiles.Projectile;
+
+import games.worms3000.ground.GroundPolygon;
+import games.worms3000.ground.Terrain;
+import games.worms3000.menus.WormMenu;
+import games.worms3000.utils.PathUtils;
+import games.worms3000.weapons.*;
+import games.worms3000.weapons.projectiles.Projectile;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +21,9 @@ import java.util.Random;
 public class World extends BasicGameState {
 
 
-	public static int ID = 42;
+	public final static int ID = 42;
+	public final static String GAME_NAME = "Worms 3000";
+
     public static Image imageBackground;
 
     private StateBasedGame game;
@@ -31,7 +35,7 @@ public class World extends BasicGameState {
 
 	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
-	private Projectile proj = new Projectile(100, 100, (float) 45, 425, 25,null);
+	private Projectile proj = new Projectile(100, 100, 45, 425, 25,null);
     private int weaponIndex,weaponIndex2;
     private Image imageVie2,imageVie1;
     private Weapon[] weapons = new Weapon[]{new Bazooka(),new BeletteLauncher(),new MachineGun(),new Shotgun()};
@@ -61,7 +65,7 @@ public class World extends BasicGameState {
 
         if(imageBackground== null)imageBackground = new Image(PathUtils.Background);
 
-        font = FontUtils.loadCustomFont("PT_Sans.ttf",java.awt.Font.BOLD,45);
+        font = FontUtils.loadCustomFont("worms3000/PT_Sans.ttf",java.awt.Font.BOLD,45);
 
         player2.setInputs(Input.KEY_Q,Input.KEY_D,Input.KEY_Z,Input.KEY_E,Input.KEY_R,Input.KEY_T,Input.KEY_F);
     }
@@ -75,7 +79,7 @@ public class World extends BasicGameState {
 		player2.render(arg0,arg1,arg2)
         ;
 		// TODO Auto-generated method stub
-		for (Projectile proj : this.projectiles) {
+		for (Projectile proj : World.projectiles) {
 			proj.render(arg2);
 		}
 

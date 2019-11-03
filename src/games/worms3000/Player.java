@@ -1,9 +1,7 @@
-package worms;
+package games.worms3000;
 
 import general.Main;
-import worms.utils.PathUtils;
-import worms.weapons.*;
-import worms.weapons.BeletteLauncher;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -12,6 +10,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+
+import games.worms3000.utils.PathUtils;
+import games.worms3000.weapons.*;
 
 
 public class Player extends Rectangle {

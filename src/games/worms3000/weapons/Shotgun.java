@@ -1,11 +1,13 @@
-package worms.weapons;
+package games.worms3000.weapons;
 
 import org.newdawn.slick.Sound;
-import worms.utils.PathUtils;
-import worms.World;
+
+import games.worms3000.World;
+import games.worms3000.utils.PathUtils;
+import games.worms3000.weapons.projectiles.Projectile;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import worms.weapons.projectiles.Projectile;
 
 public class Shotgun extends Weapon {
 

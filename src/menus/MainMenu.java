@@ -1,6 +1,6 @@
 package menus;
 
-import worms.menus.WormMenu;
+import games.worms3000.menus.WormMenu;
 import org.newdawn.slick.Color;
 
 

@@ -1,6 +1,6 @@
-package worms.weapons.projectiles;
+package games.worms3000.weapons.projectiles;
 
-import worms.weapons.Weapon;
+import games.worms3000.weapons.Weapon;
 
 public class ProjectileSinusoidal extends Projectile {
 

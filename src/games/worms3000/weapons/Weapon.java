@@ -1,4 +1,4 @@
-package worms.weapons;
+package games.worms3000.weapons;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Sound;

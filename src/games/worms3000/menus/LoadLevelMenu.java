@@ -1,4 +1,4 @@
-package worms.menus;
+package games.worms3000.menus;
 
 import menus.Menu;
 import org.newdawn.slick.Color;
@@ -8,7 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import worms.World;
+
+import games.worms3000.World;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,4 +72,10 @@ public class LoadLevelMenu extends Menu{
             game.enterState(WormMenu.ID);
         }
     }
+
+	@Override
+	public void onOptionItemFocusedChanged(int position) {
+		// TODO Auto-generated method stub
+
+	}
 }

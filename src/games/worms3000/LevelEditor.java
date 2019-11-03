@@ -1,4 +1,4 @@
-package worms;
+package games.worms3000;
 import general.Main;
 import general.ui.Button;
 import general.ui.ColorPicker;
@@ -8,10 +8,11 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import worms.ground.GroundPolygon;
-import worms.ground.Terrain;
-import worms.menus.WormMenu;
-import worms.utils.PathUtils;
+
+import games.worms3000.ground.GroundPolygon;
+import games.worms3000.ground.Terrain;
+import games.worms3000.menus.WormMenu;
+import games.worms3000.utils.PathUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -119,7 +120,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
     private void loadImageBackground() {
-       String[] files = new File(PathUtils.UI+"Background/").list();
+       String[] files = new File("res/"+PathUtils.UI+"Background/").list();
        imagesFiles = new ArrayList<String>();
        for(int i=0;i<files.length;i++){
            if(files[i].startsWith("."))continue;
@@ -135,7 +136,8 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
 
-    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
+    @Override
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
         try {
             button.update(arg0,arg1,arg2);
             newPolyGon.update(arg0,arg1,arg2);
@@ -159,6 +161,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         }
     }
 
+	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
         currentBackgroundImage.draw(0,0,Main.longueur,Main.hauteur);
@@ -220,6 +223,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         }
 	}
 
+	@Override
 	public void mouseReleased(int button, int x,int y){
         if(button==1){
             pointSelected =-1;
@@ -228,6 +232,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
 
 	}
 
+	@Override
 	public void mousePressed(int buttonType, int oldx,int oldy){
 	    if(!button.contains(oldx,oldy) &&
             !newPolyGon.contains(oldx,oldy) &&

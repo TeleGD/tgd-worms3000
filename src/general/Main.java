@@ -1,17 +1,15 @@
 package general;
 
-import java.io.File;
-
-import worms.LevelEditor;
-import worms.menus.LoadLevelMenu;
-import worms.menus.LoadPlayerMenu;
-import worms.menus.WormMenu;
+import games.worms3000.LevelEditor;
+import games.worms3000.menus.LoadLevelMenu;
+import games.worms3000.menus.LoadPlayerMenu;
+import games.worms3000.menus.WormMenu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import worms.World;
+import games.worms3000.World;
 import menus.MainMenu;
 import menus.WelcomeMenu;
 

@@ -10,8 +10,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.Calendar;
-import java.util.Date;
-
 
 public class WelcomeMenu extends Menu implements OnClickListener{
 
@@ -29,7 +27,7 @@ public class WelcomeMenu extends Menu implements OnClickListener{
 		super.init(container, game);
 
 		background=new Image("images/logo.png");
-        fontCopyright = FontUtils.loadCustomFont("PT_Sans.ttf",java.awt.Font.BOLD,20);
+        fontCopyright = FontUtils.loadCustomFont("worms3000/PT_Sans.ttf",java.awt.Font.BOLD,20);
         textCopyright = "A TGD Production - © " + Calendar.getInstance().get(Calendar.YEAR)+ " TGD CORP.";
 	}
 

@@ -1,12 +1,13 @@
-package worms.menus;
+package games.worms3000.menus;
 
 import menus.MainMenu;
 import menus.Menu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import worms.LevelEditor;
-import worms.menus.LoadLevelMenu;
+
+import games.worms3000.LevelEditor;
+import games.worms3000.menus.LoadLevelMenu;
 
 
 public class WormMenu extends Menu{

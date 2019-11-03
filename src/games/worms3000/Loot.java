@@ -1,9 +1,10 @@
-package worms;
+package games.worms3000;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import worms.utils.PathUtils;
+
+import games.worms3000.utils.PathUtils;
 
 
 public class Loot extends Rectangle {

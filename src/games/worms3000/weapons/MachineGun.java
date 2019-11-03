@@ -1,17 +1,18 @@
-package worms.weapons;
+package games.worms3000.weapons;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import worms.World;
-import worms.utils.PathUtils;
-import worms.weapons.projectiles.Projectile;
+
+import games.worms3000.World;
+import games.worms3000.utils.PathUtils;
+import games.worms3000.weapons.projectiles.Projectile;
 
 public class MachineGun extends Weapon {
 
 	private boolean firing = false;
 	private int dirtyX = 0;
 	private int dirtyY = 0;
-	private float dirtyAlpha = (float) 0;
+	private float dirtyAlpha = 0;
 	private int t = 0;
 
 	public MachineGun() {
