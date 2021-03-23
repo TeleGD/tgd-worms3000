@@ -1,15 +1,16 @@
-package menus;
+package games.worms3000.menus;
 
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import general.Main;
-import general.utils.FontUtils;
 
+import app.AppFont;
+import app.AppLoader;
+
+import games.worms3000.World;
 
 /**
  *
@@ -35,12 +36,10 @@ import general.utils.FontUtils;
  */
 public abstract class Menu extends BasicGameState {
 
-
-	public static int ID;
 	public static final int HEIGHT_ITEM=30;
 
-	private static final int START_MENU_Y=Main.hauteur/2-130;
-	private static final int END_MENU_Y=Main.hauteur-200;
+	private static final int START_MENU_Y=World.hauteur/2-130;
+	private static final int END_MENU_Y=World.hauteur-200;
 
 	protected static final int MAX_ITEMS_VISIBLE = (END_MENU_Y-START_MENU_Y)/HEIGHT_ITEM-3;
 
@@ -75,14 +74,14 @@ public abstract class Menu extends BasicGameState {
 	}
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+	public void init(GameContainer container, StateBasedGame game) {
 		time=System.currentTimeMillis();
 
-		setFontTitrePrincipal("press-start-2p.ttf",Font.BOLD,40,false);
-		setFontTitreSecondaire("worms3000/PT_Sans.ttf",Font.BOLD,24,false);
-		setFontItem("worms3000/PT_Sans.ttf",Font.BOLD,14,false);
+		setFontTitrePrincipal("/fonts/press-start-2p.ttf",AppFont.BOLD,40);
+		setFontTitreSecondaire("/fonts/worms3000/PT_Sans.ttf",AppFont.BOLD,24);
+		setFontItem("/fonts/worms3000/PT_Sans.ttf",AppFont.BOLD,14);
 
-		fontConfirmText=FontUtils.loadCustomFont("press-start-2p.ttf",Font.PLAIN,20);
+		fontConfirmText=AppLoader.loadFont("/fonts/press-start-2p.ttf",AppFont.PLAIN,20);
 
 		this.container = container;
 		this.game = game;
@@ -90,7 +89,7 @@ public abstract class Menu extends BasicGameState {
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) {
 		g.setBackground(Color.black);
 
 		renderTitrePrincipal(arg0,arg1,g);
@@ -99,12 +98,12 @@ public abstract class Menu extends BasicGameState {
 		renderSelectionItem(arg0,arg1,g,selection);
 
 		g.setColor(Color.white);
-		g.drawRect(Main.longueur/2-300, START_MENU_Y, 600,37);
+		g.drawRect(World.longueur/2-300, START_MENU_Y, 600,37);
 
-		g.drawRect(Main.longueur/2-300, END_MENU_Y, 600,37);
+		g.drawRect(World.longueur/2-300, END_MENU_Y, 600,37);
 
 		g.setFont(fontConfirmText);
-		g.drawString(bottomText, Main.longueur/2-fontConfirmText.getWidth(bottomText)/2, 530);
+		g.drawString(bottomText, World.longueur/2-fontConfirmText.getWidth(bottomText)/2, 530);
 
 	}
 
@@ -116,8 +115,8 @@ public abstract class Menu extends BasicGameState {
 		}else{
 			g.setColor(couleurClignote);
 		}
-		g.drawString(">>", Main.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2-35, getYMenu() + HEIGHT_ITEM * (position-decalage));
-		g.drawString("<<", Main.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2+fontItem.getWidth(items.get((position)))+10, getYMenu() + HEIGHT_ITEM * (position-decalage));
+		g.drawString(">>", World.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2-35, getYMenu() + HEIGHT_ITEM * (position-decalage));
+		g.drawString("<<", World.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2+fontItem.getWidth(items.get((position)))+10, getYMenu() + HEIGHT_ITEM * (position-decalage));
 
 	}
 
@@ -125,16 +124,16 @@ public abstract class Menu extends BasicGameState {
 		g.setColor(Color.red);
 		g.setFont(fontTitrePrincipal);
 
-		g.drawString(titrePrincipal,(Main.longueur-fontTitrePrincipal.getWidth(titrePrincipal))/2 , 120);
+		g.drawString(titrePrincipal,(World.longueur-fontTitrePrincipal.getWidth(titrePrincipal))/2 , 120);
 		g.setColor(Color.white);
 		g.setFont(fontTitrePrincipal);
-		g.drawString(titrePrincipal,(Main.longueur-fontTitrePrincipal.getWidth(titrePrincipal))/2+4 , 122);
+		g.drawString(titrePrincipal,(World.longueur-fontTitrePrincipal.getWidth(titrePrincipal))/2+4 , 122);
 
 	}
 
 	public void renderTitreSecondaire(GameContainer arg0, StateBasedGame arg1, Graphics g) {
 		g.setFont(fontTitreSecondaire);
-		g.drawString(titreSecondaire, Main.longueur/2-fontTitreSecondaire.getWidth(titreSecondaire)/2, 232);
+		g.drawString(titreSecondaire, World.longueur/2-fontTitreSecondaire.getWidth(titreSecondaire)/2, 232);
 	}
 
 	public void renderMenusItems(GameContainer arg0, StateBasedGame arg1, Graphics g) {
@@ -144,7 +143,7 @@ public abstract class Menu extends BasicGameState {
 
 		for (int i = decalage; i < Math.min(items.size(),decalage+MAX_ITEMS_VISIBLE); i++) {
 			g.setFont(fontItem);
-			g.drawString(this.items.get(i), Main.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2, getYMenu() + HEIGHT_ITEM * (i-decalage));
+			g.drawString(this.items.get(i), World.longueur/2-fontItem.getWidth(items.get(indexItemPlusGrand))/2, getYMenu() + HEIGHT_ITEM * (i-decalage));
 		}
 
 	}
@@ -158,14 +157,9 @@ public abstract class Menu extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
 
 
-	}
-
-	@Override
-	public int getID() {
-		return ID;
 	}
 
 	@Override
@@ -244,15 +238,15 @@ public abstract class Menu extends BasicGameState {
 			}
 		}
 	}
-	public void setFontTitrePrincipal(String name, int type, int size, boolean isSystemFont) {
-		fontTitrePrincipal = FontUtils.loadFont(name,type,size,isSystemFont);
+	public void setFontTitrePrincipal(String name, int type, int size) {
+		fontTitrePrincipal = AppLoader.loadFont(name,type,size);
 	}
 
-	public void setFontTitreSecondaire(String name, int type, int size, boolean isSystemFont) {
-		fontTitreSecondaire=FontUtils.loadFont(name,type,size,isSystemFont);
+	public void setFontTitreSecondaire(String name, int type, int size) {
+		fontTitreSecondaire=AppLoader.loadFont(name,type,size);
 	}
-	public void setFontItem(String name, int type, int size, boolean isSystemFont) {
-		fontItem=FontUtils.loadFont(name,type,size,isSystemFont);
+	public void setFontItem(String name, int type, int size) {
+		fontItem=AppLoader.loadFont(name,type,size);
 	}
 
 

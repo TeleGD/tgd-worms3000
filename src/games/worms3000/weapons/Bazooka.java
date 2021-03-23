@@ -1,27 +1,19 @@
 package games.worms3000.weapons;
 
-import org.newdawn.slick.Sound;
+import app.AppLoader;
 
 import games.worms3000.World;
 import games.worms3000.utils.PathUtils;
 import games.worms3000.weapons.projectiles.Projectile;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 public class Bazooka extends Weapon {
 
 
-	public Bazooka() {
-		super(10, 50, 25, 425, 1, -1);
+	public Bazooka(World world) {
+		super(world, 10, 50, 25, 425, 1, -1);
 
-		try {
-			image = new Image(PathUtils.Bazooka);
-            sound = new Sound(PathUtils.Bazooka_sound);
-
-        } catch (SlickException e) {
-			e.printStackTrace();
-		}
+		image = AppLoader.loadPicture(PathUtils.Bazooka);
+		sound = AppLoader.loadAudio(PathUtils.Bazooka_sound);
 	}
 
 	@Override
@@ -31,7 +23,7 @@ public class Bazooka extends Weapon {
         proj.setExplodeDamage(destruction);
         proj.setDamage(dmg);
 
-		World.addProjectile(proj);
+		this.world.addProjectile(proj);
 	}
 
 

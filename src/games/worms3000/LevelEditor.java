@@ -1,18 +1,4 @@
 package games.worms3000;
-import general.Main;
-import general.ui.Button;
-import general.ui.ColorPicker;
-import general.ui.TGDComponent;
-import general.ui.TextField;
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-
-import games.worms3000.ground.GroundPolygon;
-import games.worms3000.ground.Terrain;
-import games.worms3000.menus.WormMenu;
-import games.worms3000.utils.PathUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,9 +6,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+
+import app.AppLoader;
+import app.ui.Button;
+import app.ui.ColorPicker;
+import app.ui.TGDComponent;
+import app.ui.TextField;
+
+import games.worms3000.ground.GroundPolygon;
+import games.worms3000.ground.Terrain;
+import games.worms3000.utils.PathUtils;
+
 public class LevelEditor extends BasicGameState implements TGDComponent.OnClickListener {
 
-    public static int ID = 43;
+    private int ID;
+
     private GroundPolygon ground = new GroundPolygon(new Polygon(),0,Color.white);
     private Button button,cacherMenu;
     private Button newPolyGon;
@@ -43,9 +47,8 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     private int indexImageBack;
     private Image currentBackgroundImage ;
 
-    public LevelEditor()
-	{
-
+	public LevelEditor(int ID) {
+		this.ID = ID;
 	}
 
 
@@ -56,16 +59,16 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
 	}
 
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) {
         game = stateBasedGame;
     }
 
     @Override
-	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) {
 
 
         loadImageBackground();
-        picker = new ColorPicker(gameContainer,Main.longueur-450,300,200,200);
+        picker = new ColorPicker(gameContainer,World.longueur-450,300,200,200);
         picker.setColorSelected(Color.white);
         picker.setOnClickListener(new TGDComponent.OnClickListener() {
             @Override
@@ -76,42 +79,42 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         picker.setVisible(false);
 
         ground.setColor(Color.red);
-        newPolyGon = new Button(gameContainer,Main.longueur-200,100, TGDComponent.AUTOMATIC,TGDComponent.AUTOMATIC);
+        newPolyGon = new Button(gameContainer,World.longueur-200,100, TGDComponent.AUTOMATIC,TGDComponent.AUTOMATIC);
         newPolyGon.setText("NOUVEAU POLYGONE");
         newPolyGon.setOnClickListener(this);
 
-        button = new Button(gameContainer,Main.longueur-200,60, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        button = new Button(gameContainer,World.longueur-200,60, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         button.setText("SAUVEGARDER");
         button.setOnClickListener(this);
         button.setBackgroundColor(new Color(220,220,220));
         button.setTextColor(Color.black);
 
-        changeTexture = new Button(gameContainer,Main.longueur-200,140, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        changeTexture = new Button(gameContainer,World.longueur-200,140, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         changeTexture.setText("CHANGER TEXTURE");
         changeTexture.setOnClickListener(this);
 
-        changeColor = new Button(gameContainer,Main.longueur-200,180, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        changeColor = new Button(gameContainer,World.longueur-200,180, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         changeColor.setText("CHANGER COLOR");
         changeColor.setOnClickListener(this);
 
-        changerBack = new Button(gameContainer,Main.longueur-200,220, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        changerBack = new Button(gameContainer,World.longueur-200,220, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         changerBack.setText("CHANGER BACKGROUND");
         changerBack.setOnClickListener(this);
 
-        back = new Button(gameContainer,Main.longueur-200,260, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        back = new Button(gameContainer,World.longueur-200,260, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         back.setText("ANNULER");
         back.setOnClickListener(this);
 
-        quit = new Button(gameContainer,Main.longueur-200,300, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        quit = new Button(gameContainer,World.longueur-200,300, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         quit.setText("QUITTER");
         quit.setOnClickListener(this);
 
-        cacherMenu = new Button(gameContainer,Main.longueur-200,340, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        cacherMenu = new Button(gameContainer,World.longueur-200,340, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         cacherMenu.setText("CACHER MENU");
         cacherMenu.setOnClickListener(this);
 
 
-        textField = new TextField(gameContainer,Main.longueur-200,20, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
+        textField = new TextField(gameContainer,World.longueur-200,20, newPolyGon.getWidth(),TGDComponent.AUTOMATIC);
         textField.setPlaceHolder("Nom du level");
         textField.setOnlyFigures(false);
 
@@ -128,17 +131,12 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
        }
        indexImageBack = 0;
        System.out.println("number files = "+PathUtils.UI+"Background/"+imagesFiles.get(0));
-        try {
-            currentBackgroundImage = new Image(PathUtils.UI+"Background/"+imagesFiles.get(0));
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        currentBackgroundImage = AppLoader.loadPicture(PathUtils.UI+"Background/"+imagesFiles.get(0));
     }
 
 
     @Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) {
-        try {
             button.update(arg0,arg1,arg2);
             newPolyGon.update(arg0,arg1,arg2);
             textField.update(arg0,arg1,arg2);
@@ -150,10 +148,6 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
             changeColor.update(arg0,arg1,arg2);
             changerBack.update(arg0, arg1, arg2);
 
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-
         if(selected >0){
             grounds.get(selected).setColor(picker.getColorSelected());
         }else{
@@ -162,9 +156,9 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 
-        currentBackgroundImage.draw(0,0,Main.longueur,Main.hauteur);
+        currentBackgroundImage.draw(0,0,World.longueur,World.hauteur);
 
         g.setColor(Color.white);
 
@@ -327,7 +321,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
             }
 
         }else if(key == Input.KEY_ESCAPE){
-            game.enterState(WormMenu.ID);
+            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
         }else if(key == Input.KEY_P){
             scale++;
         }else if(key == Input.KEY_M){
@@ -338,13 +332,9 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
     private void changeBackgroundImage() {
-        try {
-            indexImageBack++ ;
-            if(indexImageBack>=imagesFiles.size())indexImageBack = 0;
-            currentBackgroundImage = new Image(PathUtils.UI+"Background/"+imagesFiles.get(indexImageBack));
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        indexImageBack++ ;
+        if(indexImageBack>=imagesFiles.size())indexImageBack = 0;
+        currentBackgroundImage = AppLoader.loadPicture(PathUtils.UI+"Background/"+imagesFiles.get(indexImageBack));
 	}
 
     private void removeLastPoint() {
@@ -385,7 +375,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         } else if (componenent == cacherMenu) {
             toggleMenu();
         } else if (componenent == quit) {
-            game.enterState(WormMenu.ID);
+            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
         } else if (componenent == changerBack) {
             changeBackgroundImage();
         }else if (componenent == changeColor)
@@ -400,7 +390,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
     private void toggleMenu() {
-	    if(newPolyGon.isVisible()){
+	    if(newPolyGon.getVisible()){
             cacherMenu.setText("AFFICHER MENU");
             cacherMenu.setY(20);
             picker.setVisible(false);
@@ -410,13 +400,13 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
             cacherMenu.setY(340);
         }
 
-        newPolyGon.setVisible(!newPolyGon.isVisible());
-        button.setVisible(!button.isVisible());
-        changeTexture.setVisible(!changeTexture.isVisible());
-        textField.setVisible(!textField.isVisible());
-        back.setVisible(!back.isVisible());
-        quit.setVisible(!quit.isVisible());
-        changeColor.setVisible(!changeColor.isVisible());
+        newPolyGon.setVisible(!newPolyGon.getVisible());
+        button.setVisible(!button.getVisible());
+        changeTexture.setVisible(!changeTexture.getVisible());
+        textField.setVisible(!textField.getVisible());
+        back.setVisible(!back.getVisible());
+        quit.setVisible(!quit.getVisible());
+        changeColor.setVisible(!changeColor.getVisible());
 
     }
 

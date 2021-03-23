@@ -1,12 +1,15 @@
 package games.worms3000.weapons;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Sound;
+import org.newdawn.slick.openal.Audio;
+
+import games.worms3000.World;
 
 public abstract class Weapon {
 
 	public static final int UNLIMITED = -1;
 
+	protected World world;
 	protected int dmg;
 	protected int destruction; // impact on terrain
 	protected int weight; // weight of 0 is not affected by gravity
@@ -14,9 +17,10 @@ public abstract class Weapon {
 	protected int nbProjectiles; // number of shots per use
 	protected int ammo; // number of uses remaining
 	protected  Image image;
-    protected Sound sound;
+    protected Audio sound;
 
-	public Weapon(int dmg, int destruction, int weight, int firepower, int nbProjectiles, int ammo) {
+	public Weapon(World world, int dmg, int destruction, int weight, int firepower, int nbProjectiles, int ammo) {
+		this.world = world;
 		this.dmg = dmg;
 		this.destruction = destruction;
 		this.weight = weight;
@@ -57,7 +61,7 @@ public abstract class Weapon {
         return firepower;
     }
 
-    public Sound getSound() {
+    public Audio getSound() {
         return sound;
     }
 }

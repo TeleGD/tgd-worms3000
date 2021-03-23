@@ -1,24 +1,33 @@
 package games.worms3000.ground;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
+import app.AppLoader;
+
 import games.worms3000.utils.PathUtils;
 
-import java.util.ArrayList;
-
 public class GroundPolygon {
+
+    public static Image[] images = new Image[5];
+
+    static {
+        images[0] = AppLoader.loadPicture(PathUtils.Grass);
+        images[1] = AppLoader.loadPicture(PathUtils.Dirt);
+        images[2] = AppLoader.loadPicture(PathUtils.DirtMap_1);
+        images[3] = AppLoader.loadPicture(PathUtils.DirtMap_2);
+        images[4] = AppLoader.loadPicture(PathUtils.DirtTile);
+    }
 
     private  Polygon polygon;
     private Image inner,outer;
     private int imageType = 0;
 
-    public static int NB_IMAGE = 5;
-    public static Image[] images = new Image[NB_IMAGE];
     private Color color = Color.white;
 
     public GroundPolygon(Polygon polygon,int type,Color color) {
@@ -26,23 +35,6 @@ public class GroundPolygon {
         this.color = color;
         polygon.setX(0);
         polygon.setY(0);
-
-        if(images[0] == null){
-            try {
-
-                images[0] = new Image(PathUtils.Grass);
-                images[1] = new Image(PathUtils.Dirt);
-                images[2] = new Image(PathUtils.DirtMap_1);
-                images[3] = new Image(PathUtils.DirtMap_2);
-                images[4] = new Image(PathUtils.DirtTile);
-
-
-
-            }catch (SlickException e) {
-                e.printStackTrace();
-            }
-
-        }
         this.polygon = polygon;
         this.imageType = type;
 

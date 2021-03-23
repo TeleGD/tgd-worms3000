@@ -4,20 +4,26 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-import games.worms3000.utils.PathUtils;
+import app.AppLoader;
 
+import games.worms3000.utils.PathUtils;
 
 public class Loot extends Rectangle {
 
-
     public static final int NB_TYPE = 2;
-
     public static final int HEALTH_CRATE = 0;
     public static final int AMO_CRATE = 1;
+    private static Image parachute;
+    private static Image images[] = new Image[NB_TYPE];
+
+    static {
+        parachute = AppLoader.loadPicture(PathUtils.Parachute);
+
+        images[0] = AppLoader.loadPicture(PathUtils.HealthCrate);
+        images[1] = AppLoader.loadPicture(PathUtils.AmmoCrate);
+    }
 
     private final int type;
-    private static Image parachute;
-    private  static Image images[] = new Image[NB_TYPE];
     private float speedY = 0.2f;
     private int t;
     private float amplitude=2;
@@ -26,17 +32,9 @@ public class Loot extends Rectangle {
     private int repere;
     private boolean collide;
 
-    public Loot(int x,int y,int type) throws SlickException {
+    public Loot(int x,int y,int type) {
         super(x,y,20,15);
         this.type = type;
-
-        if(parachute == null){
-            parachute = new Image(PathUtils.Parachute);
-
-            images[0] = new Image(PathUtils.HealthCrate);
-            images[1] = new Image(PathUtils.AmmoCrate);
-        }
-
     }
 
     public void setFrequence(float frequence) {

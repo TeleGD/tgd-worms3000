@@ -1,24 +1,17 @@
 package games.worms3000.weapons;
 
-import org.newdawn.slick.Sound;
+import app.AppLoader;
 
 import games.worms3000.World;
 import games.worms3000.utils.PathUtils;
 import games.worms3000.weapons.projectiles.Projectile;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 public class Shotgun extends Weapon {
 
-	public Shotgun(){
-		super(8,5,0,750,1,-1);
-		try {
-			image = new Image(PathUtils.Shotgun);
-			sound = new Sound(PathUtils.Shotgun_sound);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+	public Shotgun(World world){
+		super(world, 8,5,0,750,1,-1);
+		image = AppLoader.loadPicture(PathUtils.Shotgun);
+		sound = AppLoader.loadAudio(PathUtils.Shotgun_sound);
 	}
 	@Override
 	protected void fireOneShot(int x, int y, float alpha) {
@@ -27,7 +20,7 @@ public class Shotgun extends Weapon {
 			Projectile proj = new Projectile(x, y, alpha + deltaAlpha, this.firepower, this.weight, this);
 			proj.setExplodeDamage(destruction);
 			proj.setDamage(dmg);
-			World.addProjectile(proj);
+			this.world.addProjectile(proj);
 		}
 	}
 

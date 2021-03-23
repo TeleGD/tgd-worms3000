@@ -1,15 +1,14 @@
 package games.worms3000.weapons.projectiles;
 
-import general.Main;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import games.worms3000.weapons.Weapon;
+import app.AppLoader;
 
+import games.worms3000.World;
+import games.worms3000.weapons.Weapon;
 
 public class Projectile extends Rectangle {
 
@@ -55,7 +54,7 @@ public class Projectile extends Rectangle {
 		}
         this.setY((float) (dy + y0));
 
-		if (this.getY() < -Main.hauteur || this.getY() > Main.hauteur) {
+		if (this.getY() < -World.hauteur || this.getY() > World.hauteur) {
 			return true;
 		}
 
@@ -102,18 +101,13 @@ public class Projectile extends Rectangle {
 
 
     public void setImages(String... path) {
-        try {
-            images = new Image[path.length];
-            for(int i=0;i<path.length;i++){
-                images[i] = new Image(path[i]).getScaledCopy(0.8f);
-            }
-            //image = images[0];
-            this.setHeight(images[0].getHeight());
-            this.setWidth(images[0].getWidth());
-
-        } catch (SlickException e) {
-            e.printStackTrace();
+        images = new Image[path.length];
+        for(int i=0;i<path.length;i++){
+            images[i] = AppLoader.loadPicture(path[i]).getScaledCopy(0.8f);
         }
+        //image = images[0];
+        this.setHeight(images[0].getHeight());
+        this.setWidth(images[0].getWidth());
     }
 
 

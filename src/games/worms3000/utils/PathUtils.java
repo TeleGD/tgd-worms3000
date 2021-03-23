@@ -2,14 +2,14 @@ package games.worms3000.utils;
 
 public class PathUtils {
 
-	private static String Weapons = "images/worms3000/Weapons/";
-	public static String UI = "images/worms3000/UI/";
-	private static String Terrain = "images/worms3000/Terrain/";
-	private static String Perso = "images/worms3000/Perso/";
-	private static String OldTerrain = "images/worms3000/OldTerrain/";
-	private static String OldPerso = "images/worms3000/OldPerso/";
-	private static String Loot = "images/worms3000/Loot/";
-	private static String Belette = "images/worms3000/Belette/";
+	private static String Weapons = "/images/worms3000/Weapons/";
+	public static String UI = "/images/worms3000/UI/";
+	private static String Terrain = "/images/worms3000/Terrain/";
+	private static String Perso = "/images/worms3000/Perso/";
+	private static String OldTerrain = "/images/worms3000/OldTerrain/";
+	private static String OldPerso = "/images/worms3000/OldPerso/";
+	private static String Loot = "/images/worms3000/Loot/";
+	private static String Belette = "/images/worms3000/Belette/";
 
 	public static String Bazooka = Weapons + "Bazooka.png";
 	public static String Bazooka_Bullet = Weapons + "Bazooka_Bullet.png";
@@ -64,12 +64,12 @@ public class PathUtils {
 	public static String Belette_2 = Belette + "Belette_2.png";
 
     public static String Background = UI + "Background/decor.png";
-    public static String arrow = UI + "arrow.png";;
-    public static String machine_gun = "sounds/worms3000/machine_gun.ogg";
-    public static String Shotgun_sound = "sounds/worms3000/shotgun_sound.ogg";
-    public static String Menu_sound = "sounds/worms3000/menu.ogg";
-    public static String Bazooka_sound = "sounds/worms3000/bazooka_sound.ogg";
-    public static String Bellete_sound = "sounds/worms3000/belette.ogg";
+    public static String arrow = UI + "arrow.png";
+    public static String Menu_music = "/musics/worms3000/menu.ogg";
+    public static String machine_gun = "/sounds/worms3000/machine_gun.ogg";
+    public static String Shotgun_sound = "/sounds/worms3000/shotgun_sound.ogg";
+    public static String Bazooka_sound = "/sounds/worms3000/bazooka_sound.ogg";
+    public static String Bellete_sound = "/sounds/worms3000/belette.ogg";
 
 
 

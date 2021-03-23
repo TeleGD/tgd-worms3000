@@ -1,7 +1,6 @@
 package games.worms3000.weapons;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import app.AppLoader;
 
 import games.worms3000.World;
 import games.worms3000.utils.PathUtils;
@@ -15,13 +14,9 @@ public class MachineGun extends Weapon {
 	private float dirtyAlpha = 0;
 	private int t = 0;
 
-	public MachineGun() {
-		super(5,10,0,700,15,-1);
-		try {
-			image = new Image(PathUtils.Uzy);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+	public MachineGun(World world) {
+		super(world, 5,10,0,700,15,-1);
+		image = AppLoader.loadPicture(PathUtils.Uzy);
 	}
 
 
@@ -35,7 +30,7 @@ public class MachineGun extends Weapon {
 		Projectile proj = new Projectile(x, y, alpha + deltaAlpha, this.firepower, this.weight, this);;
 		proj.setExplodeDamage(destruction);
 		proj.setDamage(dmg);
-		World.addProjectile(proj);
+		this.world.addProjectile(proj);
 	}
 
 	@Override

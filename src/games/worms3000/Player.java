@@ -1,22 +1,21 @@
 package games.worms3000;
 
-import general.Main;
-
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+
+import app.AppLoader;
 
 import games.worms3000.utils.PathUtils;
 import games.worms3000.weapons.*;
 
-
 public class Player extends Rectangle {
 
+	private World world;
     private  float HP = 100;
 	private double newX,newY,speedY,speedX,speed=0.2,accY=0.015,maxSpeedY=0.6;
 	private double beforeJump, jumpHeight=40, jumpSpeed=0.28;
@@ -46,8 +45,9 @@ public class Player extends Rectangle {
     private int typePerso;
     private boolean shootPressed;
 
-    public Player(double spawnX, double spawnY) {
+    public Player(World world, double spawnX, double spawnY) {
 		super((float)spawnX,(float)spawnY,24,43);
+    this.world = world;
 
 		updateImages();
 
@@ -57,11 +57,11 @@ public class Player extends Rectangle {
 		this.setHeight(image.getHeight());
 		this.setWidth(image.getWidth());
 
-		setWeapon( new Bazooka());
+		setWeapon( new Bazooka(this.world));
 		//System.out.println(width+"   "+height);
 	}
 
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) {
 		g.drawImage(image, getX(), getY());
 
 		placeWeaponImage(g);
@@ -88,7 +88,7 @@ public class Player extends Rectangle {
 
     }
 
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) {
 		move();
 
 
@@ -148,18 +148,18 @@ public class Player extends Rectangle {
 
 	boolean collidingTerrain,needGravity=true,upLeftCollision = false,upCollision,downCollision,leftCollision,rightCollision,middleLeftCollision,middleRightCollision,downRightCollision,downMiddleCollision,downLeftCollision;
 	public void move() {
-         collidingTerrain = World.terrain.intersects(this);
+         collidingTerrain = this.world.terrain.intersects(this);
 
 
 
-        downMiddleCollision = World.terrain.intersects(getCenterX(),getMaxY());
+        downMiddleCollision = this.world.terrain.intersects(getCenterX(),getMaxY());
 
         if(collidingTerrain){
-            upCollision = World.terrain.intersects(getCenterX(),getY());
-            leftCollision = World.terrain.intersects(getX(),getY());
-            middleLeftCollision = World.terrain.intersects(getX(),getCenterY());
-            rightCollision = World.terrain.intersects(getMaxX(),getY());
-            middleRightCollision = World.terrain.intersects(getMaxX(),getCenterY());
+            upCollision = this.world.terrain.intersects(getCenterX(),getY());
+            leftCollision = this.world.terrain.intersects(getX(),getY());
+            middleLeftCollision = this.world.terrain.intersects(getX(),getCenterY());
+            rightCollision = this.world.terrain.intersects(getMaxX(),getY());
+            middleRightCollision = this.world.terrain.intersects(getMaxX(),getCenterY());
         }
 
         speedX = 0;
@@ -180,7 +180,7 @@ public class Player extends Rectangle {
 				faceLeft = false;
 			}
 
-			if (newX<(Main.longueur-width) && !rightCollision && !middleRightCollision) {
+			if (newX<(World.longueur-width) && !rightCollision && !middleRightCollision) {
 				speedX = speed;
 			}
 		} else {
@@ -194,25 +194,25 @@ public class Player extends Rectangle {
 		    speedY = 0;
         }
 
-        if(upPress && !jump && (World.terrain.intersects(getCenterX(),getMaxY()+1) || newY+1>=Main.hauteur-height)) {
+        if(upPress && !jump && (this.world.terrain.intersects(getCenterX(),getMaxY()+1) || newY+1>=World.hauteur-height)) {
 		    //si onveut sauter et qu'on est pas entrain de sauter
             beforeJump = y;
             jump = true;
             speedY = -jumpSpeed;
         }
 
-        if(downMiddleCollision || newY>=Main.hauteur-height){
+        if(downMiddleCollision || newY>=World.hauteur-height){
             this.setY(this.getY()-1);
             needGravity = false;
             jump = false;
             speedY=0;
         }
 
-        if(!World.terrain.intersects(getCenterX(),getMaxY()+1) && newY+1<Main.hauteur-height){
+        if(!this.world.terrain.intersects(getCenterX(),getMaxY()+1) && newY+1<World.hauteur-height){
             needGravity = true;
         }
         //gravité. dans la map ou que pas de collision on decend
-		if (newY<(Main.hauteur-getHeight())) {
+		if (newY<(World.hauteur-getHeight())) {
 
 		    if(speedY<maxSpeedY) {
 				if(needGravity)speedY += accY;
@@ -295,7 +295,7 @@ public class Player extends Rectangle {
         else if(key == buttonShoot){
 
             shootPressed = true;
-            if(weapon.getSound()!=null)weapon.getSound().play();
+            if(weapon.getSound()!=null)weapon.getSound().playAsSoundEffect(1f, .3f, false);
 
         }
 
@@ -341,31 +341,26 @@ public class Player extends Rectangle {
     }
 
     private void updateImages() {
-        try {
-            if(typePerso==0){
-                imageBasic = new Image(PathUtils.Blu);
-                imageJump = imageBasic;
-                imageRightWalk = imageBasic;
-            }else if(typePerso==1){
-                imageBasic = new Image(PathUtils.Red);
-                imageJump = imageBasic;
-                imageRightWalk = imageBasic;
-            }else if(typePerso==2){
-                imageBasic = new Image(PathUtils.PersoRightBlu);
-                imageJump = new Image(PathUtils.PersoRightBluJump);
-                imageRightWalk = new Image(PathUtils.PersoRightBluWalk);
-            }else if(typePerso==3){
-                imageBasic = new Image(PathUtils.PersoRightRed);
-                imageJump = new Image(PathUtils.PersoRightRedJump);
-                imageRightWalk = new Image(PathUtils.PersoRightRedWalk);
-            }
-
-            arrowImage = new Image(PathUtils.arrow).getScaledCopy(18,18);
-            //image = image.getScaledCopy((float) 1);
-        } catch (SlickException e) {
-            // nous donne la trace de l'erreur si on ne peut charger l'image correctement
-            e.printStackTrace();
+        if(typePerso==0){
+            imageBasic = AppLoader.loadPicture(PathUtils.Blu);
+            imageJump = imageBasic;
+            imageRightWalk = imageBasic;
+        }else if(typePerso==1){
+            imageBasic = AppLoader.loadPicture(PathUtils.Red);
+            imageJump = imageBasic;
+            imageRightWalk = imageBasic;
+        }else if(typePerso==2){
+            imageBasic = AppLoader.loadPicture(PathUtils.PersoRightBlu);
+            imageJump = AppLoader.loadPicture(PathUtils.PersoRightBluJump);
+            imageRightWalk = AppLoader.loadPicture(PathUtils.PersoRightBluWalk);
+        }else if(typePerso==3){
+            imageBasic = AppLoader.loadPicture(PathUtils.PersoRightRed);
+            imageJump = AppLoader.loadPicture(PathUtils.PersoRightRedJump);
+            imageRightWalk = AppLoader.loadPicture(PathUtils.PersoRightRedWalk);
         }
+
+        arrowImage = AppLoader.loadPicture(PathUtils.arrow).getScaledCopy(18,18);
+        //image = image.getScaledCopy((float) 1);
     }
 
     public void applyBonus(int type) {

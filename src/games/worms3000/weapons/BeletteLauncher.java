@@ -1,25 +1,18 @@
 package games.worms3000.weapons;
 
-import org.newdawn.slick.Sound;
+import app.AppLoader;
 
 import games.worms3000.World;
 import games.worms3000.utils.PathUtils;
 import games.worms3000.weapons.projectiles.ProjectileSinusoidal;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 public class BeletteLauncher extends Weapon {
 
 
-    public BeletteLauncher(){
-		super(10,5,0,200,1,UNLIMITED);
-		try {
-			image = new Image(PathUtils.Bazooka_Belette);
-			sound = new Sound(PathUtils.Bellete_sound);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+    public BeletteLauncher(World world){
+		super(world, 10,5,0,200,1,UNLIMITED);
+		image = AppLoader.loadPicture(PathUtils.Bazooka_Belette);
+		sound = AppLoader.loadAudio(PathUtils.Bellete_sound);
 
 	}
 	@Override
@@ -29,7 +22,7 @@ public class BeletteLauncher extends Weapon {
         proj.setExplodeDamage(destruction);
 		proj.setDamage(dmg);
 
-        World.addProjectile(proj);
+        this.world.addProjectile(proj);
 
 
     }

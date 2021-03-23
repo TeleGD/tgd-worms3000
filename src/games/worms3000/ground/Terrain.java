@@ -1,24 +1,31 @@
 package games.worms3000.ground;
 
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.state.StateBasedGame;
-
-import games.worms3000.Player;
-import games.worms3000.World;
-import games.worms3000.utils.PathUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.state.StateBasedGame;
+
+import app.AppLoader;
+
+import games.worms3000.Player;
+import games.worms3000.World;
+import games.worms3000.utils.PathUtils;
+
 public class Terrain {
 
     public static final String FOLDER_LEVEL = "levels";
+
+    private World world;
     private ArrayList<GroundPolygon> grounds = new ArrayList<GroundPolygon>();
-    private String levelName;
+
+    public Terrain(World world) {
+      this.world = world;
+    }
 
     public void loadMap(String levelName){
 
@@ -30,7 +37,7 @@ public class Terrain {
             int type = 0;
             float a=0,r=0,g=0,b=0;
 
-            World.imageBackground  = new Image(PathUtils.UI+"Background/"+br.readLine());
+            this.world.imageBackground  = AppLoader.loadPicture(PathUtils.UI+"Background/"+br.readLine());
 
             while((ligne = br.readLine())!=null){
                 i++;
@@ -60,19 +67,8 @@ public class Terrain {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SlickException e) {
-            e.printStackTrace();
         }
-
-
     }
-
-
-    public void enter(GameContainer container, StateBasedGame game) {
-        loadMap(levelName);
-
-    }
-
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         int x,y;
@@ -96,11 +92,6 @@ public class Terrain {
                 i--;
             }
         }
-    }
-
-
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
     }
 
     public boolean intersects(Player player) {
