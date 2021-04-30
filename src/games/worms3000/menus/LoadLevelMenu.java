@@ -66,10 +66,10 @@ public class LoadLevelMenu extends Menu{
 	public void onOptionItemSelected(int position) {
 
 	    if(position==items.size()-1){
-	        game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+	        game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         }else{
 	        ((World) game.getState(3 /* World */)).setLevel(getItems().get(position), this.custom);
-            game.enterState(6 /* LoadPlayerMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(5 /* LoadPlayerMenu */,new FadeOutTransition(),new FadeInTransition());
         }
 
 
@@ -79,7 +79,7 @@ public class LoadLevelMenu extends Menu{
     public void keyReleased(int key, char c) {
         super.keyReleased(key, c);
         if(key == Input.KEY_ESCAPE){
-            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         }
     }
 

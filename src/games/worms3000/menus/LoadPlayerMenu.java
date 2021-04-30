@@ -81,7 +81,7 @@ public class LoadPlayerMenu extends Menu{
         if(position==items.size()-1){
             playerIndex = 1;
             super.setTitreSecondaire("PLAYER "+playerIndex);
-            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         }else{
             if(playerIndex==2){
                 typePerso2 = position;
@@ -111,7 +111,7 @@ public class LoadPlayerMenu extends Menu{
         if(key == Input.KEY_ESCAPE){
             playerIndex = 1;
             super.setTitreSecondaire("PLAYER "+playerIndex);
-            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         }
     }
 

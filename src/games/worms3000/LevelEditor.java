@@ -323,7 +323,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
             }
 
         }else if(key == Input.KEY_ESCAPE){
-            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         }else if(key == Input.KEY_P){
             scale++;
         }else if(key == Input.KEY_M){
@@ -377,7 +377,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
         } else if (componenent == cacherMenu) {
             toggleMenu();
         } else if (componenent == quit) {
-            game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
+            game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
         } else if (componenent == changerBack) {
             changeBackgroundImage();
         }else if (componenent == changeColor)

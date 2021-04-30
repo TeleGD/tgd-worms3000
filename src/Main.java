@@ -53,10 +53,9 @@ public final class Main {
 				this.addState(new pages.Choice(1));
 				this.addState(new pages.Pause(2));
 				this.addState(new games.worms3000.World(3));
-				this.addState(new games.worms3000.menus.WormMenu(4));
-				this.addState(new games.worms3000.menus.LoadLevelMenu(5));
-				this.addState(new games.worms3000.menus.LoadPlayerMenu(6));
-				this.addState(new games.worms3000.LevelEditor(7));
+				this.addState(new games.worms3000.menus.LoadLevelMenu(4));
+				this.addState(new games.worms3000.menus.LoadPlayerMenu(5));
+				this.addState(new games.worms3000.LevelEditor(6));
 			}
 
 		};
