@@ -29,8 +29,6 @@ public class World extends BasicGameState {
 
     public Image imageBackground;
 
-    private StateBasedGame game;
-
     public Terrain terrain;
     private Player player;
     private Player player2;
@@ -48,6 +46,7 @@ public class World extends BasicGameState {
     private TrueTypeFont font;
 
 	private String levelName;
+	private boolean custom;
 	private int playerType;
 	private int playerType2;
 
@@ -64,7 +63,6 @@ public class World extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) {
 		/* Méthode exécutée une unique fois au chargement du programme */
-		game = arg1;
 	}
 
 	@Override
@@ -238,7 +236,7 @@ public class World extends BasicGameState {
 
 		player.setTypePerso(playerType);
 		player2.setTypePerso(playerType2);
-		terrain.loadMap(levelName);
+		terrain.loadMap(levelName, custom);
 
 		imageVie1 = AppLoader.loadPicture(PathUtils.HPBar);
 		imageVie2 = AppLoader.loadPicture(PathUtils.HPBar);
@@ -337,8 +335,9 @@ public class World extends BasicGameState {
         }
     }
 
-	public void setLevel(String levelName) {
+	public void setLevel(String levelName, boolean custom) {
 		this.levelName = levelName;
+		this.custom = custom;
 	}
 
 }

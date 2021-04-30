@@ -24,10 +24,10 @@ public class WormMenu extends Menu{
 	@Override
 	public void init(GameContainer container, StateBasedGame game) {
 		super.init(container, game);
-		super.setTitrePrincipal("Worms 3000");
+		super.setTitrePrincipal("Worms3000");
 		super.setTitreSecondaire("Jouer au worms !");
 
-		super.setItems("Jouer","Editeur","Retour");
+		super.setItems("Niveaux intégrés", "Niveaux personnalisés", "Editeur", "Retour");
 
 		super.setEnableClignote(false);
 		super.setCouleurClignote(Color.red);
@@ -38,14 +38,19 @@ public class WormMenu extends Menu{
 	public void onOptionItemSelected(int position) {
 		switch (position) {
 		case 0:
+			((LoadLevelMenu) game.getState(5 /* LoadLevelMenu */)).custom = false;
 			game.enterState(5 /* LoadLevelMenu */,new FadeOutTransition(),new FadeInTransition());
 			break;
 		case 1:
+			((LoadLevelMenu) game.getState(5 /* LoadLevelMenu */)).custom = true;
+			game.enterState(5 /* LoadLevelMenu */,new FadeOutTransition(),new FadeInTransition());
+			break;
+		case 2:
 			LevelEditor.reset();
 			game.enterState(7 /* LevelEditor */,new FadeOutTransition(),new FadeInTransition());
 			//Pareil pour le deuxieme item, etc
 			break;
-		case 2:
+		case 3:
 			game.enterState(1 /* Choice */,new FadeOutTransition(),new FadeInTransition());
 			break;
 		}

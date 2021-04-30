@@ -1,7 +1,9 @@
 package games.worms3000.menus;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,11 +12,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import app.AppLoader;
+
 import games.worms3000.World;
 
 public class LoadLevelMenu extends Menu{
 
 	private int ID;
+	public boolean custom;
 
 	public LoadLevelMenu(int ID) {
 		this.ID = ID;
@@ -28,7 +33,7 @@ public class LoadLevelMenu extends Menu{
 	@Override
 	public void init(GameContainer container, StateBasedGame game) {
 		super.init(container, game);
-		super.setTitrePrincipal("Worms 3000");
+		super.setTitrePrincipal("Worms3000");
 		super.setTitreSecondaire("Jouer au worms !");
 
 		super.setEnableClignote(false);
@@ -38,18 +43,23 @@ public class LoadLevelMenu extends Menu{
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        String[] list = new File("levels").list();
-
-        ArrayList<String> listfile = new ArrayList<>();
-
-        for(int i=0;i<list.length;i++)
-        {
-            if(list[i].endsWith(".txt"))
-                listfile.add(list[i]);
-        }
-
-        super.setItems(listfile.toArray(new String[listfile.size()]));
-        super.addItem("Retour");
+		String levels;
+		if (this.custom) {
+			levels = AppLoader.restoreData("/worms3000/levels.txt");
+		} else {
+			levels = AppLoader.loadData("/data/worms3000/levels.txt");
+		}
+		BufferedReader reader = new BufferedReader(new StringReader(levels));
+		List<String> items = new ArrayList<String>();
+		String line;
+		try {
+			while ((line = reader.readLine()) != null) {
+				items.add(line);
+			}
+			reader.close();
+		} catch (Exception error) {}
+		this.setItems(items.toArray(new String[0]));
+		super.addItem("Retour");
     }
 
     @Override
@@ -58,7 +68,7 @@ public class LoadLevelMenu extends Menu{
 	    if(position==items.size()-1){
 	        game.enterState(4 /* WormMenu */,new FadeOutTransition(),new FadeInTransition());
         }else{
-	        ((World) game.getState(3 /* World */)).setLevel(getItems().get(position));
+	        ((World) game.getState(3 /* World */)).setLevel(getItems().get(position), this.custom);
             game.enterState(6 /* LoadPlayerMenu */,new FadeOutTransition(),new FadeInTransition());
         }
 

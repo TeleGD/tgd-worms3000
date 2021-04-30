@@ -227,6 +227,7 @@ public abstract class Menu extends BasicGameState {
 
 	public void setItems(String... itemsLoc) {
 		this.items = new ArrayList<String>(Arrays.asList(itemsLoc));
+		this.selection = 0;
 		calculerPlusGrandItem();
 	}
 

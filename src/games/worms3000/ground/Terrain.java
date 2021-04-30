@@ -1,9 +1,7 @@
 package games.worms3000.ground;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import org.newdawn.slick.*;
@@ -18,8 +16,6 @@ import games.worms3000.utils.PathUtils;
 
 public class Terrain {
 
-    public static final String FOLDER_LEVEL = "levels";
-
     private World world;
     private ArrayList<GroundPolygon> grounds = new ArrayList<GroundPolygon>();
 
@@ -27,47 +23,41 @@ public class Terrain {
       this.world = world;
     }
 
-    public void loadMap(String levelName){
-
+    public void loadMap(String levelName, boolean custom) {
+        String level;
+        if (custom) {
+            level = AppLoader.restoreData("/worms3000/levels/" + levelName + ".txt");
+        } else {
+            level = AppLoader.loadData("/data/worms3000/levels/" + levelName + ".txt");
+        }
+        BufferedReader reader = new BufferedReader(new StringReader(level));
+        String line;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(FOLDER_LEVEL+"/"+levelName)));
-            String ligne;
-            int i=0;
             Polygon polygon = null;
             int type = 0;
             float a=0,r=0,g=0,b=0;
-
-            this.world.imageBackground  = AppLoader.loadPicture(PathUtils.UI+"Background/"+br.readLine());
-
-            while((ligne = br.readLine())!=null){
-                i++;
-                if(ligne.equals("new_polygone")){
+            this.world.imageBackground = AppLoader.loadPicture(PathUtils.UI + "Background/" + reader.readLine());
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("new_polygone")) {
                     if(polygon!=null){
                         Color color = new Color((int)(r*255),(int)(g*255),(int)(b*255),(int)(a*255));
                         grounds.add(new GroundPolygon(polygon,type,color));
                     }
                     polygon = new Polygon();
 
-                    type = Integer.valueOf(br.readLine());
-                    a = Float.valueOf(br.readLine());
-                    r = Float.valueOf(br.readLine());
-                    g = Float.valueOf(br.readLine());
-                    b = Float.valueOf(br.readLine());
-                    ligne = br.readLine();
-
+                    type = Integer.valueOf(reader.readLine());
+                    a = Float.valueOf(reader.readLine());
+                    r = Float.valueOf(reader.readLine());
+                    g = Float.valueOf(reader.readLine());
+                    b = Float.valueOf(reader.readLine());
+                    line = reader.readLine();
                 }
-
-                polygon.addPoint(Float.valueOf(ligne),Float.valueOf(br.readLine()));
-
+                polygon.addPoint(Float.valueOf(line),Float.valueOf(reader.readLine()));
             }
             Color color = new Color((int)(r*255),(int)(g*255),(int)(b*255),(int)(a*255));
-
             grounds.add(new GroundPolygon(polygon,type,color));
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            reader.close();
+        } catch (Exception error) {}
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {

@@ -1,10 +1,9 @@
 package games.worms3000;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
@@ -20,7 +19,6 @@ import app.ui.TGDComponent;
 import app.ui.TextField;
 
 import games.worms3000.ground.GroundPolygon;
-import games.worms3000.ground.Terrain;
 import games.worms3000.utils.PathUtils;
 
 public class LevelEditor extends BasicGameState implements TGDComponent.OnClickListener {
@@ -43,7 +41,7 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     private int scale = 1;
 
     private ColorPicker picker;
-    private ArrayList<String> imagesFiles;
+    private List<String> imagesFiles;
     private int indexImageBack;
     private Image currentBackgroundImage ;
 
@@ -123,15 +121,19 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
     private void loadImageBackground() {
-       String[] files = new File("res/"+PathUtils.UI+"Background/").list();
-       imagesFiles = new ArrayList<String>();
-       for(int i=0;i<files.length;i++){
-           if(files[i].startsWith("."))continue;
-           imagesFiles.add(files[i]);;
-       }
-       indexImageBack = 0;
-       System.out.println("number files = "+PathUtils.UI+"Background/"+imagesFiles.get(0));
+        String backgrounds = AppLoader.loadData("/data/worms3000/backgrounds.txt");
+        BufferedReader reader = new BufferedReader(new StringReader(backgrounds));
+        List<String> items = new ArrayList<String>();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                items.add(line);
+            }
+            reader.close();
+        } catch (Exception error) {}
+        imagesFiles = items;
         currentBackgroundImage = AppLoader.loadPicture(PathUtils.UI+"Background/"+imagesFiles.get(0));
+        indexImageBack = 0;
     }
 
 
@@ -411,41 +413,44 @@ public class LevelEditor extends BasicGameState implements TGDComponent.OnClickL
     }
 
     private void saveLevel() {
+        String nomFichier = textField.getText();
+        String levels = AppLoader.restoreData("/worms3000/levels.txt");
+        BufferedReader reader = new BufferedReader(new StringReader(levels));
+        List<String> items = new ArrayList<String>();
+        String line;
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Terrain.FOLDER_LEVEL+"/"+textField.getText()+".txt")));
-            grounds.add(ground);
-
-            bw.write(imagesFiles.get(indexImageBack));
-            bw.newLine();
-            for(int i=0;i<grounds.size();i++)
-            {
-                bw.write("new_polygone");
-                bw.newLine();
-                bw.write(grounds.get(i).getImageType()+"");
-                bw.newLine();
-                bw.write(grounds.get(i).getColor().a+"");
-                bw.newLine();
-                bw.write(grounds.get(i).getColor().r+"");
-                bw.newLine();
-                bw.write(grounds.get(i).getColor().g+"");
-                bw.newLine();
-                bw.write(grounds.get(i).getColor().b+"");
-                bw.newLine();
-
-                for(int j=0;j<grounds.get(i).getPolygon().getPoints().length/2;j++){
-
-                    bw.write(""+grounds.get(i).getPolygon().getPoint(j)[0]);
-                    bw.newLine();
-                    bw.write(""+grounds.get(i).getPolygon().getPoint(j)[1]);
-                    bw.newLine();
-                }
+            while ((line = reader.readLine()) != null) {
+                items.add(line);
             }
-            saved = true;
-            bw.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            reader.close();
+        } catch (Exception error) {}
+        int i = 0;
+        int li = items.size();
+        while (i < li && items.get(i).compareTo(nomFichier) < 0) {
+            ++i;
         }
+        if (i == li || !items.get(i).equals(nomFichier)) {
+            items.add(i, nomFichier);
+        }
+        AppLoader.saveData("/worms3000/levels.txt", String.join("\n", items));
+        List<String> textLines = new ArrayList<String>();
+        grounds.add(ground);
+        textLines.add(imagesFiles.get(indexImageBack));
+        for (GroundPolygon ground: grounds) {
+            textLines.add("new_polygone");
+            textLines.add(ground.getImageType() + "");
+            textLines.add(ground.getColor().a + "");
+            textLines.add(ground.getColor().r + "");
+            textLines.add(ground.getColor().g + "");
+            textLines.add(ground.getColor().b + "");
+            Polygon polygon = ground.getPolygon();
+            for (int j = 0, lj = polygon.getPoints().length / 2; j < lj; j++) {
+                textLines.add(polygon.getPoint(j)[0] + "");
+                textLines.add(polygon.getPoint(j)[1] + "");
+            }
+        }
+        AppLoader.saveData("/worms3000/levels/" + nomFichier + ".txt", String.join("\n", textLines));
+        saved = true;
     }
 
 
